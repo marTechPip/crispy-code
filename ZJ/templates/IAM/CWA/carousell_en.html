@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Push Notifications</title>
+    <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        a {        
+          text-decoration: none;
+        }
+        body {
+          font-family: 'Roboto', sans-serif;
+          font-size: 1.05em;
+          font-weight: 400;
+          line-height: 2em;
+          color: #333333;
+        }
+        h2 {
+          font-size: 1.875em;
+          line-height: 2em;
+          font-weight: 700;
+          margin-bottom: 0.75em;
+        }
+        h3 {
+          font-size: 1.5em;
+          line-height: 1.8125em;
+          font-weight: 700;
+        }
+        h4 {
+          font-size: 1.375;
+          line-height: 1.6875em;
+          font-weight: 400;
+        }
+        p {
+          margin-bottom: 1.25em;
+        }
+        .close-button {
+          position: absolute;
+          top: 2em;
+          right: 2em;
+          background: none;
+          border: none;
+          cursor: pointer;
+          z-index: 4;
+        }
+        .footer-button-back{
+          font-family: 'Roboto', sans-serif;
+          width: 7.1875em;
+          height: 2.5em;
+          font-size: 0.875em;
+          line-height: 1.5em;
+          letter-spacing: 0.01875em;
+          border-radius: 0.25em;
+          border: #366AD2 solid;
+          background-color: #FFFFFF;  
+          color: #366AD2;
+          cursor: pointer;
+        }
+        .footer-button-next {
+          font-family: 'Roboto', sans-serif;
+          width: 7.1875em;
+          height: 2.5em;
+          font-size: 0.875em;
+          line-height: 1.5em;
+          letter-spacing: 0.01875em;
+          border-radius: 0.25em;
+          border: none;
+          background-color: #366AD2;  
+          color: #FFFFFF;
+          cursor: pointer;
+        }
+        .footer-button-wrapper {
+          display: flex;
+          justify-content: space-between;
+          gap: 1em;
+        }
+        .footer-indicator-text {
+          font-weight: 400;
+          color: #6A6573;
+          font-size: 0.75em;
+          line-height: 0.5em;
+        }
+        .footer-wrapper {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          padding: 0 0.75em 0 0.75em
+        }
+        .in-app-message {
+          width: 75em;
+          background-color: #f9f9f9;
+          height: auto;
+          margin-top: 2%;
+          position: relative;
+          margin-left: auto;
+          margin-right: auto;
+          border-radius: 1.5em;
+          padding: 3em 3em 2em 3em;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          max-height: 90vh; 
+          overflow-y: auto; 
+        }
+        .main-wrapper {
+          display: flex;
+          justify-content: space-between;
+          gap: 1em; 
+          padding: 1em 0 0 0.75em
+          }
+        .main-text {
+          width: 48%; 
+          margin: 0;
+        }
+        .main-img {
+          width: 48%;
+          margin: 0;
+          max-height: 28.125em;
+        }
+        .main-img img {
+          width: 100%;
+          object-fit: contain;
+          max-height: 28.125em;
+        }
+        .overlay {
+          background-color: rgba(0, 0, 0, 0.5);
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 1;
+          overflow-y: auto;
+        }
+        .text-center {
+          text-align: center;
+        }
+        .text-left {
+          text-align: left;
+        }
+        @media (max-width: 768px) {
+          @media (max-width: 768px) {
+            body {
+              font-size: 1em;
+              line-height: 1.5em;
+            }        
+            .in-app-message {
+              width: 90%; 
+              margin-top: 5%; 
+              padding: 1.5em; 
+              border-radius: 1em; 
+            }        
+            .main-wrapper {
+              display: block; 
+              padding: 1em 0;
+            }        
+            .main-text, .main-img {
+              width: 100%;
+              margin: 0 0 1em 0; 
+            }        
+            .main-img img {
+              max-height: none; 
+            }        
+            h2 {
+              font-size: 1.5em; 
+              line-height: 1.75em;
+            }        
+            h3 {
+              font-size: 1.25em;
+              line-height: 1.5em;
+            }        
+            h4 {
+              font-size: 1.125em;
+              line-height: 1.375em;
+            }        
+            .footer-wrapper {
+              flex-direction: column;
+              align-items: stretch; 
+              gap: 1em; 
+            }        
+            .footer-button-wrapper {
+              display: flex; 
+              flex-direction: row; 
+              justify-content: space-between; 
+              width: 100%; 
+              gap: 1em;
+            }        
+            .footer-button-back, .footer-button-next {  
+              width: 100%;
+              max-width: none;
+              text-align: center; 
+            }        
+            .footer-indicator-wrapper {
+              display: flex;
+              justify-content: space-between;
+              width: 100%; 
+            }                
+            .footer-indicator-wrapper img {
+              display: none;
+            }        
+            .footer-indicator-text {
+              font-size: 0.875em;
+              line-height: 1.25em;
+            }
+        }
+        }
+    </style>
+    <script>
+      $(document).ready(function() {
+
+        // Initial setup: hide screens and disable submit button
+        $('#screen_two, #screen_three, #screen_four, #screen_five').hide();
+
+        // Next button interactions
+        $('.footer-button-next').click(function() {
+          if ($(this).attr('id') === 'next_01') {
+            $('#screen_one').hide();
+            $('#screen_two').show();
+          } else if ($(this).attr('id') === 'next_02') {
+            $('#screen_two').hide();
+            $('#screen_three').show();
+          } else if ($(this).attr('id') === 'next_03') {
+            $('#screen_three').hide();
+            $('#screen_four').show();
+          } else if ($(this).attr('id') === 'next_04') {
+            $('#screen_four').hide();
+            $('#screen_five').show();
+          }
+        });
+
+        // Back button interactions
+        $('.footer-button-back').click(function() {
+          if ($(this).attr('id') === 'back_02') {
+            $('#screen_two').hide();
+            $('#screen_one').show();
+          } else if ($(this).attr('id') === 'back_03') {
+            $('#screen_three').hide();
+            $('#screen_two').show();
+          } else if ($(this).attr('id') === 'back_04') {
+            $('#screen_four').hide();
+            $('#screen_three').show();
+          } else if ($(this).attr('id') === 'back_05') {
+            $('#screen_five').hide();
+            $('#screen_four').show();
+          }
+        });
+      });
+    </script>
+</head>
+<body>
+    <!--START OVERLAY -->
+    <div class="overlay">
+        <!--START IAM -->
+        <div class="in-app-message">
+
+          <!-- START SCREEN ONE -->
+          <div id="screen_one">
+            <button class="close-button" onclick="brazeBridge.closeMessage();">
+              <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/660e705e8c31d2006a90fbe2/original.png?1712222301" alt="Close message">
+            </button>
+            <!--START TOP -->
+            <div class="top">
+                <!--START TOP TITLE -->
+                <div class="top-title">
+                  <h4 class="text-center">Empowering Your Business</h4>
+                  <h3 class="text-center">New Features for Seamless Staffing</h3>
+                </div>
+            </div>
+            <!--START MAIN -->
+            <div class="main">
+              <div class="main-wrapper">
+                <div class="main-text">
+                  <h2 class="text-left">Multi-Apply</h2>
+                  <p>Multi-Apply groups shift from the same company, same location, and same category, making it easier for Zenjobbers to apply to multiple shifts at once.</p>
+                  <p>This simplifies the challenge of finding similar jobs and increase the chance of booking repeat Zenjobbers. This saves time on training, ensures smoother operations, and boosts overall efficiency for your business.</p>
+                </div>
+                <div class="main-img">
+                  <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/67483e77671c3715bd7aaf63/original.png?1732787831" alt="mobile app preview 01">
+                </div>
+              </div>
+            </div>
+            <!-- START FOOTER -->
+            <div class="footer">
+              <div class="footer-wrapper">
+                <div class="footer-indicator-wrapper">
+                  <p class="footer-indicator-text">1 of 5</p>
+                  <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/67483fe1fd3cc619e1847ed6/original.png?1732788193" alt="indicator screen 01">
+                </div>
+                <div>
+                  <button class="footer-button-next" id="next_01">NEXT</button>
+                </div>
+              </div>
+            </div>
+          </div>  
+
+          <!-- START SCREEN TWO -->
+          <div id="screen_two">
+            <button class="close-button" onclick="brazeBridge.closeMessage();">
+              <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/660e705e8c31d2006a90fbe2/original.png?1712222301" alt="Close message">
+            </button>
+            <!--START TOP -->
+            <div class="top">
+                <!--START TOP TITLE -->
+                <div class="top-title">
+                  <h4 class="text-center">Empowering Your Business</h4>
+                  <h3 class="text-center">New Features for Seamless Staffing</h3>
+                </div>
+            </div>
+            <!--START MAIN -->
+            <div class="main">
+              <div class="main-wrapper">
+                <div class="main-text">
+                  <h2 class="text-left">Waitlist</h2>
+                  <p>A waitlist is a backup pool of available Zenjobbers for specific shifts. It helps minimize the impact of last-minute cancellations by ensuring there are ready replacements, keeping shifts fully staffed and operations running smoothly.</p>
+                </div>
+                <div class="main-img">
+                  <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/67483e77cf93c817cf332664/original.png?1732787831" alt="mobile app preview 02">
+                </div>
+              </div>
+            </div>
+            <!-- START FOOTER -->
+            <div class="footer">
+              <div class="footer-wrapper">
+                <div class="footer-indicator-wrapper">
+                  <p class="footer-indicator-text">2 of 5</p>
+                  <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/67483fe13ec9ce157a0204a5/original.png?1732788193" alt="indicator screen 02">
+                </div>
+                <div class="footer-button-wrapper">
+                  <button class="footer-button-back" id="back_02">PREVIOUS</button>
+                  <button class="footer-button-next" id="next_02">NEXT</button>
+                </div>
+              </div>
+            </div>
+          </div>  
+
+          <!-- START SCREEN THREE -->
+          <div id="screen_three">
+            <button class="close-button" onclick="brazeBridge.closeMessage();">
+              <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/660e705e8c31d2006a90fbe2/original.png?1712222301" alt="Close message">
+            </button>
+            <!--START TOP -->
+            <div class="top">
+                <!--START TOP TITLE -->
+                <div class="top-title">
+                  <h4 class="text-center">Empowering Your Business</h4>
+                  <h3 class="text-center">New Features for Seamless Staffing</h3>
+                </div>
+            </div>
+            <!--START MAIN -->
+            <div class="main">
+              <div class="main-wrapper">
+                <div class="main-text">
+                  <h2 class="text-left">Direktnachrichten</h2>
+                  <p>Direct Messaging enables seamless communication between customers and Zenjobbers.</p>
+                  <p>Customers can share important details or ask questions before the shift to the zenjobber. Zenjobbers can also ask relevant questions and receive answers directly from the company or Zenjob as needed, ensuring clarity and smooth coordination.</p>
+                </div>
+                <div class="main-img">
+                  <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/67483e779662c318366629e6/original.png?1732787831" alt="mobile app preview 03">
+                </div>
+              </div>
+            </div>
+            <!-- START FOOTER -->
+            <div class="footer">
+              <div class="footer-wrapper">
+                <div class="footer-indicator-wrapper">
+                  <p class="footer-indicator-text">3 of 5</p>
+                  <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/67483fe1c1a94e169f5451df/original.png?1732788193" alt="indicator screen 03">
+                </div>
+                <div class="footer-button-wrapper">
+                  <button class="footer-button-back" id="back_03">PREVIOUS</button>
+                  <button class="footer-button-next" id="next_03">NEXT</button>
+                </div>
+              </div>
+            </div>
+          </div>  
+
+          <!-- START SCREEN FOUR -->
+          <div id="screen_four">
+            <button class="close-button" onclick="brazeBridge.closeMessage();">
+              <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/660e705e8c31d2006a90fbe2/original.png?1712222301" alt="Close message">
+            </button>
+            <!--START TOP -->
+            <div class="top">
+                <!--START TOP TITLE -->
+                <div class="top-title">
+                  <h4 class="text-center">Empowering Your Business</h4>
+                  <h3 class="text-center">New Features for Seamless Staffing</h3>
+                </div>
+            </div>
+            <!--START MAIN -->
+            <div class="main">
+              <div class="main-wrapper">
+                <div class="main-text">
+                  <h2 class="text-left">Returning Jobs</h2>
+                  <p>By highlighting Returning Jobs on the feed, sending push notifications, and prioritising instant booking, we make them more visible and appealing.</p>
+                  <p>This encourages Zenjobbers to explore and apply for these jobs first, increasing engagement and high chance of booking repeat Zenjobbers for your business.</p>
+                </div>
+                <div class="main-img">
+                  <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/67483e770a856417177b7fe5/original.png?1732787831" alt="mobile app preview 04">
+                </div>
+              </div>
+            </div>
+            <!-- START FOOTER -->
+            <div class="footer">
+              <div class="footer-wrapper">
+                <div class="footer-indicator-wrapper">
+                  <p class="footer-indicator-text">4 of 5</p>
+                  <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/67483fe1bfbd501597e66e88/original.png?1732788193" alt="indicator screen 04">
+                </div>
+                <div class="footer-button-wrapper">
+                  <button class="footer-button-back" id="back_04">PREVIOUS</button>
+                  <button class="footer-button-next" id="next_04">NEXT</button>
+                </div>
+              </div>
+            </div>
+          </div>  
+
+          <!-- START SCREEN FIVE -->
+          <div id="screen_five">
+            <button class="close-button" onclick="brazeBridge.closeMessage();">
+              <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/660e705e8c31d2006a90fbe2/original.png?1712222301" alt="Close message">
+            </button>
+            <!--START TOP -->
+            <div class="top">
+                <!--START TOP TITLE -->
+                <div class="top-title">
+                  <h4 class="text-center">Empowering Your Business</h4>
+                  <h3 class="text-center">New Features for Seamless Staffing</h3>
+                </div>
+            </div>
+            <!--START MAIN -->
+            <div class="main">
+              <div class="main-wrapper">
+                <div class="main-text">
+                  <h2 class="text-left">Training Shift Commitment</h2>
+                  <p>To support high-volume customers in securing reliable Zenjobbers, we encourage Zenjobbers to commit to working a set minimum number of shifts after completing paid training.</p>
+                  <p>Those fulfilling this commitment will receive incentives, encouraging repeat Zenjobbers and enhancing customer satisfaction.</p>
+                </div>
+                <div class="main-img">
+                  <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/67483e771d4e6a17e597305c/original.png?1732787831" alt="mobile app preview 05">
+                </div>
+              </div>
+            </div>
+            <!-- START FOOTER -->
+            <div class="footer">
+              <div class="footer-wrapper">
+                <div class="footer-indicator-wrapper">
+                  <p class="footer-indicator-text">5 of 5</p>
+                  <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/67483fe194ab441672fa9e5d/original.png?1732788193" alt="indicator screen 05">
+                </div>
+                <div>
+                  <button class="footer-button-back" id="back_05">PREVIOUS</button>
+                </div>
+              </div>
+            </div>
+          </div>  
+
+        </div>
+    </div>
+</body>
+</html>

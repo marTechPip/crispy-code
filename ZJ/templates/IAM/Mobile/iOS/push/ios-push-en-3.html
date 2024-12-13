@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ios-push-act.css">
+    <title>In-App Message</title>
+</head>
+<body>
+    <div class="overlay">
+        <div class="in-app-message">
+          <div class="wrapper">
+            <button class="close-button" id="close_button" onclick="appboyBridge.logClick(close_button); appboyBridge.closeMessage()">
+                <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/64624bd07fdb4356fcc340e8/original.svg?1684163536" alt="Close Button">
+            </button>
+            <img class="image" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/6462514ea0f876039daeec74/original.png?1684164942" alt="Upper Image">
+            <div class="content">
+                <h2 class="headline">Be the first to know</h2>
+                <p class="copy">Turn on your notifications to find out first about new updates, bonus programmes, or other news.</p>
+                <a class="cta" id="button_one" href="app-settings:notifications" onclick="appboyBridge.logClick(button_one); event.preventDefault();">Open notifications</a>
+                <!-- OR <button id="ios-settings-button" class="cta-button hidden" onclick="window.location='app-settings:notifications'">iOS Settings</button>-->
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- DE Version -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ios-push-act.css">
+    <title>In-App Message</title>
+</head>
+<body>
+    <div class="overlay">
+        <div class="in-app-message">
+          <div class="wrapper">
+            <button class="close-button" id="close_button" onclick="appboyBridge.logClick(close_button); appboyBridge.closeMessage()">
+                <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/64624bd07fdb4356fcc340e8/original.svg?1684163536" alt="Close Button">
+            </button>
+            <img class="image" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/6462537d7640826d75a5b8c1/original.png?1684165501" alt="Upper Image">
+            <div class="content">
+                <h2 class="headline">Bleib up-to-date</h2>
+                <p class="copy">Schalte deine Benachrichtigungen ein und erfahre als Erstes, wenn es neue Updates, Bonusprogramme oder andere Neuigkeiten gibt!</p>
+                <a class="cta" id="button_one" href="app-settings:notifications" onclick="appboyBridge.logClick(button_one); event.preventDefault();">Benachrichtungen öffnen</a>
+                <!-- OR <button id="ios-settings-button" class="cta-button hidden" onclick="window.location='app-settings:notifications'">iOS Settings</button>-->
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

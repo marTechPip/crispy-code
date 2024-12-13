@@ -1,0 +1,46 @@
+<script>
+  var firstReferrer = document.referrer;
+
+  // check local storage, URL parameter, and set if needed
+  function checkLocalStorage() {
+    var localStorageValue = localStorage.getItem('first_referrer');
+
+    // check if local storage variable is undefined
+    if (!localStorageValue) {
+      var urlParameter = getURLParameter('first_ref');
+      
+      // check if URL parameter is present
+      if (urlParameter) {
+        // store the URL parameter value in local storage
+        localStorage.setItem('first_referrer', urlParameter);
+      } else {
+        // add the referrer to local storage
+        addReferrerToStorage();
+      }
+    }
+  }
+
+  // add the referrer to local storage
+  function addReferrerToStorage() {
+    var searchEngineName = getSearchEngineName(firstReferrer);
+    
+    if (searchEngineName) {
+      localStorage.setItem('first_referrer', searchEngineName);
+    }
+  }
+
+  // trim the referrer URL
+  function getSearchEngineName(referrer) {
+    var searchEngineRegex = /(?:https?:\/\/)?(?:www\.)?(.*?)\./;
+    var matches = referrer.match(searchEngineRegex);
+    return matches ? matches[1] : null;
+  }
+
+  // get the value of a URL parameter
+  function getURLParameter(name) {
+    var urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+  }
+
+  checkLocalStorage();
+</script>

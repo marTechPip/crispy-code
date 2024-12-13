@@ -1,0 +1,26 @@
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+<div id="qrcode"></div>
+<script type="text/javascript">
+  var localAdjustTracker = localStorage.getItem('adjust_tracker_url_qr');
+
+  // Replace existing QR code element
+  var existingQrCodeElement = document.querySelector('.jss24');
+  if (existingQrCodeElement) {
+    if (localAdjustTracker) {
+      var newQrCodeElement = document.createElement('div');
+      existingQrCodeElement.parentNode.replaceChild(newQrCodeElement, existingQrCodeElement);
+
+      var qrcode = new QRCode(newQrCodeElement, {
+        text: localAdjustTracker,
+        width: 250,
+        height: 250,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+  } else {
+    console.error('QR code element not found.');
+  }
+</script>

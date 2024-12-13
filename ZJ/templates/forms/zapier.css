@@ -1,0 +1,226 @@
+.consent {
+  font-size: 0.75rem;  
+  font-family: 'Lato', sans-serif;
+  font-weight: normal;
+  color: #26282D;
+  line-height: 1.1875rem;
+  padding: 0 0.5rem;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+form.form p.no-label {
+  margin-left: 0 !important;
+}
+
+.form-column {
+  flex: 0 0 50%;
+  padding: 0 0.2rem;
+}
+
+.form-heading {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.6875rem;
+  font-weight: normal;
+  color: #26282D;
+  margin: 0 0 2rem;
+  padding: 0 0.5rem;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  align-items: flex-start;
+}
+
+.form-wrapper {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-width: 100%;
+}
+
+.hide {
+  display:none;
+}
+
+.left-side {
+  flex: 0.5;
+}
+
+.right-side {
+  flex: 1;
+  padding-left: 1rem;
+  width:100%;
+}
+
+#zapier-form {
+  font-family: 'Lato', sans-serif;
+}
+
+#zapier-form .form-field {
+  margin:0;
+  padding:5px 0 0 0;
+} 
+
+/* The input fields */ 
+#zapier-form input.text,
+#zapier-form textarea.standard,
+#zapier-form select,
+#zapier-form input.date { 
+  background-color: initial;
+  appearance: none;
+  border:solid 1px hsla(261,79%,31.8%,0.3);
+  font-size: 1rem;
+  color:#26282D;
+  border-radius: 0.5rem;
+  width:100%;
+  font-family: 'Lato', sans-serif;
+  box-sizing:border-box;
+  line-height: 1.5;
+  min-height: 40px;
+  letter-spacing: .02em;
+  outline: none;
+  transition: border-color .2s ease,box-shadow .2s ease;
+  margin: 0 0 1rem;
+  padding: 0.6875rem 1.5rem;
+}
+/* the input fields on focus */ 
+#zapier-form input.text:focus,
+#zapier-form textarea.standard:focus,
+#zapier-form select:focus,
+#zapier-form input.date:focus { 
+  border-color:#3e1191;
+  outline: none;
+}
+
+#zapier-form span.value { 
+  margin-left: 0;
+}
+
+/* the field labels */ 
+#zapier-form label {
+  color:#4E515C;
+  font-weight:normal;
+  padding:0 !important;
+  float:none;
+  text-align:left;
+  width:auto;
+  display:block;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  letter-spacing: .0125em;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+/* the submit button */ 
+#zapier-form .submit input {
+  width:100%;
+  margin:0;
+  background-color:#7626f7;
+  border:solid 2px #7626f7;
+  color:white;
+  padding: 0.6875rem 1.875rem;
+  border-radius: 1.625rem;
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: .2s ease;
+  font-size: 16px;
+  line-height: 1.375rem;
+  font-weight: 700;
+  font-family: 'Lato', sans-serif;
+  font-style: normal;  
+  width: 200px;
+  min-height: 50px;
+}
+
+/* the submit button hover */ 
+#zapier-form .submit input:hover {
+  background-color:#3E1191;
+  border-color:#3E1191;
+  color:white;
+}
+/* the spacing around the submit button */ 
+#zapier-form .submit {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-top: calc(1rem + 1rem);
+}
+
+#zapier-form textarea.large-textarea {
+  width: 200%;
+  height: 100px; 
+  resize: vertical; 
+}
+
+#zapier-form label.large-label {
+  width: 200%; /* adjust this value as needed */
+}     	 
+
+@media only screen and ( max-width : 640px ) {
+
+  .form-column {
+    flex: 0 0 100%;
+    padding: 0 0.5rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+  }
+
+  #zapier-form .submit input {
+    width: 100%;
+    margin: 0 0 1rem; /* same as the input fields */
+    padding: 0.6875rem 1.5rem; /* same as the input fields */
+    border-radius: 0.5rem; /* add border radius */
+    color: white; /* add text color */
+    background-color: #7626f7; /* add background color */
+    border: solid 2px #7626f7; /* add border */
+  }           
+  
+  #zapier-form textarea.large-textarea {
+    width: 100%; 
+  }
+  
+  #zapier-form label.large-label {
+    width: 100%; /* adjust this value as needed */
+  }
+
+  /* Additional styles for mobile input fields */
+  #zapier-form input.text,
+  #zapier-form textarea.standard,
+  #zapier-form select,
+  #zapier-form input.date { 
+    width: 100%;
+    margin: 0 0 1rem; /* adjust margin as needed */
+    padding: 0.6875rem 1.5rem; /* adjust padding as needed */
+    border-radius: 0.5rem; /* add border radius */
+    border: solid 1px hsla(261, 79%, 31.8%, 0.3); /* add border color */
+  }
+  
+  /* Adjust other styles for label and consent text */
+  #zapier-form label {
+    margin-bottom: 0.5rem;
+  }
+
+  .consent {
+    padding: 0 1rem; /* adjust padding */
+  }
+}

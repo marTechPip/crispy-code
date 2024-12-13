@@ -1,0 +1,54 @@
+<!--ADD THIS SECTION TO HEAD-->
+<script>
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const path = window.location.pathname;
+  const awc = urlParams.get('awc');
+  const gclid = urlParams.get('gclid');
+  const gbraid = urlParams.get('gbraid');
+  const fbclid = urlParams.get('fbclid');
+  const fbc = urlParams.get('fbc');
+  const fbp = urlParams.get('fbp');
+  const marketingSource = getSource();
+
+  function getSource() { 
+	var location = window.location.href;
+	 
+	if (/gbraid/i.test(location) || /gclid/i.test(location) || /google.*uac/i.test(location) || /google.*sem/i.test(location) || /google.*gdn/i.test(location) || /google.*yta/i.test(location)) {
+			return 'google_ads';
+	} else if (/meta.*pfm/i.test(location) || /meta.*awa/i.test(location)) {
+			return 'facebook_ads';
+	} else if (/stepstone.*cpad/i.test(location)) {
+			return 'stepstone_ads';        
+	} else if (/jobsora.*cpc/i.test(location) || /cpc.*jobsora/i.test(location)) {
+			return 'jobsora_ads';
+	} else if (/instagram.*organic/i.test(location) || /organic.*instagram/i.test(location)) {
+			return 'organic_instagram';
+	} else if (/tiktok.*organic/i.test(location) || /organic.*tiktok/i.test(location)) {
+			return 'organic_tiktok';
+	} else if (/youtube.*organic/i.test(location) || /organic.*youtube/i.test(location)) {
+			return 'organic_youtube';
+	} else {
+			return 'organic_search';
+	} 
+};
+</script>
+<script>
+  !function () {
+    var analytics = window.analytics = window.analytics || []; if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
+      analytics.invoked = !0; analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on", "addSourceMiddleware", "addIntegrationMiddleware", "setAnonymousId", "addDestinationMiddleware"]; analytics.factory = function (e) { return function () { var t = Array.prototype.slice.call(arguments); t.unshift(e); analytics.push(t); return analytics } }; for (var e = 0; e < analytics.methods.length; e++) { var key = analytics.methods[e]; analytics[key] = analytics.factory(key) } analytics.load = function (key, e) { var t = document.createElement("script"); t.type = "text/javascript"; t.async = !0; t.src = "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js"; var n = document.getElementsByTagName("script")[0]; n.parentNode.insertBefore(t, n); analytics._loadOptions = e }; analytics._writeKey = "ch8JBYmQ3FP8cxnIKAz1uO4CsYg3Fbes"; analytics.SNIPPET_VERSION = "4.15.2";
+      analytics.load("ch8JBYmQ3FP8cxnIKAz1uO4CsYg3Fbes");
+      analytics.page({
+        awc: awc,
+        gclid: gclid,
+        gbraid: gbraid,
+        fbclid: fbclid,
+        fbc: fbc,
+        fbp: fbp,
+        name: path,
+        marketing_source: marketingSource,
+      }
+      );
+    }
+  }();
+</script>

@@ -1,0 +1,610 @@
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    * {
+        font-family: 'Questrial', 'Montserrat', Arial;
+    }
+
+    p {
+        margin: revert !important
+    }
+
+    strong {
+        font-weight: bold;
+    }
+
+    ul {
+        margin: auto !important;
+        padding: revert !important
+    }
+
+    .title-header {
+        display: none;
+        font-size: 35px;
+        line-height: 40px;
+        color: #25282D;
+        font-weight: 700;
+    }
+
+    .sub-title-header {
+        display: none;
+        font-size: 26px;
+        line-height: 36px;
+        color: #25282D;
+        font-weight: 400;
+    }
+
+    /* Style the button that is used to open and close the collapsible content */
+    .collapsible {
+        color: #3E1191;
+        cursor: pointer;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 18px;
+        font-weight: 600;
+        background-color: #ffffff;
+    }
+
+    /* Style the collapsible content. Note: hidden by default */
+    .content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        text-align: left;
+        color: #25282D;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    #flexContainer {
+        display: flex;
+    }
+
+    #contentID>ul>li {
+        list-style: disc;
+    }
+
+    #hiddenPara {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    #lp-pom-button-964 {
+        display: none;
+    }
+
+    #lp-code-1080 {
+        height: auto;
+    }
+
+    #lp-code-1092 {
+        overflow: visible !important
+    }
+
+    #lp-pom-block-8 {
+        height: auto;
+    }
+
+    #contentID>h4 {
+        font-size: 120% !important;
+        font-weight: bold !important;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+    }
+
+    #description>p {
+        font-size: 16px;
+        line-height: 20px;
+
+    }
+
+    #qrcode {
+        display: block;
+        border: 4px solid #ffffff;
+        border-radius: 0.5rem;
+        align-self: flex-end;
+    }
+
+    #description {
+        font-size: 18px;
+        line-height: 26px;
+        margin-top: 25px;
+    }
+
+    #collapsibleID {
+        display: none;
+    }
+
+    #loader {
+        border: 10px solid #f3f3f3;
+        border-top: 10px solid rgba(118, 37, 247, 1);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 2s linear infinite;
+        margin: auto;
+    }
+
+    #appstore {
+        display:none;
+    }
+
+    #playstore {
+        display:none;
+    }
+
+    #qr-text {
+        display: inline-block;
+        font-size: 1.25rem;
+        line-height: 1.6875rem;
+        color: #ffffff;
+        font-weight: 700;
+        margin: 0 2rem 0 1rem;
+        vertical-align: middle;
+    }
+    
+    #qr-copy {
+        font-size: 1rem;
+        line-height: 1.5rem;
+        color: #ffffff;
+        font-weight: 400;
+        padding-top: 1rem;
+    }
+
+    #qrcode-wrapper {
+        display: none;
+        margin: 2rem 8rem 0 0;
+        padding: 1rem;
+        background-color: #7626f7;
+        border-radius: 1rem;
+        justify-content: space-between;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    #title {
+        font-size: 36px;
+        line-height: 40px;
+        font-family: Montserrat;
+        color: #25282D;
+        font-weight: 700;
+        display: none;
+    }
+
+    #salaryCity {
+        font-family: Montserrat;
+        font-size: 26px;
+        line-height: 36px;
+        color: #25282D;
+        font-weight: 400;
+        margin: 1rem 0 0 0;
+        display: none;
+    }
+
+    #staticJobTypes {
+        font-family: Montserrat;
+        font-size: 18px;
+        line-height: 30px;
+        color: #25282D;
+        font-weight: 400;
+        display: none;
+    }
+
+    #bottomContainer {
+        padding: 20px;
+    }
+
+    #headerImage {
+        width: 45%;
+    }
+
+    #headerText {
+        width: 55%;
+        padding: 10px 30px 0 0;
+    }
+
+    #headerImage img {
+        max-width: 100%;
+    }
+
+    .mainContainer {
+        display: none;
+        width: 100%;
+        justify-content: center;
+        margin-top: 40px;
+    }
+
+    /* add mobile styles here */
+
+    @media only screen and (max-width: 600px) {
+        #flexContainer {
+            flex-direction: column-reverse;
+        }
+
+        #headerImage {
+            width: 100%;
+        }
+
+        #headerText {
+            width: 100%;
+        }
+
+        .collapsible {
+            font-size: 18px;
+        }
+
+        #description {
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        #qrcode {
+            display: none !important
+        }
+
+        #title {
+            font-size: 26px;
+            line-height: 36px;
+        }
+
+        #salaryCity {
+            font-size: 22px;
+            line-height: 32px;
+        }
+
+        .mainContainer {
+            display: flex;
+            flex-direction: column
+        }
+
+        .dlb-wrapper {
+            padding-top: 25px;
+        }
+
+        .dlButton {
+            width: 135px;
+            height: auto;
+        }
+
+        #appstore {
+        display:none;
+        }
+
+        #playstore {
+            display:none;
+        }
+    }
+</style>
+<div id="flexContainer">
+    <div id="headerText">
+        <div id="title"></div>
+        <div id="loader"></div>
+        <div id="salaryCity"></div>
+        <div id="staticJobTypes">• Studentenjob • Nebenjob</div>
+        <div id="qrcode-wrapper">
+            <div id="qr-text">
+                <div id="qr-cta"></div>
+                <div id="qr-copy"></div>
+            </div>
+            <div id="qrcode"></div>
+        </div>
+
+        <div class="dlb-wrapper">
+            <div id="playstore">
+                <a href=""><img class="dlButton" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/64a7d8779e63e23e06cde6fe/original.png?1688721527" alt="playstore"></a>                
+            </div>
+            <div id="appstore">  
+                <a href=""><img class="dlButton" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/64a7d877acf72b38632af736/original.png?1688721527" alt="appstore"></a>                
+            </div>
+        </div>
+    </div>
+    <div id="headerImage">
+        <img
+            src="https://image-service.unbounce.com/https%3A%2F%2Fapp.unbounce.com%2Fpublish%2Fassets%2F22daa2de-8178-4548-a5de-87a4271606fc%2F57885740-jobboard-hero_10bj0cg000000000000028.png?w=415&h=448&png8=true">
+    </div>
+</div>
+<div id="description"></div>
+<button type="button" id="collapsibleID" class="collapsible">Lies mehr...</button>
+<div id="contentID" class="content"></div>
+<div id="hiddenField"></div>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var blox = document.getElementsByClassName("moving-block");
+    var eles = document.getElementsByClassName("moving-element");
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            var changePosition = content.scrollHeight
+            // collapse an item
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                for (j = 0; j < blox.length; j++) {
+                    let oldHeight = window.getComputedStyle(blox[j]);
+                    let oldHeightFormatted = oldHeight.getPropertyValue('height').replace(/[^0-9\.]+/g, '') | 0
+                    let newHeight = oldHeightFormatted - changePosition + 'px';
+                    blox[j].style.height = newHeight;
+                }
+                for (k = 0; k < eles.length; k++) {
+                    let oldHeight = window.getComputedStyle(eles[k]);
+                    let oldHeightFormatted = oldHeight.getPropertyValue('top').replace(/[^0-9\.]+/g, '') | 0
+                    let newHeight = oldHeightFormatted - changePosition + 'px';
+                    eles[k].style.top = newHeight;
+                }
+            }
+            // expand an item
+            else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                for (j = 0; j < blox.length; j++) {
+                    let oldHeight = window.getComputedStyle(blox[j]);
+                    let oldHeightFormatted = oldHeight.getPropertyValue('height').replace(/[^0-9\.]+/g, '') | 0
+                    let newHeight = oldHeightFormatted + changePosition + 'px';
+                    blox[j].style.height = newHeight;
+                }
+                for (k = 0; k < eles.length; k++) {
+                    let oldHeight = window.getComputedStyle(eles[k]);
+                    let oldHeightFormatted = oldHeight.getPropertyValue('top').replace(/[^0-9\.]+/g, '') | 0
+                    let newHeight = oldHeightFormatted + changePosition + 'px';
+                    eles[k].style.top = newHeight;
+                }
+            }
+        })
+    }
+</script>
+<script>
+
+    /* Job board automatically pulled from the URL. All data type conversions are handled based on this value. Remember to edit the readXML function when adding new job boards*/
+
+    var pathArray = window.location.pathname.split('/')
+    var jobBoardCode = pathArray[2].charAt(pathArray[2].length - 1)
+
+    var jobBoard;
+    var language;
+
+    /* Add new job board codes and URL here*/
+    if (jobBoardCode === 's') {
+        jobBoard = 'stepstone'
+    } else if (jobBoardCode === 's') {
+        jobBoard = 'jobsora'
+    } else if (jobBoardCode === 'l') {
+        jobBoard = 'stepstone'
+    } else {
+        jobBoard = 'stepstone'
+    }
+
+    if (pathArray[1] != null || pathArray[1] != undefined || pathArray[1] != '') {
+        language = pathArray[1]
+    } else {
+        language = 'de'
+    }
+
+    var url;
+    if (jobBoard === 'stepstone') {
+        url = 'https://script.google.com/macros/s/AKfycbzlQLRIC96333uuKIeO1p0u8aBxYSFUhm74KFqBuZDjt1FeXrtyNX03zZLumDPQod3JSA/exec'
+    } else if (jobBoard === 'jobsora') {
+        url = 'https://script.google.com/macros/s/AKfycbzeiCSVzFlo3Jcwk_h2UwemoybC6Z6DeVhyH-vBPtlBKzxdUAWW5cCvQ0GEwNcokkg/exec'
+    } else if (jobBoard === 'google') {
+        url = 'https://script.google.com/macros/s/AKfycbycgkv9erIgNTRlKq-x7aoL03YZjkwnOfzYnG0Ao1yFsg46QERaSAUiGlUZK9g4v_nX_g/exec'
+    }
+
+    /*end new job board section*/
+
+    function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
+    const jobId = getUrlParameter('jobId');
+    const dav = getUrlParameter('dav');
+    const utm_source = getUrlParameter('utm_source');
+    const utm_medium = getUrlParameter('utm_medium');
+    const utm_campaign = getUrlParameter('utm_campaign');
+    const utm_content = getUrlParameter('utm_content');
+    const utm_term = getUrlParameter('utm_term');
+
+    // Detect if the user is on a mobile device
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    //Generate QR code
+    function generateQRCode() {
+            const qrCodeElement = document.getElementById("qrcode");
+            const url = "https://app.adjust.com/mf6ox6n_nijh9l2?campaign=" + utm_campaign + "_2309ABST-B_QR_code&adgroup=" + utm_content + "&creative=" + utm_term;
+      
+            // Generate the QR code
+              const qrCode = new QRCode(qrCodeElement, {
+                text: url,
+                width: 125,
+                height: 125,
+                colorDark: "#7626f7",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.L
+              });
+            };
+      
+          // Call the function to generate the QR code
+          generateQRCode();
+
+    function pullRowsAPI(xml) {
+        /* edit these fields to add more job boards*/
+        if (language == 'de') {
+            var offerHeader = '<h4>Deine Vorteile bei uns</h4>'
+            var tasksHeader = '<h4>Deine Aufgaben</h4>'
+            var profileHeader = '<h4>Das brauchen wir von dir</h4>'
+            var contactInfoHeader = '<h4>Wie geht es weiter</h4>'
+            //document.getElementById('signupButton').innerHTML = 'Jetzt anmelden'
+
+            document.getElementById('staticJobTypes').innerHTML = '• Studentenjob • Nebenjob'
+            document.getElementById('collapsibleID').innerHTML = 'Lies mehr...'
+        } else {
+            var offerHeader = '<h4>Your benefits with us</h4>'
+            var tasksHeader = '<h4>Your tasks</h4>'
+            var profileHeader = '<h4>Your profile</h4>'
+            var contactInfoHeader = '<h4>What are the next steps?</h4>'
+            //document.getElementById('signupButton').innerHTML = 'Signup now'
+            document.getElementById('staticJobTypes').innerHTML = '• Student job • Side job'
+            document.getElementById('collapsibleID').innerHTML = 'Read more...'
+        }
+        if (jobBoard === 'stepstone') {
+            var data = xml.getElementsByTagName("joblisting")
+            var referenceId = data[0].getAttribute('reference_id')
+            var jobDetailsNode = data[0].getElementsByTagName("jobdetails")[0]
+            var jobTitle = jobDetailsNode.getElementsByTagName("jobtitle")[0].textContent
+            var cities = []
+            var jobLocations = jobDetailsNode.getElementsByTagName("joblocations")[0]
+            var y = jobLocations.childNodes
+            for (var b = 0; b < y.length; b++) {
+                var b1 = jobLocations.getElementsByTagName("location")[b]
+                if (b1 != undefined) {
+                    var c1 = b1.getElementsByTagName("city")[0].textContent
+                    cities.push(c1)
+                }
+            }
+            var city = cities.join(', ')
+            var introduction = jobDetailsNode.getElementsByTagName("introduction")[0].textContent
+            var offer = jobDetailsNode.getElementsByTagName("offer")[0].textContent
+            var tasks = jobDetailsNode.getElementsByTagName("tasks")[0].textContent
+            var profile = jobDetailsNode.getElementsByTagName("profile")[0].textContent
+            var contactInfo = jobDetailsNode.getElementsByTagName("contactinfo")[0].textContent
+            var description = introduction + offerHeader + offer + tasksHeader + tasks + profileHeader + profile + contactInfoHeader + contactInfo
+        } else if (jobBoard === 'jobsora') {
+            var referenceId = xml.getElementsByTagName('job')[0].getAttribute('id')
+            var jobTitle = xml.getElementsByTagName("name")[0].textContent
+            var city = xml.getElementsByTagName("region")[0].textContent
+            var salary = xml.getElementsByTagName("salary")[0].textContent
+            var description = xml.getElementsByTagName("description")[0].textContent
+        }
+
+        if (jobId == referenceId) {
+            document.getElementById('loader').style.display = "none";
+            document.getElementById('title').style.display = "block";
+            document.getElementById('staticJobTypes').style.display = "block";
+            document.getElementById('collapsibleID').style.display = "block";
+            document.getElementById('title').innerHTML = jobTitle;
+            if (jobBoard == 'stepstone') {
+                document.getElementById('salaryCity').style.display = "block";
+                document.getElementById('salaryCity').innerHTML = city;
+            } else {
+                document.getElementById('salaryCity').style.display = "block";
+                document.getElementById('salaryCity').innerHTML = salary + ". / " + city;
+            }
+
+            // Show QR code on desktop devices and download buttons on mobile
+            if (isAndroid) {
+                document.getElementById('playstore').style.display = "block";
+                document.getElementById('playstore').querySelector('a').href = "https://app.adjust.com/mf6ox6n_nijh9l2?campaign=" + utm_campaign + "_2309ABST-B&adgroup=" + utm_content + "&creative=" + utm_term;
+            } else if (isIos) { 
+                document.getElementById('appstore').style.display = "block";
+                document.getElementById('appstore').querySelector('a').href = "https://app.adjust.com/mf6ox6n_nijh9l2?campaign=" + utm_campaign + "_2309ABST-B&adgroup=" + utm_content + "&creative=" + utm_term; 
+            } else {
+                document.getElementById('qrcode-wrapper').style.display = "flex";
+            }
+
+            if (language === 'de') {
+                document.getElementById('qr-cta').innerHTML = 'Hol dir die App'
+                document.getElementById('qr-copy').innerHTML = 'Registriere dich und beginne unser Onboarding.'
+            } else {
+                document.getElementById('qr-cta').innerHTML = 'Get the app'
+                document.getElementById('qr-copy').innerHTML = 'Download now and complete the onboarding.'
+            }
+
+            // end edit section
+            var temp = document.createElement('div');
+            temp.innerHTML = description;
+            var childDivs = temp.children;
+            var holdingArray = []
+            for (var k = 0; k < childDivs.length; k++) {
+                holdingArray.push(childDivs[k])
+            }
+
+            var introSection = document.getElementById('description')
+            var remainingSection = document.getElementById('contentID')
+            for (var j = 0; j < holdingArray.length; j++) {
+                if (j <= 1) {
+                    introSection.appendChild(holdingArray[j])
+                } else {
+                    remainingSection.appendChild(holdingArray[j])
+                }
+            }
+        } else {
+            defaultMessage()
+        }
+    }
+
+    function defaultMessage() {
+        if (language === 'de') {
+            document.getElementById('title').innerHTML = 'Danke für dein Interesse an Zenjob! Mach dir die Jobsuche einfach und flexibel';
+            document.getElementById('description').innerHTML = 'Auf der Suche nach dem perfekten Nebenjob, der dir volle Flexibilität bietet fürs Studium oder den Hauptberuf? Hol dir dafür die Zenjob App und erstelle dir ganz leicht einen kostenlosen Account, der dir Zugriff gibt auf Jobs aus den verschiedensten Berufsfeldern – und das tagtäglich.  <br><br><strong>Klingt gut?</strong> Dann schau dir diesen und viele weitere Jobs direkt in unserer App an.'
+            document.getElementById('salaryCity').innerHTML = '<b>Wie kann ich starten?</b> Lade dir unsere App herunter und leg los.'
+            document.getElementById('qr-cta').innerHTML = 'Hol dir die App'
+            document.getElementById('qr-copy').innerHTML = 'Registriere dich und beginne unser Onboarding.'
+        } else {
+            document.getElementById('title').innerHTML = 'Thanks for your interest in Zenjob! We make your job search simple and flexible';
+            document.getElementById('salaryCity').innerHTML = '<b>How can I get started?</b> Download our app below and register.'
+            document.getElementById('description').innerHTML = 'Are you looking for the perfect part-time job that offers you full flexibility alongside your studies or your main job? Get the Zenjob app and easily create a free account that gives you full access to jobs from most professional industries. Found a job you like? Get it with one tap – no more long applications!  <br><br><strong>Sounds good?</strong> Then take a look at this and many other jobs, all directly available in our app.'
+            document.getElementById('qr-cta').innerHTML = 'Get the app'
+            document.getElementById('qr-copy').innerHTML = 'Download now and complete the onboarding.'
+        }
+
+        document.getElementById('loader').style.display = "none";
+        document.getElementById('title').style.display = "block";
+        document.getElementById('salaryCity').style.display = "block";
+        document.getElementById('salaryCity').style.fontSize = "22px";
+        document.getElementById('salaryCity').style.lineHeight = "28px";
+        document.getElementById('description').style.display = "block";
+
+        // Show QR code on desktop devices and download buttons on mobile
+        if (isAndroid) {
+            document.getElementById('playstore').style.display = "block";
+            document.getElementById('playstore').querySelector('a').href = "https://app.adjust.com/mf6ox6n_nijh9l2?campaign=" + utm_campaign + "_2309ABST-B&adgroup=" + utm_content + "&creative=" + utm_term;  
+          
+        } else if (isIos) { 
+            document.getElementById('appstore').style.display = "block";            
+            document.getElementById('appstore').querySelector('a').href = "https://app.adjust.com/mf6ox6n_nijh9l2?campaign=" + utm_campaign + "_2309ABST-B&adgroup=" + utm_content + "&creative=" + utm_term;
+
+        } else {
+            document.getElementById('qrcode-wrapper').style.display = "flex";
+        }
+    }
+
+    if (jobId != null && jobId != undefined) {
+        var urlComplete = url + '?jobId=' + jobId + "&dav=" + dav
+        $.ajax({
+            url: urlComplete,
+            type: 'get',
+            dataType: 'xml',
+            success: function (response) {
+                console.log(response)
+                pullRowsAPI(response)
+            },
+            timeout: 5000,
+            error: function (response) {
+                defaultMessage()
+            }
+        })
+    } else {
+        defaultMessage()
+    }
+
+</script>

@@ -1,0 +1,94 @@
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<script>
+    var attributionSourceName;
+
+    function assignAdjustTrackerId() {
+        var attributionSource = returnAttributionSource();
+        var adjustTrackerIds;
+
+        /* Trackers = android + "_" + ios */
+        if (attributionSource == 'google_ads') {
+            adjustTrackerIds = 'rw8qd5b' + '_' + 'hbir7lb'
+        } else if (attributionSource == 'facebook_ads') {
+            adjustTrackerIds = '320jxho' + '_' + 'y9e45k4'
+        } else if (attributionSource == 'indeed_ads') {
+            adjustTrackerIds = '2eejixg' + '_' + '6hd00r0'
+        } else if (attributionSource == 'stepstone_ads') {
+            adjustTrackerIds = 'hktb0uj' + '_' + 'zfdp4ae'
+        } else if (attributionSource == 'organic_social') {
+            adjustTrackerIds = 'v9iccht' + '_' + 'wgi39kh'
+        } else if (attributionSource == 'organic_search') {
+            adjustTrackerIds = 'hx7x38o' + '_' + 'h5np25x'
+        } else if (attributionSource == 'website_clickout') {
+            adjustTrackerIds = 'bji78iu' + '_' + 'ooataj5'
+        }
+        return adjustTrackerIds
+    }
+    function returnAttributionSource() {
+        var searchEngines = ['https://www.google.com/', 'https://www.google.de/', 'https://www.bing.com/', 'https://www.ecosia.org/', 'https://search.yahoo.com/', 'https://duckduckgo.com/'];
+        var location = window.location.href;
+
+        if (location.search("gclid") > -1) {
+            attributionSourceName = 'google_ads'
+        } else if (location.search("meta" && "cpm" || "fbclid") > -1) {
+            attributionSourceName = 'facebook_ads'
+        } else if (location.search("indeed" && "cpc") > -1) {
+            attributionSourceName = 'indeed_ads'
+        } else if (location.search("stepstone") > -1) {
+            attributionSourceName = 'stepstone_ads'
+        } else if (location.search("meta" && "organic") > -1) {
+            attributionSourceName = 'organic_social'
+        } else if (searchEngines.includes(document.referrer)) {
+            attributionSourceName = 'organic_search'
+        } else {
+            attributionSourceName = 'website_clickout'
+        };
+        return attributionSourceName
+    }
+</script>
+<script>
+
+    const utm_source = getUrlParameter('utm_source');
+    const utm_medium = getUrlParameter('utm_medium');
+    const utm_campaign = getUrlParameter('utm_campaign');
+    const utm_content = getUrlParameter('utm_content');
+
+    function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? "Unknown" : sParameterName[1];
+            }
+        }
+    };
+
+</script>
+<div id="qrcode"></div>
+<script type="text/javascript">
+
+    var adjust_tracker_ids = assignAdjustTrackerId()
+
+    const base_link = "https://app.adjust.com/" + adjust_tracker_ids + "?"
+    var utm_params;
+    if (attributionSourceName == 'organic_social' || attributionSourceName == 'organic_search' || attributionSourceName == 'website_clickout')
+        utm_params = "campaign=" + window.location.href + "&adgroup=" + document.referrer + "&creative=wp-qrcode"
+    else {
+        utm_params = "campaign=" + utm_campaign + "&adgroup=" + utm_content + "&creative=wp-qrcode"
+    }
+
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: base_link + utm_params,
+        width: 250,
+        height: 250,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+    });
+
+</script>

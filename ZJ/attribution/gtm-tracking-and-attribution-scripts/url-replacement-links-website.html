@@ -1,0 +1,57 @@
+<script>
+  // Prepare tracker URLs using sessionStorage
+  var lookupAdjustTrackerUrl = {{ALL | Adjust Android + iOS tracker URL - Website}};
+  var lookupAdjustTrackerUrlQr = {{ALL | Adjust Android + iOS tracker URL - QR Code}};
+  
+  if (sessionStorage.getItem('adjust_tracker_url_website') === null && typeof lookupAdjustTrackerUrl != 'undefined') {
+   sessionStorage.setItem('adjust_tracker_url_website', lookupAdjustTrackerUrl);    
+  }
+  
+  if (sessionStorage.getItem('adjust_tracker_url_qr') === null && typeof lookupAdjustTrackerUrlQr != 'undefined') {
+   sessionStorage.setItem('adjust_tracker_url_qr', lookupAdjustTrackerUrlQr);    
+  }
+    
+  // Replace Android anchors
+  var android_anchors = document.querySelectorAll("a[href^='https://play.google.com/store/apps/details?id=zenjob.android'], a[href='clkn/https/play.google.com/store/apps/details?id=zenjob.android&hl=en&showAllReviews=true']");
+  for (var j = 0; j < android_anchors.length; ++j) {
+    var anchor = android_anchors[j];
+    anchor.href = sessionStorage.getItem('adjust_tracker_url_website');
+  }
+  
+  // Replace iOS anchors
+  var ios_anchors = document.querySelectorAll("a[href^='https://apps.apple.com/app/id1141020680'], a[href='clkn/https/apps.apple.com/de/app/zenjob-studentenjobs/id1141020680?mt=8']");
+  for (var j = 0; j < ios_anchors.length; ++j) {
+    var anchor = ios_anchors[j];
+    anchor.href = sessionStorage.getItem('adjust_tracker_url_website');
+  }
+</script>
+
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+<div id="qrcode"></div>
+<script type="text/javascript">
+  var adjustTrackerUrlQr = sessionStorage.getItem('adjust_tracker_url_qr');
+
+  // Replace existing QR code element
+  var existingQrCodeElement = document.querySelector('#canvas');
+  if (existingQrCodeElement) {
+    if (adjustTrackerUrlQr) {
+      var newQrCodeElement = document.createElement('div');
+      existingQrCodeElement.parentNode.replaceChild(newQrCodeElement, existingQrCodeElement);
+
+      var qrcode = new QRCode(newQrCodeElement, {
+        text: adjustTrackerUrlQr,
+        width: 250,
+        height: 250,
+        colorDark: "#7626f7",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+      // Apply CSS styles to the new QR code element
+      newQrCodeElement.style.border = '4px solid #ffffff';
+      newQrCodeElement.style.borderRadius = '0.5rem';
+
+    }
+  }
+</script>

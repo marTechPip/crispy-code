@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ios-push-act.css">
+    <title>In-App Message</title>
+</head>
+<body>
+    <div class="overlay">
+        <div class="in-app-message">
+          <div class="wrapper">
+            <button class="close-button" id="close_button" onclick="appboyBridge.logClick(close_button); appboyBridge.closeMessage()">
+                <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/64624bd07fdb4356fcc340e8/original.svg?1684163536" alt="Close Button">
+            </button>
+            <iframe width="100%" height="auto" src="https://www.youtube.com/embed/uHGShqcAHlQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+            <div class="content">
+                <h2 class="headline">Bleib up-to-date</h2>
+                <p class="copy">Schalte deine Benachrichtigungen ein und erfahre als Erstes, wenn es neue Updates, Bonusprogramme oder andere Neuigkeiten gibt!</p>
+                <button class="cta" id="button_one" onclick="appboyBridge.logClick(button_one); window.location='app-settings:notifications'">Benachrichtungen öffnen</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

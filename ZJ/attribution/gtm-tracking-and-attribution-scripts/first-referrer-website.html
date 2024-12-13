@@ -1,0 +1,50 @@
+<script>
+  var firstReferrer = document.referrer;
+
+  //check if session storage is emtpy
+  function checkSessionStorage() {
+    if(sessionStorage.getItem('first_referrer') === null || sessionStorage.getItem('first_referrer') === undefined) {
+      addReferrerToStorage();
+    } else {
+      updateButtonUrl();
+    }
+  }
+
+  //add the referrer to the session storage
+  function addReferrerToStorage() {
+    var searchEngineName = getSearchEngineName(firstReferrer);
+     
+    sessionStorage.setItem('first_referrer', searchEngineName);
+    updateButtonUrl();    
+  }
+
+  //update the CTA target links by appending the referrer from the session storage 
+  function updateButtonUrl() {
+    var webSignupButton = document.querySelectorAll("a[href*='talent.zenjob.com/signup-form']")
+    var storedReferrer = sessionStorage.getItem('first_referrer');
+
+    if (storedReferrer) {
+      for (var i = 0; i < webSignupButton.length; i++) {
+        var button = webSignupButton[i];
+        if (!button.href.includes('first_ref=')) {
+          button.href = appendReferrerToUrl(button.href, storedReferrer);
+        }
+      }
+    }
+  }
+
+  //trim the referrer URL
+  function getSearchEngineName(referrer) {
+    var searchEngineRegex = /(?:https?:\/\/)?(?:www\.)?(.*?)\./;
+    var matches = referrer.match(searchEngineRegex);   
+    return matches ? matches[1] : null;
+  }
+
+   // Append referrer to URL, handling "?" or "&" appropriately
+   function appendReferrerToUrl(url, referrer) {
+    var separator = url.includes('?') ? '&' : '?';
+    return url + separator + 'first_ref=' + referrer;
+  }
+
+  checkSessionStorage();
+</script>

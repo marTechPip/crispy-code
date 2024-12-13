@@ -1,0 +1,687 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+  * {
+    font-family: Questrial, Montserrat, Arial;
+  }
+
+  body {
+    background-color: #F2F2F2;
+    margin: auto;
+
+  }
+
+  h2 {
+    margin: 25px 0 10px 0;
+  }
+
+  .sideElement input {
+    width: 50%;
+    height: 3em;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    border-color: #c0bec2;
+    border-width: 1px;
+  }
+
+  input {
+    width: 100%;
+    height: 3em;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    border-color: #c0bec2;
+    border-width: 1px;
+  }
+
+  select {
+    width: 100%;
+    height: 3em;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    border-color: #c0bec2;
+    border-width: 1px;
+  }
+
+  label {
+    min-width: 150px;
+    display: block;
+    margin: 25px 0 10px 0;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    border-color: #514f53;
+    border-width: 1px;
+  }
+
+  .pageContainer {
+    width: 800px;
+    background-color: #ffffff;
+    margin: auto;
+    padding: 25px 100px 25px 100px;
+    box-shadow: 0 5px 20px 0 rgb(109 110 111 / 8%);
+  }
+
+  .subPageHeader {
+    font-size: 17px;
+    font-weight: 400;
+    margin: 25px 0 20px 0;
+    line-height: 30px;
+  }
+
+  .flexContainer {
+    display: flex;
+    align-items: center
+  }
+
+  .flexElement50 {
+    width: 50%;
+    padding: 0 20px 10px 20px;
+  }
+
+  .flexElement33 {
+    width: 33%;
+    padding: 0 20px 10px 20px;
+  }
+
+  .flexElement25 {
+    width: 25%;
+    padding: 0 20px 10px 20px;
+  }
+
+  .flexElement20 {
+    width: 20%;
+    padding: 0 20px 10px 20px;
+  }
+
+  .flexElement20 input {
+    width: 80%;
+    padding: 0 20px 20px 20px;
+  }
+
+  .flexElement40 {
+    width: 40%;
+    padding: 0 20px 20px 20px;
+  }
+
+
+  .formElement {
+    margin-bottom: 30px;
+    padding: 20px 20px 20px 20px;
+  }
+
+
+  .controlGroupContainer,
+  .testGroupContainer {
+    padding: 0 20px 20px 20px
+  }
+
+  .percentageField {
+    width: 10%;
+
+  }
+
+  .subjectField {
+    width: 60%;
+    margin-left: 20px;
+  }
+
+
+  .groupName {
+    margin-right: 20px;
+    min-width: 120px;
+  }
+
+  .sideElement {
+    padding: 0 20px 20px 20px
+  }
+
+  .formElement label {
+    min-width: 150px;
+    display: block;
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .buttonContainer {
+    width: 100%;
+    display: flex;
+    margin-bottom: 30px;
+  }
+
+  .groupName {
+    display: inline-block
+  }
+
+  .loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid rgba(118, 37, 247, 1);
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    display: none;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .button-center {
+    background-color: #3E1191;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-left: 40px;
+    width: 30%;
+    color: #ffffff;
+    cursor: pointer;
+    border: none;
+    padding: 10px 0 10px 0;
+  }
+
+  #retrieveMessageContainer {
+    padding: 0 0 15px 20px;
+    visibility: hidden;
+  }
+
+  .errorMessageText {
+    margin: 5px 0 20px 0;
+    color: red;
+    font-size: 13px;
+  }
+
+  #errorMessage {
+    color: red;
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  #updateTest {
+    display: none;
+  }
+</style>
+
+<body>
+  <div class="pageContainer">
+    <h1>
+      Marketing variant testing tool
+    </h1>
+    <div class="subPageHeader">You can use this form to log and edit variant tests. You can also see tests directly in
+      the Google Sheet: {{GSHEET-URL}}.
+    </div>
+
+    <form action="#" id="amForm" onsubmit="return false">
+      <h2>Retrieve previous test details</h2>
+      <div class="sideElement">
+        <div class="subPageHeader">To retrieve previous test details, please enter your test number:
+        </div>
+        <input class="formField" type="text" id="retrieveTestId" name="retrieveTestId">
+        <button class='button-center' id="retrieveButton" name="retrieveButton">
+          <span id="retrieveText">RETRIEVE</span>
+          <div class="loader" id="retrieveLoader"></div>
+        </button>
+      </div>
+      <div id="retrieveMessageContainer">n/a</div>
+      <h2>Basic test details</h2>
+      <div class="flexContainer">
+        <div class="flexElement50">
+          <label for="startDate">Start date</label>
+          <input class="formField" type="date" id="startDate" name="startDate">
+        </div>
+        <div class="flexElement50">
+          <label for="endDate">End date</label>
+          <input class="formField" type="date" id="endDate" name="endDate">
+        </div>
+      </div>
+      <div class="flexContainer">
+        <div class="flexElement33">
+          <label for="responsiblePerson">Responsible person</label>
+          <input class="formField" type="text" id="responsiblePerson" name="responsiblePerson">
+        </div>
+        <div class="flexElement33">
+          <label for="channel">Channel</label>
+          <select class="formField" id="channel" name="channel">
+            <option value=""></option>
+            <option value="braze">Braze</option>
+            <option value="website">Website</option>
+            <option value="facebook">Facebook</option>
+            <option value="google">Google Ads</option>
+            <option value="instagram">Instagram</option>
+            <option value="jobBoards">Job boards</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="flexElement33">
+          <label for="testType">Test type</label>
+          <select class="formField" id="testType" name="testType">
+            <option value=""></option>
+            <option value="copyVariations">Copy variations</option>
+            <option value="messageTimings">Message timings</option>
+            <option value="creatives">Creatives</option>
+            <option value="designFeatures">Design features</option>
+            <option value="campaignType">Campaign type</option>
+            <option value="segmentation">Segmentation</option>
+            <option value="userJourneys">User journeys</option>
+            <option value="completePage">Complete page</option>
+          </select>
+        </div>
+      </div>
+      <div class="flexContainer">
+        <div class="flexElement50">
+          <label for="testSummary">Test summary</label>
+          <textarea rows="4" class="formField" id="testSummary" name="testSummary"></textarea>
+        </div>
+        <div class="flexElement50">
+          <label for="hypothesis">Hypothesis</label>
+          <textarea rows="4" class="formField" id="hypothesis" name="hypothesis"></textarea>
+        </div>
+      </div>
+      <h2>Segmentation</h2>
+      <div class="formElement">
+        <label for="audience">Audience</label>
+        <input class="formField" type="text" id="audience" name="audience">
+      </div>
+
+      <h4>Groups</h4>
+      <div class="controlGroupContainer">
+        <div class="groupName">Control group</div>
+        <input class="percentageField formField" type="number" id="controlGroupSize" value="20">%
+        <input class="subjectField formField" type="text" id="controlGroupSubject"
+          placeholder="Enter group summary here" name="subject">
+      </div>
+
+
+      <div id="testGroupContainer" class="testGroupContainer">
+        <div class="testGroupClone">
+          <div class="groupName">Test group</div>
+          <input class="percentageField formField" type="number" id="testGroupSize" value="80">%
+          <input class="subjectField formField" type="text" id="testGroupSubject" placeholder="Enter group summary here"
+            name="subject">
+        </div>        
+      </div>
+
+      
+      <button class="addTasks" name="addTask" value="Add task" id="addTaskButton">Add test group</button>
+      <button class="removeTasks" name="removeTask" value="Remove task" id="removeTaskButton">Remove test group</button>
+      <h2>Success metrics</h2>
+      <div class="formElement">
+        <label for="primarySuccess">Primary success metric</label>
+        <input class="formField" type="text" id="primarySuccess" name="primarySuccess">
+      </div>
+      <div class="formElement">
+        <label for="secondarySuccess">Secondary success metric</label>
+        <input class="formField" type="text" id="secondarySuccess" name="secondarySuccess">
+      </div>
+
+      <h2>Results</h2>
+      <div class="flexContainer controlGroupResults">
+        <div class="flexElement25">
+          <label for="controlGroupResultSize">Number of users in control group</label>
+          <input class="formField" type="number" id="controlGroupResultSize" value="0" name="controlGroupResultSize">
+        </div>
+        <div class="flexElement25">
+          <label for="controlGroupResultConversions">Number of primary conversions in control group</label>
+          <input class="formField" type="number" id="controlGroupResultConversions" value="0" name="controlGroupResultConversions">
+        </div>
+        <div class="flexElement25">
+          <label for="controlGroupConversionRate">Conversion rate</label>
+          <output class="formField" id="controlGroupConversionRate" name="controlGroupConversionRate"></output>
+        </div>
+        <div class="flexElement25">
+          <label for="controlGroupStatisticalSignificance">Statistical significance</label>
+          <output class="formField" id="controlGroupStatisticalSignificance" name="controlGroupStatisticalSignificance"></output>
+        </div>
+      </div>
+      <div class="testGroupResultsContainer">
+        <div class="flexContainer testGroupResults">
+          <div class="flexElement25">
+            <label for="testGroupResultSize">Number of users in test group</label>
+          <input class="formField testGroupResultSize" type="number" id="testGroupResultSize" value="0" name="testGroupResultSize">
+          </div>
+          <div class="flexElement25">
+            <label for="testGroupResultConversions">Number of primary conversions in test group</label>
+          <input class="formField testGroupResultConversions" type="number" id="testGroupResultConversions" value="0" name="testGroupResultConversions">
+          </div>
+          <div class="flexElement25">
+            <label for="testGroupConversionRate">Conversion rate</label>
+            <output class="formField testGroupConversionRate" id="testGroupConversionRate" value="0" name="testGroupConversionRate"></output>
+          </div>
+          <div class="flexElement25">
+            <label for="testGroupStatisticalSignificance">Statistical significance</label>
+            <output class="formField testGroupStatisticalSignificance" value="0" id="testGroupStatisticalSignificance" name="testGroupStatisticalSignificance"></output>
+          </div>
+        </div>
+      </div>
+
+      <div class="formElement">
+        
+        <button class='button-center' id="calculateSignificance">Calculate</button>
+      </div>
+
+      <div class="formElement">
+        <label for="testStatus">Test type</label>
+        <select class="formField" id="testStatus" name="testStatus">
+          <option value="inProgress">In progress</option>
+          <option value="success">Success</option>
+          <option value="failed">Failed</option>
+          <option value="implemented">Implemented</option>
+        </select>
+      </div>
+      <div class="formElement">
+        <label for="learnings">Learnings</label>
+        <textarea rows="3" class="formField" id="learnings" name="learnings"></textarea>
+      </div>
+      <div class="formElement">
+        <label for="additionalNotes">Any additional notes</label>
+        <textarea rows="3" class="formField" id="additionalNotes" name="additionalNotes"></textarea>
+      </div>
+      <h2>Submit</h2>
+      <div class="buttonContainer">
+        <button class='button-center' id="submitTest"><span>Submit as new test</span>
+          <div class="loader"></div>
+        </button>
+        <button class='button-center' id="updateTest"><span>Update existing test</span>
+          <div class="loader"></div>
+        </button>
+      </div>
+      <div class="formElement">
+        <h4 id="errorMessage"></h4>
+      </div>
+    </form>
+  </div>
+</body>
+<script>
+
+  document.getElementById("submitTest").addEventListener("click", submitTest);
+  document.getElementById("updateTest").addEventListener("click", submitTest);
+  document.getElementById("retrieveButton").addEventListener("click", retrieveTest);
+  document.getElementById("calculateSignificance").addEventListener("click", calculateSignificance);
+  
+  // Test number variable to know when submit creates new row or updates existing one
+  var liveTestNumber = 0
+  var errorsDisplayed = 0;
+
+
+  jQuery(function ($) {
+    var $addTaskButton = $('#addTaskButton');
+    var $removeTaskButton = $('#removeTaskButton');
+
+    var $tasksList = $('.testGroupContainer');
+    var $resultsList = $('.testGroupResultsContainer')
+
+    var $row = $('.testGroupClone').clone();
+    var $resultRow = $('.testGroupResults').clone();
+    var additionalGroup = 2;
+
+    $addTaskButton.click(function () {
+      var newRow = $row.clone()
+      $(".groupName", newRow).text("Test group " + additionalGroup);
+      $("#testGroupSize", newRow).attr('id', 'testGroupSize_' + additionalGroup).val('0');
+      $("#testGroupSubject", newRow).attr('id', 'testGroupSubject_' + additionalGroup);
+      newRow.appendTo($tasksList);
+
+      var newResults = $resultRow.clone();
+
+      $("label[for='testGroupResultSize']", newResults).text("Number of users in test group " + additionalGroup);
+      $("label[for='testGroupResultConversions']", newResults).text("Number of primary conversions in test group " + additionalGroup);
+      $("#testGroupResultSize", newResults).attr('id', 'testGroupResultSize_' + additionalGroup);
+      $("#testGroupResultConversions", newResults).attr('id', 'testGroupResultConversions_' + additionalGroup);
+
+      $("#testGroupConversionRate", newResults).attr('id', 'testGroupConversionRate_' + additionalGroup);
+      $("#testGroupStatisticalSignificance", newResults).attr('id', 'testGroupStatisticalSignificance_' + additionalGroup);
+      newResults.appendTo($resultsList)
+
+      additionalGroup = ++additionalGroup
+  
+    });
+
+    $removeTaskButton.click(function () {
+      if (additionalGroup > 2) {
+        $tasksList.children().last().remove();
+      $resultsList.children().last().remove();
+      additionalGroup = --additionalGroup
+ 
+      }
+      
+    });
+  });
+
+  // do statistical significance calculation
+  function calculateSignificance() {
+    //work out control group stuff
+    var controlSize = $('#controlGroupResultSize').val();
+    var controlConversions = $('#controlGroupResultConversions').val();
+    var controlRate = controlConversions / controlSize
+    document.getElementById("controlGroupConversionRate").value = Number(controlRate).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2});
+    
+    var testGroupsSizes = document.getElementsByClassName('testGroupResultSize')
+    var testGroupsConversions = document.getElementsByClassName('testGroupResultConversions')
+    var testGroupsRates1 = document.querySelectorAll('.testGroupConversionRate')
+    var testGroupsSignificances = document.querySelectorAll('.testGroupStatisticalSignificance')
+
+    for (x=0; x < testGroupsSizes.length; x++) {
+      var testSize = parseInt(testGroupsSizes[x].value)
+      var testConversions = parseInt(testGroupsConversions[x].value)
+      var totalSize = parseInt(controlSize) + parseInt(testSize)
+      var totalConversions = parseInt(controlConversions) + parseInt(testConversions)
+      var testRate = testConversions / testSize
+      var totalRate = totalConversions / totalSize
+      var divider = (testRate - controlRate)
+      var a = (totalRate * (1 - totalRate))
+      var b = (1 / testSize) + (1 / controlSize)
+      var c = a * b
+      var d = Math.sqrt(c)
+      var e = divider / d
+      var rateOutput = Number(testRate).toLocaleString(undefined,{style: 'percent', minimumFractionDigits:2});
+      document.getElementById(testGroupsRates1[x].id).value = rateOutput
+      if (Math.abs(e) > 1.96) {
+        document.getElementById(testGroupsSignificances[x].id).value = 'Significant'
+      } else {
+        document.getElementById(testGroupsSignificances[x].id).value = 'Not significant'
+      }
+    }
+  }
+
+  // display errors
+  function errorMessage(ele, msg) {
+    var percentageFields = document.getElementsByClassName('percentageField')
+    for (b=0; b < percentageFields.length; b++) {
+      percentageFields[b].style.border = "2px solid red";
+    }
+    var errorText = document.createElement("div");
+    errorText.innerHTML = '<span class="errorMessageText">' + msg + '</span>';
+    errorText.className += 'errorMessageText'
+    var element = document.getElementById(ele)
+    element.parentNode.insertBefore(errorText, element.nextSibling);
+    errorsDisplayed = 1
+  }
+
+  // clear errors 
+  function clearErrors() {
+    if (errorsDisplayed == 1) {
+      //document.getElementById('errorMessage').innerHTML = ''
+      var errorMessages = document.getElementsByClassName('errorMessageText')
+      for (var i = 0; i < errorMessages.length; i++) {
+        errorMessages[i].remove()
+      }
+      var formFields = document.getElementsByClassName('percentageField')
+      for (var i = 0; i < formFields.length; i++) {
+        formFields[i].style.border = "1px solid #514f53";
+      }
+      /*var formFieldsBorderless = document.getElementsByClassName('formFieldBorderless')
+      for (var i = 0; i < formFieldsBorderless.length; i++) {
+        formFieldsBorderless[i].style.border = "0px";
+      }*/
+      errorsDisplayed = 0;
+    }
+  }
+
+  // form validation
+  function validateForm() {
+    var percentageFields = document.getElementsByClassName('percentageField')
+    var percentageFieldsSum = []
+    //var percentageFieldsIds = []
+    for (a=0; a < percentageFields.length; a++) {
+      percentageFieldsSum.push(parseInt(percentageFields[a].value))
+      //percentageFieldsIds.push(percentageFields[a].id)
+    }
+    const initialValue = 0;
+    const sumWithInitial = percentageFieldsSum.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      initialValue
+    );
+    if (sumWithInitial != 100) {  
+      errorMessage('testGroupContainer', 'Group percentages must add up to 100');
+      showSubmitMessage('Check input fields', 'fail')
+      return 'validateFail'
+    } else {
+      return 'validateSuccess'
+    }
+  }
+
+  // output submit message
+  function showSubmitMessage(message, type) {
+    document.getElementById('errorMessage').innerHTML = message
+    if (type == 'fail') {
+      document.getElementById('errorMessage').style.color = 'red'
+    } else {
+      document.getElementById('errorMessage').style.color = 'green'
+    }
+  }
+
+  // create new test in gsheet
+  function submitTest() {
+    var thisButtonId = this.id;
+    var loaderButton = document.querySelector('#' + thisButtonId + ' .loader')
+    var buttonText = document.querySelector('#' + thisButtonId + ' span')
+    var numberTestGroups = document.getElementById('testGroupContainer').children.length
+    //console.log("len=" + numberTestGroups.length)
+    loaderButton.style.display = 'block'
+    buttonText.style.display = 'none'
+    clearErrors();
+    var checkFormFields = validateForm();
+    if (checkFormFields == 'validateSuccess') {
+      var formFields = document.getElementsByClassName('formField')
+      var formFieldValues = []
+      for (i = 0; i < formFields.length; i++) {
+        formFieldValues.push([formFields[i].id, formFields[i].value])
+      }
+      formFieldValues.push(['liveTestNumber', liveTestNumber])
+      formFieldValues.push(['submitType', this.id])
+      formFieldValues.push(['numberTestGroups', numberTestGroups])
+
+      var payload = Object.fromEntries(formFieldValues);
+
+      console.log(JSON.stringify(payload))
+      var url = '{{GSHEET-REQUEST-URL}}'
+      $.ajax({
+        url: url,
+        type: 'post',
+        //dataType: 'json',
+        data: JSON.stringify(payload),
+        success: function (response) {
+          console.log('suck')
+          console.log(response)
+          loaderButton.style.display = 'none'
+          buttonText.style.display = 'block'
+          showSubmitMessage('Your test data was successfully submitted', 'success')
+          //$('#amForm')[0].reset(); Can't use as it sets the additional test group % to 80
+          document.getElementById('updateTest').style.display = 'none'
+        },
+        timeout: 10000,
+        error: function (response) {
+          console.log(response)
+          console.log('cc')
+          loaderButton.style.display = 'none'
+          buttonText.style.display = 'block'
+          showSubmitMessage('Form submission failed', 'fail')
+        }
+      })
+    } else {
+      showSubmitMessage('Form submission failed', 'fail')
+      loaderButton.style.display = 'none'
+      buttonText.style.display = 'block'
+    }
+
+    
+  }
+
+  // retrieve test details from gsheet
+  function retrieveTest() {
+    document.getElementById('retrieveText').style.display = 'none'
+    document.getElementById('retrieveLoader').style.display = 'block'
+    var retrieveTestId = document.getElementById("retrieveTestId").value
+    var url = '{{GSHEET-REQUEST-URL}}?testNumber=' + retrieveTestId
+    $.ajax({
+      url: url,
+      type: 'get',
+      dataType: 'json',
+      success: function (response) {
+        console.log(response)
+        populateRetrievedDetails(response, retrieveTestId)
+      },
+      timeout: 20000,
+      error: function (response) {
+        //showSubmitMessage('Failed to retrieve test details', 'fail')
+      }
+    })
+  }
+
+  // populate retrieved details in form
+
+  function populateRetrievedDetails(data, retrieveTestId) {
+    liveTestNumber = retrieveTestId
+    document.getElementById('updateTest').style.display = 'block'
+    document.getElementById('retrieveText').style.display = 'block'
+    document.getElementById('retrieveLoader').style.display = 'none'
+    if (data == 'testNotFound' || data == '<error>The starting row of the range is too small.</error>') {
+      document.getElementById('retrieveMessageContainer').innerHTML = 'Your requested test number was not found'
+      document.getElementById('retrieveMessageContainer').style.visibility = 'visible'
+      document.getElementById('retrieveMessageContainer').style.color = 'red'
+    } else {
+      document.getElementById('retrieveMessageContainer').innerHTML = 'Test successfully retrieved'
+      document.getElementById('retrieveMessageContainer').style.visibility = 'visible'
+      document.getElementById('retrieveMessageContainer').style.color = 'green'
+      setTimeout(() => {
+        document.getElementById('retrieveMessageContainer').style.visibility = 'hidden'
+      }, "5000")
+    }
+
+    var nonColumns = []
+
+    for (var name in data) {
+      try {
+        document.getElementById(name).value = data[name]
+      } catch {
+        nonColumns.push([name, data[name]])
+      }
+      
+    }
+    console.log(nonColumns)
+    for (r=0; r < nonColumns.length; r++) {
+      // use find or something to get the right part of the array - combine with loop and the number of test groups included. Then output the values to the create row function
+      
+      var outputArray = []
+      var subArray = nonColumns[r][0].split('_')
+      if (subArray[1]  != undefined) {
+        if (subArray[1] == 1) {
+          outputArray.push([subArray])
+        }
+
+      }
+      
+    }
+
+  }
+</script>

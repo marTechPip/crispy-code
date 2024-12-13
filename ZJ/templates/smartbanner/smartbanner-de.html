@@ -1,0 +1,82 @@
+<script>
+
+    window.onload = function() {
+    
+      (function() {
+        function createBanner() {
+            var banner = document.createElement('div');
+            banner.id = 'smartbanner';
+            banner.className = 'smartbanner';
+    
+            var closeButton = document.createElement('a');
+            closeButton.innerHTML = '&#x00d7';
+            closeButton.className = 'close-button';        
+            closeButton.href = 'javascript:void(0);';
+            closeButton.ariaLabel = 'Close';
+    
+            closeButton.addEventListener('click', function() {
+                document.body.removeChild(banner);
+                dataLayer.push({'event': 'smartBannerExit'});
+            });
+    
+            var smartbannerIcon = document.createElement('div');
+            smartbannerIcon.className = 'icon';
+            smartbannerIcon.style.backgroundImage = 'url(https://play-lh.googleusercontent.com/sA-3xa9KhwWAsnLkZPKMaZA32DvSq0IgZQ9U9Mk9rZhPhXArf989jK0Q0B6-RD2xRAM=w480-h960-rw)';
+    
+            var info = document.createElement('div');
+            info.className = 'smartbanner-info';
+    
+            var title = document.createElement('div');
+            title.innerHTML = 'Zenjob - Flexible Nebenjobs';
+            title.className = 'title';
+    
+            var author = document.createElement('div');
+            author.innerHTML = 'Zenjob GmbH';
+            author.className = 'author';
+    
+            var price = document.createElement('div');
+            if (navigator.userAgent.match(/Android/i)) {
+                price.innerHTML = 'GRATIS - Im Play Store herunterladen';
+            } else {
+                price.innerHTML = 'GRATIS - Im App Store herunterladen';
+            }
+            price.className = 'price';
+    
+            var button = document.createElement('a');
+            button.href = 'https://app.adjust.com/bji78iu_ol22o3u';
+            button.innerHTML = 'GET';
+            button.className = 'get-button';
+            button.id = 'wp-smartbanner-button'
+            
+            button.addEventListener('click', function() {
+                dataLayer.push({'event': 'smartBannerClick'});
+            });
+            
+            info.appendChild(title);
+            info.appendChild(author);
+            info.appendChild(price);
+    
+            banner.appendChild(closeButton);
+            banner.appendChild(smartbannerIcon);
+            banner.appendChild(info);
+            banner.appendChild(button);
+    
+            return banner;
+        }
+    
+        function init() {
+            if (!document.querySelector('#smartbanner')) {
+                document.body.appendChild(createBanner());
+            }
+        }
+    
+        if (document.readyState === 'complete' || 
+            (document.readyState !== 'loading' && !document.documentElement.doScroll)
+        ) {
+            init();
+        } else {
+            document.addEventListener('DOMContentLoaded', init);
+        }
+      })();
+    };
+    </script>

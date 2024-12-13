@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Push Notifications</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        a {        
+            text-decoration: none;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        h2 {
+            color: #366AD2;
+            font-size: 20px;
+            line-height: 25px;
+            letter-spacing: 0.15px;
+            font-weight: 500;
+        }
+        h3 {
+            color: #474747;
+            font-size: 18px;
+            line-height: 23px;
+            letter-spacing: 0.15px;
+            font-weight: 500;
+        }
+        .bottom {
+            padding: 12px 24px 24px 24px;
+        }
+        .bottom-text {
+            color: #474747;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.15px;
+            margin: 7px 0;
+        }
+        .bottom-button-wrapper {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .bottom-button-one, .bottom-button-two {
+            padding: 8px;
+            width: 48%;
+            height: 36px;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .bottom-button-one {
+            background-color: #FFFFFF;
+            border: 1px solid #366AD2;
+            color: #366AD2;
+            font-weight: 500;
+        }
+        .bottom-button-two {
+            background-color: #366AD2;
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 4;
+        }
+        .image {
+            max-width: 100%;
+            z-index: 3;
+        }
+        .in-app-message { 
+            width: 350px;
+            background-color: #ffffff;
+            height: auto;
+            margin-top: 5%;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }        
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <!--START IN APP MESSAGE-->
+        <div class="in-app-message">   
+            <!--START CLOSING BUTTON-->                                                  
+            <button class="close-button" onclick="brazeBridge.closeMessage();">
+                <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/660e705e8c31d2006a90fbe2/original.png?1712222301" alt="Close message">
+            </button>
+            <!--END CLOSING BUTTON-->
+            <!--START TOP-->
+            <div class="top">
+                <img class="image" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/666ae2f89747900ba741b27b/original.png?1718280952" alt="push-primer-preview">
+            </div>
+            <!--END TOP-->
+            <!--START BOTTOM-->
+            <div class="bottom">
+                <!--START BOTTOM TITLE-->
+                <div class="bottom-title">
+                    <h2>Stay updated!</h2>
+                </div>
+                <!--END BOOTOM TITLE-->
+                <!--START BOTTOM TEXT-->
+                <div class="bottom-text">
+                    <p>Enable push notifications to receive timely updates on new temp staff availability, important announcements, and more. Don't miss out on staying connected!</p>
+                </div>
+                <!--END BOTTOM TEXT-->
+                <!--START BOTTOM BUTTONS-->
+                <div class="bottom-button-wrapper">
+                    <div class="bottom-button-one" onclick="brazeBridge.closeMessage();">
+                        <span>No, thanks</span>
+                    </div>
+                    <div class="bottom-button-two" onclick="brazeBridge.requestPushPermission(); brazeBridge.closeMessage()">
+                        <span>Allow</span>
+                    </div>
+                </div>
+                <!--END BOTTOM BUTTONS-->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

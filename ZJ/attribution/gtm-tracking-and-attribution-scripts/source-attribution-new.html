@@ -1,0 +1,123 @@
+<!-- Tag has to fire after the first_referrer Tag -->
+<script>
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[[]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+} 
+    
+  function defineSource() {
+    var firstReferrer = sessionStorage.getItem('first_referrer');
+    var utmSource = getParameterByName('utm_source');
+    utmSource = utmSource ? utmSource.toLowerCase() : ''; 
+    var utmCampaign = getParameterByName('utm_campaign');
+    utmCampaign = utmCampaign ? utmCampaign.toLowerCase() : ''; 
+
+    var marketingSource = '';
+
+    //1 Awin -> Affiliate
+    if (utmSource === 'awin') {
+      marketingSource = 'Awin';
+    }
+    //2 Braze -> CRM
+      else if (utmSource === 'braze') {
+        marketingSource = 'Braze';
+      }
+    //3 Facebook Organic -> Organic Social
+      else if ((utmSource === 'meta' || utmSource === 'facebook') && !/meta_/i.test(utmCampaign)) {
+        marketingSource = 'Facebook Organic';
+      }
+    //4 Meta Paid -> Paid Social
+      else if (utmSource === 'meta' && /meta/i.test(utmCampaign)) {
+        marketingSource = 'Meta Paid';
+      }
+    //5 Google Ads Performance Max -> Paid Search
+      else if (utmSource === 'google-search' && /pmax/i.test(utmCampaign)) {
+        marketingSource = 'Google Ads Performance Max';
+      }
+    //6 Google Organic Search -> Organic Search
+      else if (utmSource === null && /google/i.test(firstReferrer)) {
+        marketingSource = 'Google Organic Search'; 
+      }
+    //7 Google Search Ads -> Paid Search
+      else if (utmSource === 'google-search' && !/pmax/i.test(utmCampaign)) {
+        marketingSource = 'Google Search Ads';
+      }
+    //8 Instagram Organic -> Organic Social
+      else if (utmSource === 'instagram') {
+        marketingSource = 'Instagram Organic';
+      }
+    //9 Jobsora -> Job boards
+      else if (utmSource === 'jobsora') {
+        marketingSource = 'Jobsora Ads';
+      }
+    //10 Misc. Organic Search -> Organic Search
+      else if (utmSource === null && !/google/i.test(firstReferrer)) {
+        marketingSource = 'Misc. Organic Search';
+      }
+    //11 Stepstone -> Job boards
+      else if (utmSource === 'stepstone') {
+        marketingSource = 'Stepstone Ads';
+      }
+    //12 Tiktok Organic -> Organic Social
+      else if (utmSource === 'tiktok' && !/tiktok_/i.test(utmCampaign)) {
+        marketingSource = 'Tiktok Organic';
+      }
+    //13 Self Referring -> 
+      else if (utmSource === null && /zenjob.com/i.test(firstReferrer)) {
+        marketingSource = 'Self Referring';
+      }    
+    //14 Growth Testing -> Misc. Testing
+      else if (utmSource === 'tiktok' && /tiktok_/i.test(utmCampaign)) {
+        marketingSource = 'Growth Testing';
+      }
+    //15 Misc. Traffic -> Unknown/organic
+      else if (utmSource != null) {
+        marketingSource = 'Misc. Traffic';
+      }
+    //16 Misc. Referral Traffic -> Unknown/organic
+      else if (utmSource === null && !/(google|bing|ecosia)/i.test(firstReferrer)) {
+        marketingSource = 'Misc. Referral Traffic';
+      }
+    //17 Unknown -> Unknown/organic
+      else {
+        marketingSource = 'Unknown';
+      }
+
+    createMarketingChannelDetail();
+  }
+
+  function createMarketingChannel() {
+    if (marketingSource === 'Awin') {
+      sessionStorage.setItem('channel', 'Affiliate');
+    } else if (marketingSource === 'Braze') {
+      sessionStorage.setItem('channel', 'CRM');
+    } else if (/Facebook Organic|Instagram Organic|Tiktok Organic/i.test(marketingSource)){
+      sessionStorage.setItem('channel', 'Organic Social');
+    } else if (marketingSource === 'Meta Paid') {
+      sessionStorage.setItem('channel', 'Paid Social');
+    } else if (/Google Ads Performance Max|Google Search/i.test(marketingSource)) {
+      sessionStorage.setItem('channel', 'Paid Search');
+    } else if (/Google Organic Search|Misc. Organic Search/i.test(marketingSource)) {
+      sessionStorage.setItem('channel', 'Organic Search');
+    } else if (/Jobsora|Stepstone/i.test(marketingSource)) {
+      sessionStorage.setItem('channel', 'Job boards');
+    } else if (marketingSource === 'Growth Testing') {
+      sessionStorage.setItem('channel', 'Misc. Testing');
+    } else if (/Misc. Traffic|Misc. Refferal Traffic|Unknown/i.test(marketingSource)) {
+      sessionStorage.setItem('channel', 'Unknown/organic');
+    }
+    return marketingSource;
+  }
+
+  function createMarketingChannelDetail() {
+    sessionStorage.setItem('channel_detail', marketingSource);
+    createMarketingChannel();
+  }
+
+  defineSource();
+</script>

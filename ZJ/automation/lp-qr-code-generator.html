@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator</title>
+  <style>
+    body,
+    table,
+    td,
+    div,
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    a {
+      font-family: 'Lato', sans-serif;
+      line-height: 150%;
+      margin: 0;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    h1 {
+      color: #3e1191;
+      font-size: 30px;
+      font-weight: 700;
+    }
+
+    .button {
+      color: #7625f7;
+      border: 1px;
+      border-style: solid;
+      border-radius: 88px;
+      border-color: #7625f7;
+      background-color: transparent;
+      width: 350px;
+      height: 70px;
+      font-weight: 700;
+      font-size: 22px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .button-wrapper {
+      display: block;
+      text-align: center;
+      padding: 60px 0px 30px 0px;
+    }
+
+    .copyright {
+      color: #3e1191;
+    }
+
+    .spacer {
+      padding: 20px 0 0 0;
+    }
+
+    .footer {
+      background-color: #f9f9f9;
+      text-align: center;
+      color: #7625f7 !important;
+      height: 100px;
+      font-size: 12px !important;
+      width: 100%;
+    }
+
+    input[type="text"]#qr-text {
+      background-color: #FFC2D1;
+      color: #26282D;
+      border: none;
+      border-bottom: 2px solid #3e1191;
+      border-radius: 0 0 5px 5px;
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]#qr-text:focus {
+      border-color: #7DE296;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media only screen and (max-device-width: 480px), only screen and (max-width: 480px) {
+      body,
+      table,
+      td,
+      div,
+      h1,
+      h2,
+      h3,
+      h4,
+      p,
+      a {
+        font-family: 'Lato', sans-serif;
+        line-height: 100%;
+        margin: 0;
+      }
+
+      button {
+        max-width: 350em
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- Zenjob Logo -->
+    <div>
+      <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/638f69e8a77590080d1ce8e7/original.png?1670343144" alt="Zenjob Logo">
+    </div>
+    <!-- Spacing elements -->
+    <div class="spacer"></div>
+    <h1>QR Code Generator</h1>
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+    <!-- Input field for QR code text -->
+    <input type="text" id="qr-text" placeholder="Enter text or URL">
+    <!-- Button wrapper containing Generate, Download PNG, and Download SVG buttons -->
+    <div class="button-wrapper">
+      <button class="button" onclick="generateQRCode()">Generate QR Code</button>
+      <button class="button" style="margin-top: 20px;" onclick="downloadQRCodePNG()">Download PNG</button>
+      <button class="button" style="margin-top: 20px;" onclick="downloadQRCodeSVG()">Download SVG</button>
+    </div>
+    <div class="spacer"></div>
+    <!-- Container for the QR code -->
+    <div id="qr-code"></div>
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+    <!-- Footer -->
+    <table class="footer">
+      <tr>
+        <td>
+          <p>© 2023 Copyright: <a href="https://www.zenjob.com/de" target="blank">Zenjob GmbH</a></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    function generateQRCode() {
+      const text = document.getElementById("qr-text").value;
+      const qrCodeElement = document.getElementById("qr-code");
+
+      // Clear the previous QR code
+      qrCodeElement.innerHTML = "";
+
+      // Generate the new QR code
+      if (text) {
+        // Generate QR code as canvas
+        new QRCode(qrCodeElement, {
+          text: text,
+          width: 256,
+          height: 256,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.Q
+        });
+
+        // Generate QR code as SVG
+        const svgQRCode = new QRCode(document.createElement('div'), {
+          text: text,
+          width: 256,
+          height: 256,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.Q
+        });
+
+        // Convert the canvas to SVG
+        const canvas = qrCodeElement.getElementsByTagName('canvas')[0];
+        if (canvas) {
+          const svg = canvasToSVG(canvas);
+          qrCodeElement.appendChild(svg);
+        }
+      }
+    }
+
+    function canvasToSVG(canvas) {
+      const xmlNs = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(xmlNs, "svg");
+      svg.setAttributeNS(null, "width", canvas.width);
+      svg.setAttributeNS(null, "height", canvas.height);
+
+      const ctx = canvas.getContext("2d");
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+      for (let y = 0; y < canvas.height; y++) {
+        for (let x = 0; x < canvas.width; x++) {
+          const index = (y * canvas.width + x) * 4;
+          const r = imgData.data[index];
+          const g = imgData.data[index + 1];
+          const b = imgData.data[index + 2];
+          const a = imgData.data[index + 3] / 255;
+
+          if (a > 0) {
+            const rect = document.createElementNS(xmlNs, "rect");
+            rect.setAttributeNS(null, "x", x);
+            rect.setAttributeNS(null, "y", y);
+            rect.setAttributeNS(null, "width", 1);
+            rect.setAttributeNS(null, "height", 1);
+            rect.setAttributeNS(null, "fill", `rgba(${r},${g},${b},${a})`);
+            svg.appendChild(rect);
+          }
+        }
+      }
+      return svg;
+    }
+
+    function downloadQRCodePNG() {
+      const qrCodeElement = document.getElementById("qr-code");
+      const image = qrCodeElement.getElementsByTagName("canvas")[0];
+
+      if (image) {
+        const link = document.createElement("a");
+        link.href = image.toDataURL("image/png");
+        link.download = "qr-code.png";
+        link.click();
+      } else {
+        alert("Please generate a QR code first!");
+      }
+    }
+
+    function downloadQRCodeSVG() {
+      const qrCodeElement = document.getElementById("qr-code");
+      const svg = qrCodeElement.getElementsByTagName("svg")[0];
+
+      if (svg) {
+        const serializer = new XMLSerializer();
+        const svgBlob = new Blob([serializer.serializeToString(svg)], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(svgBlob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "qr-code.svg";
+        link.click();
+
+        URL.revokeObjectURL(url);
+      } else {
+        alert("Please generate a QR code first!");
+      }
+    }
+  </script>
+</body>
+</html>

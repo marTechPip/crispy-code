@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>In-App Message</title>
+  <script>
+    function showSecondPage(attribute) {
+      // Set the custom user attribute
+      appboyBridge.logClick();
+      appboyBridge.getUser().setCustomUserAttribute('talentType', attribute);
+
+      // Hide the first page and show the second
+      $('#slide-1').removeClass('active');
+      $('#slide-2').addClass('active');
+    }
+
+    function closeMessage() {
+      appboyBridge.logClick();
+      appboyBridge.closeMessage();
+    }
+  </script>
+  <style>
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+  }
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 4;
+  }
+
+  .close-button img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .cta {
+    background-color:#4A1F99;
+    border: none;
+    border-radius: 97px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 22px;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    height: 50px;
+    min-width: 80%;
+    text-align:center;
+    text-decoration: none; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  } 
+
+  .content {
+    padding: 20px;
+    background-color: white;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    max-width: 100%;
+    width: 80vw;
+  }
+
+  .copy {
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    font-weight: 500;
+    color: #4E515C;  
+    margin: 15px 0px 20px 0px;
+  }
+
+  .copy-list {
+    font-size: 15px;
+    line-height: 20px;
+    text-align: left;
+    font-weight: 500;
+    color: #4E515C;  
+    margin: 15px 0px 20px 0px;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .dot.active {
+    background-color: #717171;
+  }
+
+  .dots {
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .headline {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+    text-align: center;
+    color: #3E1191;
+    padding-bottom: 10px;
+  }
+
+  .image {
+    max-width: 100%;
+    z-index: 3;
+  }
+
+  .in-app-message {
+    position: absolute;
+    width: 80%;
+    height: auto;
+    max-width: 80vw;    
+    margin-top: 20%;
+  }
+
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .slide.active {
+    opacity: 1;
+  }
+
+  .slideshow {
+    position: relative;
+    height: 200px;
+    width: 80vw;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .wrapper {
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  </style>  
+</head>
+<body>
+  <div class="overlay">
+    <div class="in-app-message">                     
+      <button class="close-button" onclick="closeMessage()">
+        <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/64624bd07fdb4356fcc340e8/original.svg?1684163536" alt="Close Button">
+      </button>                  
+      <div class="slideshow">
+        <div class="slide active" id="slide-1">
+          <div class="wrapper">
+
+            <!-- START HEADER IMAGE 01 -->
+            <img class="image" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/64624ef334c0424b4bf38824/original.png?1684164339" alt="Image"/>           
+            <!-- END HEADER IMAGE 01 -->
+            
+            <!-- START HEADLINE & TEXT -->
+            <div class="content">
+              <h2 class="headline">We need your input!</h2>
+              <p class="text-center">Let us know whether you're a student or sidejobber:</p>
+            </div>
+            <!-- END HEADLINE & TEXT -->
+
+            <!-- START CTA -->
+            <div class="content">              
+              <a class="cta" onclick="showSecondPage('STUDENT')">I'm a student</a>  
+            </div>
+            <div class="content">
+              <a class="cta" onclick="showSecondPage('SIDEJOBBER')">I'm a sidejobber</a>
+            </div>
+            <!-- END CTA -->
+
+          </div>
+        </div>        
+        <div class="slide" id="slide-2">
+          <div class="wrapper">
+
+            <!-- START HEADER IMAGE 02 -->
+            <img class="image" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/63ef8a23bfd0645bd97e80ac/original.png?1676642851" alt="Image"/>           
+            <!-- END HEADER IMAGE 02 -->
+            
+            <!-- START HEADLINE & TEXT -->
+            <div class="content">
+              <h2 class="headline">Thanks! That wasn't too hard, no?</h2>          
+              <p class="text-center">Reach out to us if your status every changes and update us on anything else that's happening in your life. Please, we need this.</p> 
+            </div>
+            <!-- END HEADLINE & TEXT -->
+
+            <!-- START CLOSING CTA -->
+            <div class="content">              
+              <a class="cta" onclick="appboyBridge.logClick(); appboyBridge.closeMessage()">Got it</a>  
+            </div>
+            <!-- END CLOSING CTA -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

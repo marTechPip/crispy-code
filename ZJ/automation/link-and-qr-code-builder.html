@@ -1,0 +1,1153 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet'>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-svg/dist/qrcode.min.js"></script>
+<style>
+  * {
+    font-family: Questrial, Montserrat, Arial;
+  }
+
+  body {
+    background-color: #F2F2F2;
+    margin: auto;
+  }
+
+  h2 {
+    margin: 25px 0 10px 0;
+  }
+
+  h3 {
+    margin: 25px 0 10px 0;
+  }
+
+  input {
+    width: 100%;
+    height: 45px;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    border-color: #c0bec2;
+    border-width: 1px;
+  }
+
+  input:focus {
+    border-color: #314ce6;
+    border-width: 3px;
+  }
+
+  select {
+    width: 100%;
+    height: 45px;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    border-color: #c0bec2;
+    border-width: 1px;
+    border-style: inset;
+  }
+
+  select:focus {
+    border-color: #314ce6;
+    border-width: 3px;
+  }
+
+  label {
+    min-width: 150px;
+    display: block;
+    margin: 25px 0 10px 0;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  h4 {
+    margin: 25px 0 10px 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    color: #000000;
+    text-decoration: none;
+    font-family: Questrial, Montserrat, Arial;
+    font-size: 13px;
+    line-height: 30px;
+    list-style: none;
+    border-bottom: 1px solid;
+    padding: 15px 0 15px 0;
+  }
+
+  /*output {
+    background: #ededed;
+    min-height: 50px;
+    border-radius: 10px;
+    margin: auto;
+  }*/
+
+
+  .pageContainer {
+    width: 900px;
+    background-color: #ffffff;
+    margin: auto;
+    padding: 25px 100px 25px 100px;
+    box-shadow: 0 5px 20px 0 rgb(109 110 111 / 8%);
+  }
+
+  .subPageHeader {
+    font-size: 17px;
+    font-weight: 400;
+    margin: 25px 0 20px 0;
+    line-height: 30px;
+  }
+
+  .outputTextField {
+    background-color: #e8d9eb;
+    text-align: center;
+    border-radius: 15px;
+    padding-bottom: 20px;
+  }
+
+  .errorMessage {
+    margin: 1em 0 0 0;
+
+    min-height: 15px;
+  }
+
+  .boldText {
+    font-weight: 600;
+  }
+
+  .errorMessage {
+    color: red;
+
+  }
+
+  .spacer {
+    padding: 20px 0 0 0;
+  }
+
+  /* ALL FLEXBOX STYLES*/
+
+  .flexContainer {
+    display: flex;
+    align-items: flex-start
+  }
+
+  .flexElement50 {
+    width: 50%;
+  }
+
+  .standardPadding {
+    padding: 0 20px 10px 20px;
+  }
+
+  .smallPadding {
+    margin: 2px 0 2px 0;
+    padding: 2px 0 2px 0;
+  }
+
+  .flexElement33 {
+    width: 33%;
+    min-height: 125px;
+  }
+
+  .flexElementFull {
+    width: 100%;
+  }
+
+  .flexWrap {
+    flex-wrap: wrap;
+  }
+
+  .deeplinkDetails {
+    padding: 0.9em 0 0 0;
+    font-style: italic;
+    min-height: 16px;
+    word-wrap: break-word;
+  }
+  
+
+
+  /* BUTTON STYLES*/
+
+  .buttonContainer {
+    width: 100%;
+    display: flex;
+    margin: 30px 0 0 0;
+    padding: 0 20px;
+  }
+
+  .qrContainer {
+    width: 100%;
+    display: flex;
+    margin: 30px 0 0 0;
+    align-items: flex-start;
+    padding: 0 20px;
+  }
+
+  .buttonCenter {
+    font-size: 16px;
+    border-radius: 5px;
+    margin-right: 40px;
+    width: 33%;
+    cursor: pointer;
+    padding: 10px 0 10px 0;
+    height: 45px;
+  }
+
+  .buttonMainColors {
+    background-color: #3E1191;
+    border: none;
+    color: #ffffff;
+  }
+
+  .buttonReversedColors {
+    background-color: #ededed;
+    border: #3E1191 solid 1px;
+    color: #3E1191;
+  }
+
+  #generatedDeeplink {
+    background: #ededed;
+    min-height: 50px;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+    display: block;
+    word-wrap: break-word
+  }
+
+  #generatedURL {
+    background: #ededed;
+    min-height: 50px;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 10px;
+    display: block;
+    word-wrap: break-word
+  }
+
+  /* LOADER STYLES*/
+
+  #listLoader {
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid rgba(118, 37, 247, 1);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    display: none;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* PAGINATION STYLES*/
+  .paginationContainer {
+    text-align: center;
+    margin: 25px 0 40px 0;
+  }
+
+  .pagination div {
+    display: inline-block;
+    color: #3E1191;
+    font-weight: 600;
+    padding: 12px 0 12px 0;
+    text-decoration: none;
+    border: 1px solid #3E1191;
+    margin: 0 3px 0 3px;
+    min-width: 35px;
+    cursor: pointer;
+  }
+
+  .paginationSelected {
+    background-color: #3E1191;
+    color: #ffffff !important;
+  }
+
+  .testlist_testNumber {
+    overflow: auto;
+    word-wrap: break-word;
+  }
+
+  #additionalDetailContainer {
+    visibility: hidden;
+  }
+
+  /* Tooltip container */
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    /* If you want dots under the hoverable text */
+  }
+
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+</style>
+
+<body>
+  <div class="pageContainer">
+    <div class="subPageHeader">
+      You can use this form to create deeplinks which include tracking via Adjust, QR codes, and UTM links. Links can be saved and retreived
+      from this <a
+        href="https://docs.google.com/spreadsheets/d/1_wpHqiLRYMfH5mRGS3cYRuGR4-Ov83BZ0KFGUCTtbiQ/edit#gid=0">
+        Google Sheet.
+      </a>
+    </div>
+    <form action="#" id="amForm" onsubmit="return false">
+      <h2>Network</h2>
+      <div class="flexContainer">
+        <div class="flexElement33 standardPadding">
+          <label for="platform">Platform</label>
+          <select class="formField" id="platform" name="platform"></select>
+        </div>
+        <div class="flexElement33 standardPadding">
+          <label for="channel">Channel</label>
+          <select class="formField" id="channel" name="channel"></select>
+        </div>
+        <div class="flexElement33 standardPadding">
+          <h4>Adjust tracker IDs</h4>
+          <div id="adjustTrackerModule">
+            <div class="errorMessage">
+              There is no existing Adjust tracker for this platform and channel. Please create one in Adjust and add to
+              the deeplink builder.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Campaign details</h2>
+      <div class="flexContainer">
+        <div class="flexElement33 standardPadding">
+          <label for="campaign">Campaign</label>
+          <input class="formField" type="text" id="campaign" name="campaign">
+        </div>
+        <div class="flexElement33 standardPadding">
+          <label for="adgroup">Adgroup</label>
+          <input class="formField" type="text" id="adgroup" name="adgroup">
+        </div>
+        <div class="flexElement33 standardPadding">
+          <label for="creative">Creative</label>
+          <input class="formField" type="text" id="creative" name="creative">
+        </div>
+      </div>
+
+      <h2>Deeplink details</h2>
+      <div class="flexContainer">
+        <div class="flexElement33 standardPadding">
+          <label for="deeplink">Deeplink</label>
+          <select class="formField" id="deeplink" name="deeplink"></select>
+        </div>
+
+        <div class="flexElement33 standardPadding" id="additionalDetailContainer">
+          <label for="additionalDetail">Job offer category</label>
+          <select class="formField" id="additionalDetail" name="additionalDetail"></select>
+        </div>
+
+        <div class="flexElement33 standardPadding">
+          <label for="fallbackURL">Fallback URL <span class="tooltip">ℹ️<span class="tooltiptext">The webpage where
+                desktop users will be sent to</span></span></label>
+          <input class="formField" type="text" id="fallbackURL" name="fallbackURL" value="https://www.zenjob.com/de/">
+        </div>
+      </div>
+
+      <div class="flexContainer">
+        <div class="flexElement33 standardPadding">
+          <label for="deeplinkDescription">Description</label>
+          <div class="deeplinkDetails" id="deeplinkDescription"></div>
+        </div>
+        <div class="flexElement33 standardPadding" id="oldUniversalLinkContainer">
+          <label for="oldUniversalLink">Old style universal link <span class="tooltip">ℹ️<span class="tooltiptext">No
+                Adjust tracking. Sends mobile users without app to the website</span></span></label>
+          <div class="deeplinkDetails" id="oldUniversalLink"></div>
+        </div>
+        <div class="flexElement33 standardPadding" id="uriLinkContainer">
+          <label for="uriLink">URI deeplink <span class="tooltip">ℹ️<span class="tooltiptext">For testing purposes or
+                inapp messages. Only
+                works for mobile users when the app is installed</span></span></label>
+          <div class="deeplinkDetails" id="uriLink"></div>
+        </div>
+      </div>
+
+      <h2>Generate deeplink</h2>
+      <div class="buttonContainer">
+        <button class='buttonCenter buttonMainColors' id="generateLink"><span>Generate deeplink</span>
+          <div class="loader"></div>
+        </button>
+        <button class='buttonCenter buttonReversedColors' id="copyClipboard"
+          data-clipboard-target="#generatedDeeplink"><span>📋 Copy to clipboard</span>
+          <div class="loader"></div>
+        </button>
+      </div>
+      <div class="errorMessageContainer">
+        <div id="generateError" class="errorMessage boldText">
+        </div>
+      </div>
+      <output id="generatedDeeplink">
+      </output>
+      <div class="spacer"></div>
+
+      <h2>Generate QR code</h2>
+      <div class="flexContainer">
+        <!-- base url input field -->
+        <div class="flexElement33 standardPadding">
+          <label for="qr-input">Base URL <span class="tooltip">ℹ️<span class="tooltiptext">The basic part or root of your website's address</span></span></label>
+          <input class="formField" type="text" id="qr-input" name="qr-input" value="https://www.">
+        </div>        
+        <div class="flexElement33 standardPadding"></div>
+        <!-- container for qr code -->
+        <div class="flexElement33 standardPadding" id="qr-element"></div>
+      </div>
+      <!-- UTM parameters input fields -->
+      <h3>Append UTM parameters to your QR code or URL (optional)</h3>
+      <div class="flexContainer">
+        <div class="flexElement33 standardPadding">
+          <label for="utm-campaign">UTM Campaign <span class="tooltip">ℹ️<span class="tooltiptext">Your campaign's name</span></span></label>
+          <input type="text" id="utm-campaign" class="formField">
+        </div>
+        <div class="flexElement33 standardPadding">
+          <label for="utm-medium">UTM Medium <span class="tooltip">ℹ️<span class="tooltiptext">How does the traffic gets to the website, e.g. "social", "email", "affiliate", "print", "offline"</span></span></label>
+          <input type="text" id="utm-medium" class="formField">
+        </div>
+        <div class="flexElement33 standardPadding">
+          <label for="utm-source">UTM Source <span class="tooltip">ℹ️<span class="tooltiptext">Which site or source sent the traffic, e.g. "google", "meta", "twitter", "pinterest"</span></span></label>
+          <input type="text" id="utm-source" class="formField">
+        </div>
+      </div>
+      <div class="flexContainer"> 
+        <div class="flexElement33 standardPadding">
+          <label for="utm-content">UTM Content <span class="tooltip">ℹ️<span class="tooltiptext">What was specifically clicked  send the traffic, e.g. "image", "banner", "video" </span></span></label>
+          <input type="text" id="utm-content" class="formField">
+        </div>
+        <div class="flexElement33 standardPadding">
+          <label for="utm-term">UTM Term <span class="tooltip">ℹ️<span class="tooltiptext">Can be used to track the specific keyword that sent the traffic or to further distinguish different adgroup assets</span></span></label>
+          <input type="text" id="utm-term" class="formField">
+        </div>
+        <div class="flexElement33 standardPadding"></div>
+      </div>
+      <!-- final url output -->
+      <output id="generatedURL">
+      </output>
+      <!-- qr code download button -->
+      <div class="qrContainer">  
+        <button class="buttonCenter buttonMainColors" id="download-svg"><span>Download QR as SVG</span></button>
+        <button class="buttonCenter buttonReversedColors" id="copyClipboard" data-clipboard-target="#generatedURL"><span>📋 Copy to clipboard</span>
+          <div class="loader"></div>
+        </button>        
+        <button class="buttonCenter buttonReversedColors" id="save-link"><span>Save link to Gsheet</span></button>
+      </div> 
+      <div class="spacer"></div>
+
+      <h2>Recently generated links</h2>
+      <div>
+        <div id="listLoader"></div>
+        <ul id="deeplinkList">
+        </ul>
+      </div>
+      <div class="paginationContainer">
+        <div class="pagination">
+          <div class="nextPreviousPage" id="previousPage">&laquo;</div>
+          <span id="pagList">
+          </span>
+          <div class="nextPreviousPage" id="nextPage">&raquo;</div>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+<script>
+
+  new ClipboardJS('#copyClipboard');
+
+  var platformList = [
+    { 'name': '', 'channels': [] },
+    { 'name': 'Google Ads', 'channels': ['', 'Website', 'Web signup', 'Smartbanner'] },
+    { 'name': 'Google Ads ACI', 'channels': ['', 'Direct link'] },
+    { 'name': 'Instagram Ads', 'channels': [''] },
+    { 'name': 'Facebook Ads', 'channels': ['', 'Website', 'Web signup', 'Smartbanner'] },
+    { 'name': 'Tiktok Ads', 'channels': ['', 'Influencer', 'Direct link'] },
+    { 'name': 'Tiktok Organic', 'channels': ['', 'Link tree', 'Website', 'Web signup', 'Smartbanner'] },
+    { 'name': 'Instagram Organic', 'channels': ['', 'Link tree', 'Website', 'Web signup', 'Smartbanner', 'Stories'] },
+    { 'name': 'Braze', 'channels': ['', 'Push', 'Email', 'Canvas'] },
+    { 'name': 'Organic Search', 'channels': ['', 'Website', 'Web signup'] },
+    { 'name': 'Stepstone Ads', 'channels': ['', 'Website', 'Web Signup', 'Smart Banner'] },
+    { 'name': 'Awin', 'channels': ['', 'Website', 'Web Signup', 'Smart Banner'] },
+    { 'name': 'Offline', 'channels': ['', 'Print'] },
+    { 'name': 'Partner', 'channels': ['', 'Partner Page'] },
+    { 'name': 'Growth Testing', 'channels': ['', 'All'] },
+    { 'name': 'Website Clickout', 'channels': ['', 'Website', 'Web Signup', 'Smart Banner'] },
+    { 'name': 'Youtube Organic', 'channels': ['', 'Website', 'Web Signup', 'Smart Banner'] },
+    { 'name': 'Facebook Organic', 'channels': ['', 'Profile page', 'Link tree', 'Website'] },
+    { 'name': 'Organic', 'channels': ['', 'App Store'] }
+  ]
+
+  var adjustTrackerList = [
+    { 'Braze - Push': { 'android': '11edr2nl', 'ios': '11t9tumt' } },
+    { 'Braze - Email': { 'android': '11w5z7mf', 'ios': '11z1gfi1' } },
+    { 'Braze - Canvas': { 'android': '11xirzi9', 'ios': '116za8zy' } },
+    { 'Facebook Ads - Smartbanner': { 'android': 't02ja8a', 'ios': '2p8dgif' } },
+    { 'Facebook Ads - Web signup': { 'android': 'r8xo5ao', 'ios': 'ul8qost' } },
+    { 'Facebook Ads - Website': { 'android': '320jxho', 'ios': 'y9e45k4' } },
+    { 'Facebook Organic - Profile page': { 'android': '11cvrvy4', 'ios': '11uz2s3h' } },
+    { 'Facebook Organic - Link tree': { 'android': '18be2b2x', 'ios': '18ftl7it' } },
+    { 'Facebook Organic - Website': { 'android': '16a15hj9', 'ios': '16p06vx4' } },
+    { 'Google Ads - Smartbanner': { 'android': '9pojudi', 'ios': 'yenia2s' } },
+    { 'Google Ads - Web signup': { 'android': '7unbgmt', 'ios': 'k5hc87k' } },
+    { 'Google Ads - Website': { 'android': 'rw8qd5b', 'ios': 'hbir7lb' } },
+    { 'Google Ads ACI - Direct link': { 'android': '14w212l0', 'ios': '14uv7ujs' } },
+    { 'Growth Testing - All': { 'android': 'mf6ox6n', 'ios': 'nijh9l2' } },
+    { 'Instagram Organic - Link tree': { 'android': '11ue8zzg', 'ios': '114dcm3z' } },
+    { 'Instagram Organic - Smartbanner': { 'android': '11yebphd', 'ios': '116z8jgf' } },
+    { 'Instagram Organic - Stories': { 'android': '1280azgl', 'ios': '12bkba4q' } },
+    { 'Instagram Organic - Web signup': { 'android': '11vdf6qa', 'ios': '111xfp3z' } },
+    { 'Instagram Organic - Website': { 'android': '11krh0gc', 'ios': '117kblfw' } },
+    { 'Organic - App Store': { 'android': '13gbkzit', 'ios': '137iscsv' } },
+    { 'Organic Search - Web signup': { 'android': '6681kvy', 'ios': 'sx05n2b' } },
+    { 'Organic Search - Website': { 'android': 'hx7x38o', 'ios': 'h5np25x' } },
+    { 'Stepstone Ads - Smartbanner': { 'android': 'dm1fskz', 'ios': 'tb4c4kv' } },
+    { 'Stepstone Ads - Web signup': { 'android': 'y46s71w', 'ios': 'joh1119' } },
+    { 'Stepstone Ads - Website': { 'android': 'hktb0uj', 'ios': 'zfdp4ae' } },
+    { 'Tiktok Ads - Direct link': { 'android': '16rjl0k9', 'ios': '16pwqbjc' } },
+    { 'Tiktok Ads - Influencer': { 'android': '152i1z06', 'ios': '158n9vep' } },
+    { 'Tiktok Organic - Link tree': { 'android': '11xseg19', 'ios': '11euuo3z' } },
+    { 'Tiktok Organic - Smartbanner': { 'android': '11hud5n7', 'ios': '11giyik1' } },
+    { 'Tiktok Organic - Web signup': { 'android': '11jhyjdm', 'ios': '11t37uxx' } },
+    { 'Tiktok Organic - Website': { 'android': '11wttu0k', 'ios': '112ev2sx' } },
+    { 'Website Clickout - Smartbanner': { 'android': '10hiulo', 'ios': '4ewplq6' } },
+    { 'Website Clickout - Web signup': { 'android': 'rbvvy1h', 'ios': '6o2hpzv' } },
+    { 'Website Clickout - Website': { 'android': 'bji78iu', 'ios': 'ol22o3u' } },
+    { 'Youtube Organic - Smartbanner': { 'android': '11j32341', 'ios': '11w1m6u2' } },
+    { 'Youtube Organic - Web signup': { 'android': '11fmhwdn', 'ios': '11196yqx' } },
+    { 'Youtube Organic - Website': { 'android': '11dk5sg3', 'ios': '11r08ak6' } }
+  ]
+
+  var deeplinkList = [
+    { 'name': '' },
+    { 'name': 'Job Feed (Homepage)', 'description': 'Opens the job feed (homepage)', 'urlScheme': '/offers', 'deeplinkExample': 'zenjob://offers' },
+    { 'name': 'Short term job offers', 'description': 'Opens the job feed (homepage) with short term filter', 'urlScheme': '/offers/home/feed=short_term', 'deeplinkExample': 'zenjob://offers/home/feed=short_term' },
+    { 'name': 'Short term job offers with category', 'description': 'Opens the job feed with short term job offers, filtered by selected category', 'urlScheme': '/offers/home/feed%3Dshort_term%26category%3D', 'deeplinkExample': 'zenjob://offers/home/feed%3Dshort_term%26category%3D' },
+    // add LMS links
+    { 'name': 'LMS links', 'description': 'Links for LMS courses', 'urlScheme': '/profile/trainings/jobCategoryKey%3D', 'deeplinkExample': 'zenjob://profile/trainings/jobCategoryKey%3D' },
+    // end
+    { 'name': 'Long term/pro job offers', 'description': 'Opens the job feed (homepage) with long term filter', 'urlScheme': '/offers/home/feed=long_term', 'deeplinkExample': 'zenjob://offers/home/feed=long_term' },
+    { 'name': 'Onboarding WebView', 'description': 'Opens WebView overview page', 'urlScheme': '/onboarding', 'deeplinkExample': 'zenjob://onboarding' },
+    { 'name': 'Trainings Job Feed', 'description': 'Opens the job feed on the training section', 'urlScheme': '/offers/home/feed%3Dtraining', 'deeplinkExample': 'zenjob://offers/home/feed%3Dtraining' },
+    { 'name': 'Tasks screen', 'description': 'Opens the tasks screen', 'urlScheme': '/tasks', 'deeplinkExample': 'zenjob://tasks' },
+    { 'name': 'Profile', 'description': 'Opens profile screen', 'urlScheme': '/profile', 'deeplinkExample': 'zenjob://profile' },
+    { 'name': 'Documents Screen', 'description': 'Opens the document feed', 'urlScheme': '/profile/documents', 'deeplinkExample': 'zenjob://profile/documents' },
+    { 'name': 'Preferences', 'description': 'Opens Preferences overview', 'urlScheme': '/profile/preferences', 'deeplinkExample': 'zenjob://profile/preferences' },
+    { 'name': 'Categories', 'description': 'Opens the categories screen', 'urlScheme': '/profile/preferences/categories', 'deeplinkExample': 'zenjob://profile/preferences/categories' },
+    { 'name': 'Location', 'description': 'Opens location preference screen', 'urlScheme': '/profile/preferences/locations', 'deeplinkExample': 'zenjob://profile/preferences/locations' },
+    { 'name': 'Settings', 'description': 'Opens the settings screen (in settings)', 'urlScheme': '/profile/settings', 'deeplinkExample': 'zenjob://profile/settings' },
+    { 'name': 'Help + Contact', 'description': 'Opens the help + contact screen (in settings)', 'urlScheme': '/profile/help', 'deeplinkExample': 'zenjob://profile/help' },
+    { 'name': 'Trainings', 'description': 'Opens the trainings screen (in settings)', 'urlScheme': '/profile/trainings', 'deeplinkExample': 'zenjob://profile/trainings' },
+    { 'name': 'AppReview', 'description': 'Opens the screen to review the app', 'urlScheme': '/appreview', 'deeplinkExample': 'zenjob://appreview' },
+    { 'name': 'Newsfeed', 'description': 'Opens Newsfeed screen', 'urlScheme': '/profile/newsfeed', 'deeplinkExample': 'zenjob://profile/newsfeed' },
+    { 'name': 'Refer a friend', 'description': 'Opens the refer a friend screen', 'urlScheme': '/profile/referafriend', 'deeplinkExample': 'zenjob://profile/referafriend' },
+    { 'name': 'Performance', 'description': 'Open talent performance screen', 'urlScheme': '/profile/performance', 'deeplinkExample': 'zenjob://profile/performance' },
+    { 'name': 'Achievements', 'description': 'Open talent achievements screen', 'urlScheme': '/profile/achievements', 'deeplinkExample': 'zenjob://profile/achievements' },
+    { 'name': 'Notification Center', 'description': 'Open talent notification center screen. Note: “Push notifications” screen is actually the one showing “Saved Search” Yes, it makes no sense but the link itself is correct Marcelo Soares', 'urlScheme': '/profile/preferences/notificationCenter', 'deeplinkExample': 'zenjob://profile/preferences/notificationCenter' },
+    { 'name': 'Attendance Rate', 'description': 'Launch attendance rate', 'urlScheme': '/profile/attendanceRate', 'deeplinkExample': 'zenjob://profile/attendanceRate' }
+  ]
+
+  var defaultValues = [
+    { 'platform': 'Braze - Push', 'campaign': '{{campaign.${name}}}', 'adgroup': '', 'creative': '' },
+    { 'platform': 'Braze - Email', 'campaign': '{{campaign.${name}}}', 'adgroup': '', 'creative': '' },
+    { 'platform': 'Braze - Canvas', 'campaign': '{{canvas.${name}}}', 'adgroup': '{{campaign.${name}}}', 'creative': '' }
+  ]
+
+  var jobOfferCategoryList = [
+    { 'value': '', 'name': '' },
+    { 'value': 'Aufbauhelfer/in', 'name': 'Auf-/Abbauhilfe' },
+    { 'value': 'Baraushilfe', 'name': 'Baraushilfe (m/w/x)' },
+    { 'value': 'Barista', 'name': 'Barista' },
+    { 'value': 'barista_workshop', 'name': 'Barista Schulung' },
+    { 'value': 'batender', 'name': 'Barkeeper/in' },
+    { 'value': 'office_help', 'name': 'Büro-Aushilfe/Office Management' },
+    { 'value': 'handcraft_electric', 'name': 'Elektrik-Aushilfe' },
+    { 'value': 'Front_office', 'name': 'Empfangsmitarbeiter/in' },
+    { 'value': 'driver', 'name': 'Fahrer/in' },
+    { 'value': 'breakfast_service_person', 'name': 'Frühstücksservicekraft' },
+    { 'value': 'cloakroom', 'name': 'Garderobe' },
+    { 'value': 'chief_at_grill', 'name': 'Griller/in' },
+    { 'value': 'handcraft_help', 'name': 'Handwerk-Aushilfe' },
+    { 'value': 'hostess', 'name': 'Host/ess' },
+    { 'value': 'housekeeping', 'name': 'Housekeeping' },
+    { 'value': 'imma', 'name': 'Immatrikulation' },
+    { 'value': 'Inventurhelfer/in', 'name': 'Inventurhelfer/in' },
+    { 'value': 'cashier_workshop', 'name': 'Kassenschulung' },
+    { 'value': 'cashier_food_retail_test', 'name': 'Kassierer (Lebensmittel)' },
+    { 'value': 'practical_cashier_shift', 'name': 'Kassierer (Praxistraining)' },
+    { 'value': 'cashier', 'name': 'Kassierer/ -in' },
+    { 'value': 'cashier_diy', 'name': 'Kassierer/in (Baumarkt)' },
+    { 'value': 'cashier_random', 'name': 'Kassierer/in (Diverse)' },
+    { 'value': 'cashier_electro', 'name': 'Kassierer/in (Elektronik)' },
+    { 'value': 'cashier_kiosk', 'name': 'Kassierer/in (Kiosk)' },
+    { 'value': 'cashier_food', 'name': 'Kassierer/in (Lebensmittel)' },
+    { 'value': 'cashier_fashion', 'name': 'Kassierer/in (Modehandel)' },
+    { 'value': 'waiter/waitress', 'name': 'Kellner/in' },
+    { 'value': 'Kinderbetreuung', 'name': 'Kinderbetreuung' },
+    { 'value': 'cook', 'name': 'Koch/Köchin' },
+    { 'value': 'kitchen_help', 'name': 'Küchenhelfer/in' },
+    { 'value': 'call_center', 'name': 'Kundendienst' },
+    { 'value': 'delivery_service', 'name': 'Kurier/in' },
+    { 'value': 'warehouse_helper', 'name': 'Lagerhelfer/in' },
+    { 'value': 'fair', 'name': 'Messehelfer/in' },
+    { 'value': 'steward', 'name': 'Ordner/in' },
+    { 'value': 'packing', 'name': 'Packer/in' },
+    { 'value': 'promotion', 'name': 'Promoter/in' },
+    { 'value': 'stocker', 'name': 'Regalauffüller' },
+    { 'value': 'Reserve_Schicht', 'name': 'Reserve Schicht' },
+    { 'value': 'hospitality_personnel', 'name': 'Restaurantfachmann/ -frau' },
+    { 'value': 'retail', 'name': 'Retail' },
+    { 'value': 'reception', 'name': 'Rezeptionist/in' },
+    { 'value': 'red_cart', 'name': 'Rote-Karte-Schulung' },
+    { 'value': 'service_runner', 'name': 'Runner (m/w/d)' },
+    { 'value': 'clerk', 'name': 'Sachbearbeiter/ -in' },
+    { 'value': 'Training', 'name': 'Schulung' },
+    { 'value': 'Service', 'name': 'Service' },
+    { 'value': 'service_workshop', 'name': 'Service-Schulung' },
+    { 'value': 'service_staff_hotel', 'name': 'Servicekraft' },
+    { 'value': 'security', 'name': 'Sicherheitsdienst' },
+    { 'value': 'dish_cleaner', 'name': 'Spüler/in' },
+    { 'value': 'Teamleiter/in', 'name': 'Teamleiter/in' },
+    { 'value': 'teamlead_service', 'name': 'Teamleiter/in Service' },
+    { 'value': 'mover', 'name': 'Umzugshelfer/in' },
+    { 'value': 'sales_staff', 'name': 'Verkäufer/in' },
+    { 'value': 'Logistics_helper', 'name': 'Warenverräumer/in' },
+    { 'value': 'working_student', 'name': 'Werkstudent/in' }
+  ]
+
+  // add LMS course links
+  var lmsCourseList = [
+    { 'value': '', 'name': '' },
+    { 'value': 'health_certificate_german_course', 'name': 'Gesundheitszeugnis' },
+    { 'value': 'health_certificate_english_course', 'name': 'Health certificate' },
+    { 'value': 'cashier_training_course', 'name': 'Kassentraining' },
+    { 'value': 'service_training_course', 'name': 'Servicetraining' },
+    { 'value': 'german_skill_test_german_course', 'name': 'Deutsch Einstufungstest' },
+    { 'value': 'document_upload_english_course', 'name': 'Document upload' },
+    { 'value': 'document_upload_german_course', 'name': 'Dokumentenupload' },
+    { 'value': 'german_skill_test_english_course', 'name': 'German skill test' },
+    { 'value': 'catalog', 'name': 'Courses' },
+    { 'value': 'fruits_and_vegetables_training', 'name': 'Obst & Gemüse' },
+    { 'value': 'edeka_training', 'name': 'EDEKA' },
+    { 'value': 'denns_biomarkt_training', 'name': 'Denns BioMarkt' },
+    { 'value': 'alnatura_training', 'name': 'ALNATURA' },
+    { 'value': 'knuspr_training', 'name': 'knuspr - Training' },
+    { 'value': 'rewe_training', 'name': 'REWE' },
+    { 'value': 'gastro_lexicon', 'name': 'Gastro-Lexikon' },
+    { 'value': 'aldi_nord_training', 'name': 'ALDI Nord' },
+    { 'value': 'bar_helper', 'name': 'Baraushilfe' },
+    { 'value': 'selgros_training', 'name': 'Selgros' },
+    { 'value': 'inventory_training_german', 'name': 'Inventur' },
+    { 'value': 'inventory_training_english', 'name': 'Inventory' },
+    { 'value': 'inventory_training_german', 'name': 'Warenverräumung' },
+    { 'value': 'stocking_goods_training_english', 'name': 'Stocking Goods' },
+    { 'value': 'safety_instruction_german', 'name': 'Sicherheitsunterweisung' },
+    { 'value': 'cash_desk_lexicon', 'name': 'Kassen-Lexikon' },
+    { 'value': 'safety_instruction_english', 'name': 'Safety instruction' },
+    { 'value': 'tapper_training', 'name': 'Zapfer*in' },
+    { 'value': 'receptionist_video', 'name': 'On-The-Job Rezeptionist*in' },
+    { 'value': 'kitchen_helper_english_video', 'name': 'On-The-Job Kitchen Helper' },
+    { 'value': 'kitchen_helper_german_video', 'name': 'On-The-Job Küchenhelfer*in' },
+    { 'value': 'service_helper_english_video', 'name': 'On-The-Job Service Helper' },
+    { 'value': 'service_helper_german_video', 'name': 'On-The-Job Servicekraft' },
+    { 'value': 'new_learning_content_german_video', 'name': 'Neue Lerninhalte' },
+    { 'value': 'new_learning_content_english_video', 'name': 'New learning content' },
+    { 'value': 'warehouse_helper_learning_path_english_summary', 'name': 'Learning path Warehouse helper' },
+    { 'value': 'cashier_learning_path_summary', 'name': 'Learning path Kassierer*in' },
+    { 'value': 'service_learning_path_summary', 'name': 'Learning path Kellner*in' },
+    { 'value': 'warehouse_helper_learning_path_german_summary', 'name': 'Learning path Warenverräumer*in' },
+    { 'value': 'on_the_job_videos', 'name': 'On-The-Job Videos' },
+    { 'value': 'certificates', 'name': 'Auszeichnungen' },
+    { 'value': 'all_learning_path_summary', 'name': 'Lernwege' },
+    { 'value': 'on_the_job_cashier_video', 'name': 'On-The-Job Kassierer*in' },
+    { 'value': 'on_the_job_warehouse_helper_video', 'name': 'On-The-Job Warenverräumer*in' },
+    { 'value': 'on_the_job_replenisher_video', 'name': 'On-The-Job Replenisher' },
+    { 'value': 'catalog', 'name': 'Courses' },
+    { 'value': 'german_certificate_upload_german_course', 'name': 'German Certificate Upload DE'},
+    { 'value': 'german_certificate_upload_english_course', 'name': 'German Certificate Upload EN'}    
+  ]
+
+  var selectedPageNumber = 1;
+  var androidTrackerId = null;
+  var iosTrackerId = null;
+
+  // hold currently selected deeplink details
+
+  var deeplinkName = null;
+  var deeplinkDescription = null;
+  var deeplinkUrlScheme = null;
+  var deeplinkExample = null;
+
+  // ADDING OPTIONS TO THE PLATFORM AND CHANNEL and DEEPLINK SELECT FIELDS 
+
+  function populatePlatformList() {
+    for (var i = 0; i < platformList.length; i++) {
+      $('#platform').append('<option value="' + platformList[i].name + '">' + platformList[i].name + '</option>');
+    }
+  }
+
+  // KNOWN BUG 4/1/24 -> THIS FUNCTION GENERATES AN ERROR ON NON-ADDITIONAL DETAIL DEEPLINKS
+  function populateAdditionalDetailList() {
+    $("#additionalDetail").empty()
+    var additionalDetailList;
+    console.log(this.value)
+    if (this.value == 'Short term job offers with category') {
+      additionalDetailList = jobOfferCategoryList
+    } else if (this.value == 'LMS links') {
+      additionalDetailList = lmsCourseList
+    } else {
+      return 'not a detail deeplink'
+    }
+
+    for (var i = 0; i < additionalDetailList.length; i++) {
+      $('#additionalDetail').append('<option value="' + additionalDetailList[i].value + '">' + additionalDetailList[i].name + '</option>');
+    }
+  }
+
+  function populateChannelList() {
+    $('#channel').empty()
+    var selectedPlatform = this.value;
+    for (var i = 0; i < platformList.length; i++) {
+      if (platformList[i].name === selectedPlatform) {
+        var channelsArray = platformList[i].channels;
+        for (var x = 0; x < channelsArray.length; x++) {
+          $('#channel').append('<option value="' + channelsArray[x] + '">' + channelsArray[x] + '</option>');
+        }
+        return;
+      }
+    }
+  }
+
+  function populateDeeplinkList() {
+    for (var i = 0; i < deeplinkList.length; i++) {
+      $('#deeplink').append('<option value="' + deeplinkList[i].name + '">' + deeplinkList[i].name + '</option>');
+    }
+  }
+
+  // FUNCTION FOR DISPLAYING ADJUST TRACKERS BY CHANNEL AND PLATFORM
+
+  function getAdjustTrackers() {
+    androidTrackerId = null;
+    iosTrackerId = null;
+    var platformValue = $("#platform").val()
+    var channelValue = $("#channel").val()
+    if (platformValue !== null && channelValue !== null) {
+      let selectedTracker = platformValue + " - " + channelValue
+      for (var i = 0; i < adjustTrackerList.length; i++) {
+        if (Object.getOwnPropertyNames(adjustTrackerList[i])[0] === selectedTracker) {
+          androidTrackerId = adjustTrackerList[i][selectedTracker]['android']
+          iosTrackerId = adjustTrackerList[i][selectedTracker]['ios']
+        }
+      }
+    }
+    displayAdjustTrackers(androidTrackerId, iosTrackerId)
+  }
+
+  // display tracker id module depending on output of above function
+  function displayAdjustTrackers(androidTrackerId, iosTrackerId) {
+    $("#adjustTrackerModule").empty()
+    if (androidTrackerId === null || iosTrackerId === null) {
+      $("#adjustTrackerModule").append('<div class="errorMessage">There is no existing Adjust tracker for this platform and channel. Please create one in Adjust and add to the deeplink builder.</div>')
+    } else {
+      $("#adjustTrackerModule").append('<div class="flexContainer flexWrap"><div class="flexElement50 smallPadding">Android</div><div class="smallPadding flexElement50 outputTextField">' + androidTrackerId + '</div><div class="flexElement50 smallPadding">iOS</div><div class="smallPadding flexElement50 outputTextField">' + iosTrackerId + '</div></div>')
+    }
+  }
+
+  // SHOW DESCRIPTION OF SELECTED DEEPLINK, THE OLD UNIVERSAL LINKS SET UP BY P&E, AND THE URI SCHEME DEEPLINKS
+  function displaySelectedDeeplinkDetails() {
+    $("#deeplinkDescription").empty()
+    $("#oldUniversalLink").empty()
+    $("#uriLink").empty()
+    var selectedDeeplink = $("#deeplink").val()
+    for (var i = 0; i < deeplinkList.length; i++) {
+      if (deeplinkList[i]['name'] === selectedDeeplink) {
+        if (deeplinkList[i]['name'] === 'LMS links' || deeplinkList[i]['name'] === 'Short term job offers with category') {
+          $("#deeplinkDescription").text(deeplinkList[i]['description'])
+          $("#oldUniversalLink").text(decodeURIComponent('https://www.zenjob.de' + deeplinkList[i]['urlScheme'] + $("#additionalDetail").val()))
+          $("#uriLink").text(decodeURIComponent(deeplinkList[i]['deeplinkExample'] + $("#additionalDetail").val()))
+
+        } else {
+          $("#deeplinkDescription").text(deeplinkList[i]['description'])
+          $("#oldUniversalLink").text('https://www.zenjob.de' + deeplinkList[i]['urlScheme'])
+          $("#uriLink").text(deeplinkList[i]['deeplinkExample'])
+        }
+        deeplinkName = deeplinkList[i]['name']
+        deeplinkDescription = deeplinkList[i]['description']
+        deeplinkUrlScheme = deeplinkList[i]['urlScheme']
+        deeplinkExample = deeplinkList[i]['deeplinkExample']
+      }
+    }
+  }
+
+  // FUNCTION FOR DISPLAYING DEFAULT CAMPAIGN VALUES BY SELECTED PLATFORM
+
+  function addDefaultCampaignDetails() {
+    $("#campaign").val('')
+    $("#adgroup").val('')
+    $("#creative").val('')
+    let platformValue = $("#platform").val()
+    let channelValue = $("#channel").val()
+    if (platformValue !== null && channelValue !== null) {
+      let selectedTracker = platformValue + " - " + channelValue
+      for (var i = 0; i < defaultValues.length; i++) {
+        if (defaultValues[i]['platform'] === selectedTracker) {
+          $("#campaign").val(defaultValues[i]['campaign'])
+          $("#adgroup").val(defaultValues[i]['adgroup'])
+          $("#creative").val(defaultValues[i]['creative'])
+        }
+      }
+    }
+  }
+
+  // ERROR HANDLING
+
+  function displayErrorMessage(type) {
+    $("#generateError").text(type)
+  }
+
+  function clearErrorMessage() {
+    $("#generateError").empty()
+  }
+
+  // VALIDATE FORM
+
+  function validateForm() {
+    if (androidTrackerId === null || iosTrackerId === null) {
+      errorMessageType = "Cannot create link: Please select valid platform and channel"
+      displayErrorMessage(errorMessageType)
+      return "validateFailed"
+    }
+    if ($("#deeplink").val() === '') {
+      errorMessageType = "Cannot create link: Please select deeplink type"
+      displayErrorMessage(errorMessageType)
+      return "validateFailed"
+    }
+  }
+
+  function outputLink(link) {
+    $("#generatedDeeplink").empty();
+    $("#generatedDeeplink").text(link);
+
+  }
+
+  function showAdditionalDeeplinkField() {
+    if (this.value === 'Short term job offers with category') {
+      $("#additionalDetailContainer").css("visibility", "visible")
+    } else if ((this.value === 'LMS links')) {
+      $("#additionalDetailContainer").css("visibility", "visible")
+    } else {
+      $("#additionalDetailContainer").css("visibility", "hidden")
+    }
+  }
+
+  // GENERATE DEEPLINK FUNCTION
+  function generateDeeplink() {
+    clearErrorMessage();
+    var validateResponse = validateForm()
+    if (validateResponse === 'validateFailed') {
+      return;
+    }
+    var baseLink = 'https://zenjob.go.link'
+    var parameterDivider = '?'
+    // get deeplink details from global variables
+    var adjustTrackers = 'adj_t=' + androidTrackerId + '_' + iosTrackerId;
+    var encodedDeeplinkExample;
+    if (deeplinkName == 'Short term job offers with category') {
+      let selectedCategory = $('#additionalDetail').val()
+      encodedDeeplinkExample = 'adj_deep_link=' + encodeURIComponent(deeplinkExample + selectedCategory)
+      deeplinkUrlScheme += selectedCategory
+    } else if (deeplinkName == 'LMS links') {
+      let selectedCategory = $('#additionalDetail').val()
+      encodedDeeplinkExample = 'adj_deep_link=' + encodeURIComponent(deeplinkExample + selectedCategory)
+      deeplinkUrlScheme += selectedCategory
+    }
+    else {
+      encodedDeeplinkExample = 'adj_deep_link=' + encodeURIComponent(deeplinkExample)
+    }
+    var campaignValue = 'adj_campaign=' + $("#campaign").val()
+    var adgroupValue = 'adj_adgroup=' + $("#adgroup").val()
+    var creativeValue = 'adj_creative=' + $("#creative").val()
+    var fallbackValue = 'adj_fallback=' + encodeURIComponent($("#fallbackURL").val())
+    var fallbackValueMacOS = 'adj_redirect_macos=' + encodeURIComponent($("#fallbackURL").val())
+    var finalLink = baseLink + deeplinkUrlScheme + parameterDivider + adjustTrackers + '&' + encodedDeeplinkExample + '&' + campaignValue + '&' + adgroupValue + '&' + creativeValue + '&' + fallbackValue + '&' + fallbackValueMacOS
+    outputLink(finalLink)
+    sendLinkToSheet(finalLink)
+    $('#amForm')[0].reset();
+  }
+
+  // SEND GENERATED LINK TO SHEET
+
+  function sendLinkToSheet(link) {
+    var payload = JSON.stringify({ link })
+    var url = 'https://script.google.com/macros/s/AKfycby4k8tmsd8CFH94lncXFGO4mzSDnkbCyBFx3HQwvDNMvHST030_B0fijgQeUqjHeaxG/exec'
+    $.ajax({
+      url: url,
+      type: 'post',
+      dataType: 'json',
+      data: payload,
+      success: function (response) {
+        console.log("success")
+      },
+      timeout: 10000,
+      error: function (response) {
+        console.log("error")
+      }
+    })
+  }
+
+  // RETURN DEEPLINKS FROM SHEET
+
+  // retrieve test details from gsheet
+  function retrieveOverview() {
+    var url = 'https://script.google.com/macros/s/AKfycby4k8tmsd8CFH94lncXFGO4mzSDnkbCyBFx3HQwvDNMvHST030_B0fijgQeUqjHeaxG/exec'
+    $.ajax({
+      url: url,
+      type: 'get',
+      dataType: 'json',
+      success: function (response) {
+        retrieveHandler(response)
+      },
+      timeout: 20000,
+      error: function (response) {
+      }
+    })
+  }
+
+  // GENERATE QR CODE
+  let qr;
+
+  function updateURLWithUTM() {
+    const base = $('#qr-input').val();
+    const params = {};
+  
+    // Add UTM parameters only if they have a value
+    const utm_campaign = $('#utm-campaign').val();
+    if (utm_campaign) params['utm_campaign'] = utm_campaign;
+  
+    const utm_medium = $('#utm-medium').val();
+    if (utm_medium) params['utm_medium'] = utm_medium;
+  
+    const utm_source = $('#utm-source').val();
+    if (utm_source) params['utm_source'] = utm_source;
+  
+    const utm_content = $('#utm-content').val();
+    if (utm_content) params['utm_content'] = utm_content;
+  
+    const utm_term = $('#utm-term').val();
+    if (utm_term) params['utm_term'] = utm_term;
+  
+    // Create the query string if there are any parameters
+    if (Object.keys(params).length > 0) {
+      const query = $.param(params, true);
+      return base + (base.includes('?') ? '&' : '?') + query;
+    }
+    
+    return base; // Return the base URL if there are no parameters
+  }  
+
+  function generateQR() {
+    const fullURL = updateURLWithUTM();
+    const qrElement = document.getElementById("qr-element");
+    
+    // Clear previous QR code
+    qrElement.innerHTML = "";
+
+    qr = new QRCode({
+      content: fullURL,
+      width: 256,
+      height: 256,
+      color: "#000000",
+      background: "#ffffff",
+      ecl: "Q",
+    });
+
+    qrElement.innerHTML = qr.svg();
+
+    // Update the output element with the generated URL
+    document.getElementById("generatedURL").value = fullURL; 
+}
+
+  // DOWNLOAD QR AS SVG
+  function downloadSVG() {
+    if (qr) {
+      const svgData = qr.svg();
+      const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "qr-code.svg";
+      link.click();
+
+      URL.revokeObjectURL(url);
+    } else {
+      alert("Please generate a QR code first!");
+    }
+  }
+
+  // SAVE LINK TO GSHEET
+  function saveLink() {
+    const finalUrl = document.getElementById("generatedURL").value;
+    sendLinkToSheet(finalUrl);
+  }
+
+  function getPaginationDetails(data) {
+    data.reverse()
+    var limit = 10;
+    var totalLength = data.length
+    var numberPages = Math.ceil(data.length / limit)
+    var filteredResults = data.splice(limit * (selectedPageNumber - 1), limit)
+    filteredResults.push({ 'length': totalLength, 'totalPages': numberPages, 'page': selectedPageNumber })
+    return filteredResults
+  }
+
+  function listResults(data) {
+    $("#deeplinkList").empty()
+    //$("#listLoader").css("display", "none");
+    if (data.length <= 1) {
+      //noTestsReturned()
+      return 'noTests'
+    } else {
+      var pagDetails = data.pop()
+      currentSelectedPage = pagDetails.page
+      totalPagesGlobal = pagDetails.totalPages
+      var testStatus;
+      data.forEach(test => {
+        $("#deeplinkList").append('<li class="flexContainer"><div class="testlist_testNumber">' + test[1] + '</div>');
+      })
+      return pagDetails
+    }
+  }
+
+  function createPagination(details) {
+    $("#pagList").empty()
+    var pageNumber = parseInt(details.page)
+    var totalPages = details.totalPages
+    var startNumber;
+    if (pageNumber <= 3) {
+      startNumber = 1
+    } else if (pageNumber >= (totalPages - 2)) {
+      startNumber = totalPages - 4
+    } else {
+      startNumber = pageNumber - 2
+    }
+    var totalPagesDisplay;
+    if (totalPages < 6) {
+      totalPagesDisplay = totalPages
+    } else {
+      totalPagesDisplay = 5
+    }
+    for (i = startNumber; i <= totalPagesDisplay + (startNumber - 1); i++) {
+      if (i == pageNumber) {
+        $("#pagList").append('<div class="pagItem paginationSelected" href="#/">' + i + '</div>')
+      } else {
+        $("#pagList").append('<div class="pagItem" href="#/">' + i + '</div>')
+      }
+    }
+    if (totalPages > 5 && pageNumber < (totalPages - 2)) {
+      $("#pagList").append(' <div id="moreJobs" class="moreLessJobs">...</div>')
+    }
+    if (totalPages > 5 && pageNumber > 3) {
+      $("#pagList").prepend(' <div id="lessJobs" class="moreLessJobs">...</div>')
+    }
+    $('.pagItem').on('click', pagClick)
+    $('#previousPage').on('click', nextPreviousPageClick)
+    $('#nextPage').on('click', nextPreviousPageClick)
+
+  }
+
+  function pagClick() {
+    //$("#listLoader").css("display", "block").css("position", "absolute").css("top", "1300px").css("left", "48%")
+    $('.pagItem').off('click')
+    selectedPageNumber = parseInt(this.textContent);
+    retrieveOverview()
+  }
+
+
+  function nextPreviousPageClick() {
+    //$("#listLoader").css("display", "block").css("position", "absolute").css("top", "1300px").css("left", "48%")
+    freshPageLoad = 0;
+    $('.nextPreviousPage').off('click')
+    var directionPage = this.id
+    var targetPage;
+    if (directionPage == 'previousPage') {
+      if (currentSelectedPage == 1) {
+        targetPage = 1
+      } else {
+        targetPage = currentSelectedPage - 1
+      }
+    } else if (directionPage == 'nextPage') {
+      if (currentSelectedPage == totalPagesGlobal) {
+        targetPage = totalPagesGlobal
+      } else {
+        targetPage = parseInt(currentSelectedPage) + 1
+      }
+    }
+    selectedPageNumber = targetPage
+    retrieveOverview()
+  }
+
+  // HANDLER FUNCTION FOR RETRIEVED DEEPLINKS
+
+  function retrieveHandler(response) {
+    var paginationDetails = getPaginationDetails(response)
+    var listResultsOutcome = listResults(paginationDetails)
+    if (listResultsOutcome !== 'noTests') {
+      createPagination(listResultsOutcome)
+    }
+  }
+
+  // ADD EVENT LISTENERS
+
+  $("#platform").click(getAdjustTrackers)
+  $("#platform").change(populateChannelList)
+  $("#channel").click(getAdjustTrackers)
+  //$("#channel").change(getAdjustTrackers)
+  $("#deeplink").change(showAdditionalDeeplinkField).change(populateAdditionalDetailList).change(displaySelectedDeeplinkDetails)
+  $("#additionalDetail").change(displaySelectedDeeplinkDetails)
+
+  $("#platform").change(addDefaultCampaignDetails)
+  $("#channel").change(addDefaultCampaignDetails)
+
+  $("#generateLink").click(generateDeeplink)
+ 
+  $(".formField").on("input", generateQR)
+  $("#download-svg").click(downloadSVG)
+  $("#save-link").click(saveLink)
+
+  $(document).ready(function () {
+    populatePlatformList(),
+      populateDeeplinkList(),
+      retrieveOverview()
+  }
+  );
+</script>

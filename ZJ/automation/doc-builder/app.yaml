@@ -1,0 +1,6 @@
+runtime: python311  # or whatever version of Python you're using
+instance_class: F2  # this is a lower-cost instance, suitable for testing
+automatic_scaling:
+  target_cpu_utilization: 0.65
+  min_instances: 1
+entrypoint: gunicorn -b :$PORT main:app  # this tells GCP how to start your application

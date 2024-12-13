@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<!-- THIS IAM WILL BE TRIGGERED BY THE APP-RATING-REMINDER IAM -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>App Review</title>
+
+  <script>
+    var selectedRating = 0;  // Variable to store selected rating
+    
+    jQuery(document).ready(function($) {
+      $('.rating_stars span.r').hover(function() {
+        var rating = $(this).data('rating');
+        var value = $(this).data('value');
+        $(this).parent().attr('class', '').addClass('rating_stars').addClass('rating_'+rating);
+        highlight_star(value);
+      }).click(function() {
+        var value = $(this).data('value');
+        selectedRating = value; // Save the selected rating
+        
+        var rating = $(this).data('rating');
+
+        highlight_star(value);
+      });
+
+      // Add click event to Submit button
+      $('#button_one').click(function() {
+        if (selectedRating > 0) {
+          // Setting a custom attribute with the value of the star clicked
+          appboyBridge.setCustomAttribute("app_review_fake_door", selectedRating);
+          alert("Rating submitted: " + selectedRating);
+        } else {
+          alert("Please select a rating before submitting.");
+        }
+      });
+
+      var highlight_star = function(rating) {
+        $('.rating_stars span.s').each(function() {
+          var high = $(this).data('high');
+          $(this).removeClass('active-high');
+          if (rating >= high) $(this).addClass('active-high');
+        });
+      }
+    });
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Lato', sans-serif;
+    }
+
+    .cta-one {     
+      color: slateblue;
+      cursor: pointer;
+      font-weight: 700;
+      line-height: 22px;
+      text-align:center;
+      text-decoration: none; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1; /* Equal distribution of available space */
+      border-left: 1px solid lightslategray; 
+    }
+
+    .cta-two {    
+      color: slateblue;
+      cursor: pointer;
+      font-weight: 400;
+      line-height: 22px;
+      text-align:center;
+      text-decoration: none; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1; /* Equal distribution of available space */
+    }  
+
+    .cta-wrapper {
+      font-size: 18px; 
+      width: 100%;
+      display:flex;
+      justify-content: center;
+      padding: 10px 0;  
+    }
+
+    .content {
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      max-width: 100%;
+      width: 80vw;
+    }
+
+    .copy {
+      font-size: 15px;
+      line-height: 20px;
+      text-align: center;
+      font-weight: 500;
+      color: #4E515C; 
+      max-width: 60%; 
+    }
+
+    .headline {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 25px;
+      text-align: center;
+      color: #000000;
+    }
+
+    .image {
+      max-width: 20%;
+      z-index: 3;
+      border-radius: 15px;
+      border-color: #4A1F99;
+      margin-top: 20px;
+    }
+
+    .in-app-message {
+      position: absolute;
+      width: 80%;
+      height: auto;
+      max-width: 80vw;    
+      margin-top: 20%;        
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .s1, 
+    .s2 {
+      margin-right: 15px;
+    }
+
+    .s4, 
+    .s5 {
+      margin-left: 15px;
+    }
+    
+    .rating_stars {
+    margin: 5px 0;
+    display: inline-block;
+    font-size: 25px;
+    font-weight: 200;
+    color: #0070ff;
+    position: relative;
+    }
+
+    .rating_stars span .fa, .rating_stars span.active-low .fa-star-o, .rating_stars span.active-high .fa-star-o {
+      display: none;
+    }
+
+    .rating_stars span .fa-star-o {
+      display: inline-block;
+    }
+
+    .rating_stars span.s.active-high .fa-star {
+      display: inline-block; color: #0070ff;
+    }
+
+    .rating_stars span.s.active-low .fa-star-half-o {
+      display: inline-block; color: #0070ff;
+    }
+
+    .rating_stars span.r {
+      position: absolute;
+      top: 0;
+      height: 20px;
+      width: 10px;
+      left: 0;
+    }
+
+    .rating_stars span.r.r1 {left:0px; width: 23px; height: 25px;}
+    .rating_stars span.r.r2 {left:43px; width: 23px; height: 25px;}
+    .rating_stars span.r.r3 {left:86px; width: 23px; height: 25px;}
+    .rating_stars span.r.r4 {left:129px; width: 23px; height: 25px;}
+    .rating_stars span.r.r5 {left:172px; width: 23px; height: 25px;}
+        
+    .star-line {
+      border-top: 1px solid lightslategray;
+      width: 100%; /* Set the width to 100% to span the entire width */
+      margin: 5px 0; /* Add some space above and below the line */
+    }
+
+    .wrapper {
+      background-color: lightgray;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>   
+  
+</head>
+<body>
+  <div class="overlay">
+    <div class="in-app-message">            
+      <div class="wrapper">
+        <img class="image" src="https://play-lh.googleusercontent.com/sA-3xa9KhwWAsnLkZPKMaZA32DvSq0IgZQ9U9Mk9rZhPhXArf989jK0Q0B6-RD2xRAM=w480-h960-rw" alt="Company Logo"/>     
+        <div class="content">
+          <h2 class="headline">Enjoying Zenjob?</h2>
+          <p class="copy">Tap a star to rate to rate us on the App Store.</p>
+        </div>
+        <div class="star-line"></div>
+        <span class="rating_stars rating_0">
+          <span class='s s1' data-high='1'><i class="fa fa-star-o"></i><i class="fa fa-star"></i></span>
+          <span class='s s2' data-high='2'><i class="fa fa-star-o"></i><i class="fa fa-star"></i></span>
+          <span class='s s3' data-high='3'><i class="fa fa-star-o"></i><i class="fa fa-star"></i></span>
+          <span class='s s4' data-high='4'><i class="fa fa-star-o"></i><i class="fa fa-star"></i></span>
+          <span class='s s5' data-high='5'><i class="fa fa-star-o"></i><i class="fa fa-star"></i></span>
+          
+          <span class='r r1' data-rating='1' data-value='1'></span>
+          <span class='r r2' data-rating='2' data-value='2'></span>
+          <span class='r r3' data-rating='3' data-value='3'></span>
+          <span class='r r4' data-rating='4' data-value='4'></span>
+          <span class='r r5' data-rating='5' data-value='5'></span>
+        </span>   
+        <div class="star-line"></div>
+        <div class="cta-wrapper">
+          <a class="cta-two" id="button_two" onclick="appboyBridge.logClick(button_two); appboyBridge.closeMessage()">Not now</a>
+          <a class="cta-one" id="button_one" onclick="appboyBridge.logClick(button_one); appboyBridge.closeMessage()">Submit</a>  
+        </div>        
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

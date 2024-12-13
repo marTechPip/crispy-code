@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Feature update</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      a {        
+        text-decoration: none;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+      }
+      h2 {
+        color: #474747;
+        font-size: 20px;
+        line-height: 25px;
+        letter-spacing: 0.15px;
+        font-weight: 500;
+      }
+      hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1.75px solid #DDDDE0;
+        border-radius: 2px;
+        margin-top: 5px;
+      }
+      .close-button {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 4;
+      }
+      .in-app-message{
+        width: 350px;
+        background-color: #f9f9f9;
+        height: auto;
+        margin-top: 5%;
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 12px;
+        padding: 24px;
+      }
+      .main-button-wrapper {
+        display: flex;
+        justify-content: space-between;
+      }
+      .main-button-one {
+        background-color: #FFFFFF;
+        padding: 8px;
+        width: 320px;
+        height: 36px;
+        border: 1px solid;
+        border-radius: 4px;
+        border-color: #366AD2;        
+        text-align: center;
+      }
+      .main-button-one a {
+        display: block;
+        color: #366AD2;
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 20px;        
+        letter-spacing: 0.15px;
+      }
+      .main-text-01 {
+        color: #474747;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.15px;
+        margin: 15px 0;
+      }
+      .overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+      }
+      .spacer {
+        padding-top: 15px;
+        background-color: #F9F9F9;
+      }
+      .top {
+        display: flex;
+        justify-content: flex-start;
+      }
+      .top-alert-img {
+        display: inline-block;
+      }
+      .top-title {
+        display: inline-block;
+        padding-left: 7px;
+      }    
+
+      @media (max-width: 768px) {
+        h2 {
+          font-size: 1.3em;
+          line-height: 1.25em;
+          letter-spacing: 0.009em;
+        }
+        .in-app-message{
+          width: 90%;
+          padding: 12px;
+        }
+        .main-button-one {
+          width: 100%;
+          height: auto;
+        }
+        .main-button-one a {
+          font-size: 1em;
+          line-height: 1.2em;
+        }
+        .main-text-01 {
+          font-size: 1em;
+          line-height: 1.2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--START IAM-->
+    <div class="overlay">
+      <!--START OVERLAY-->
+      <div class="in-app-message">                             
+        <button class="close-button" onclick="">
+          <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/660e705e8c31d2006a90fbe2/original.png?1712222301" alt="Close message" onclick="brazeBridge.closeMessage()">
+        </button>
+        <!--START TOP-->
+        <div class="top">
+          <!--START ALERT IMG-->
+          <div class="top-img-alert">
+            <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/660fd7c2f65014006a2b9891/original.svg?1712314306" alt="Alert image">
+          </div>
+          <!--END ALERT IMG-->
+          <!--START TOP TITLE-->
+          <div class="top-title">
+            <h2>Warning announcement</h2>
+          </div>
+          <!--END TOP TITLE-->
+        </div>
+        <!--END TOP-->
+        <hr>
+        <!--START MAIN-->
+        <div class="main">
+          <!--START MAIN TEXT 01-->
+          <div class="main-text-01">
+            <p>Tempus et tempus felis maecenas tincidunt hendrerit sed viverra aliquam. Cras et eleifend mus varius eu eget eu. Mattis tincidunt auctor tellus at nibh mattis. Vulputate ullamcorper.</p>
+          </div>
+          <!--END MAIN TEXT 01-->
+          <!--START MAIN BUTTONS-->
+          <div class="main-button-wrapper">
+            <div class="main-button-one">
+              <a href="" onclick="brazeBridge.closeMessage()" alt="Close message">Close</a>
+            </div>
+          </div>
+          <!--END MAIN BUTTON-->
+        </div>
+        <!--END MAIN-->
+      </div>
+      <!--END OVERLAY-->
+    </div>
+    <!--END IAM-->
+    
+  </body>
+</html>

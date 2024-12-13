@@ -1,0 +1,67 @@
+{   
+  "text": "You have a new response to approve.",
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "You have a new request:\n*{{review_table.data['0'].author}} - {{review_table.data['0'].rating}} Star Rating *"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "plain_text",
+				"text": "Review ID: {{review_table.data['0'].review_id}}",
+				"emoji": true
+			},
+      "block_id": "review_id"
+		},
+		{
+			"type": "section",
+			"fields": [
+				{
+					"type": "mrkdwn",
+					"text": "*Review:*\n{{review_table.data['0'].comment}}"
+				}
+			],
+			"block_id": "review_text"
+		},
+		{
+			"type": "section",
+			"fields": [
+				{
+					"type": "mrkdwn",
+					"text": "*Response:*\n{{review_table.data['0'].final_response}}"
+				}
+			],
+			"block_id": "response_text"
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"emoji": true,
+						"text": "Approve"
+					},
+					"action_id": "click_approve",
+					"style": "primary",
+					"value": "click_123"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"emoji": true,
+						"text": "Edit"
+					},
+					"action_id": "click_edit",
+					"value": "click_123"
+				}
+			]
+		}
+	]
+}

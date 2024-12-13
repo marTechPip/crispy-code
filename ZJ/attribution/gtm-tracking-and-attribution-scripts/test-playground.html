@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+</head>
+<style>
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  body {
+    -webkit-text-size-adjust: 100%;
+    font-family: "MuseoSans", Arial, sans-serif;
+    color: #000000;
+    text-align: center;
+    margin: 0px;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+
+  p {
+    font-family: "MuseoSans", Arial, sans-serif;
+    color: #000000;
+  }
+
+  footer {
+    background-color: #ffffff;
+    border-radius: 0px 0px 10px 10px;
+    position: absolute;
+    font-family: "MuseoSans", Arial, sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    width: 100%;
+    height: 20%;
+    padding: 0px 12px 12px 12px;
+  }
+
+  .outer {
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+
+  .modal {
+    border-radius: 10px;
+    position: absolute;
+    width: 80%;
+    height: 40%;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+  }
+
+  .button-close {
+    display: none;
+  }
+
+  .header {
+    font-size: 22px;
+    color: #000000;
+  }
+
+  .message {
+    font-size: 18px;
+  }
+
+  .bottom-container {
+    background-color: #ffffff;
+    overflow: hidden;
+    width: 100%;
+    height: 80%;
+    padding: 0px 22px 22px 22px;
+    border-radius: 10px 10px 0px 0px;
+    display: table;
+  }
+
+  .text-container {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .button-center {
+    background-color: #29b174;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    display: table;
+  }
+
+  .button-center a {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    vertical-align: middle;
+    display: table-cell;
+  }
+
+  .loader {
+    border: 16px solid #f3f3f3;
+    /* Light grey */
+    border-top: 16px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Smaller Devices (iPhone 5, etc) */
+  @media only screen and (max-device-width: 325px) {
+    .message {
+      font-size: 15px;
+    }
+
+    .header {
+      font-size: 19px;
+    }
+  }
+</style>
+
+
+<body>
+  <div class="outer">
+    <div class="modal">
+      <div class="button-close">
+        <!-- This is the close button svg.  Add the dark.svg to this folder and change the image src to 'dark.svg' for a darker (x) -->
+        <a href="appboy://close">X</a>
+      </div>
+
+
+
+      <div class="bottom-container">
+        <div class="text-container">
+
+
+          <p id="text">Test area for HTML and JS</p>
+        </div>
+      </div>
+      <div id="jobList"></div>
+      <footer>
+        <div class='button-center'>
+          <a href='#' onclick="pullRowsLS()">UPPDATERA APPEN</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+<script>
+var testfunction = test('https://www.googl')
+console.log(testfunction)
+
+function test(referrer){
+    
+    var searchEngines = ['https://www.google.com/', 'https://www.google.de/', 'https://www.bing.com/', 'https://www.ecosia.org/', 'https://search.yahoo.com/', 'https://duckduckgo.com/'];
+    var location = window.location.href;
+     
+     if (searchEngines.includes(referrer)) {
+         return 'organic_search'
+     } else if(location.search("gclid") > -1) {
+         return 'google_ads'
+     } else if(location.search("meta" && "cpm") > -1) {
+         return 'facebook_ads'
+     } else if(location.search("indeed" && "cpc") > -1) {
+         return 'indeed_ads'
+     } else if(location.search("stepstone") > -1) {
+         return 'stepstone_ads'
+     } else if(location.search("stellenwerk") > -1) {
+         return 'stellenwerk_ads'
+     } else if(location.search("stellenticket") > -1) {
+         return 'stellenticket_ads'
+     } else if(location.search("meta" && "organic") > -1) {
+         return 'organic_social'
+     } else {
+         return 'website_clickout'
+     };
+  }
+console.log(test);
+</script>
+</html>

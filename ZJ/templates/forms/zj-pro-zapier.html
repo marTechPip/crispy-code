@@ -1,0 +1,94 @@
+<body>    
+  <div class="container">
+    <div class="right-side">
+      <div class="form-wrapper">
+        <form id="zapier-form" autocomplete="on">
+          <div class="form-row">
+            <div class="form-column">
+              <label for="callback">Vorname</label>
+              <input class="text" type="text" id="first_name" name="FirstName" required autocomplete="given-name">
+            </div>
+            <div class="form-column">
+              <label for="callback">Nachname</label>
+              <input class="text" type="text" id="last_name" name="LastName" required autocomplete="family-name">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label for="callback">Firmen-Email</label>
+              <input class="text" type="email" id="email" name="Email" required autocomplete="email">
+            </div>
+            <div class="form-column">
+              <label for="callback">Telefonnummer</label>
+              <input class="text" type="text" id="phone" name="Phone" required autocomplete="tel">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label for="callback">Unternehmen</label>
+              <input class="text" type="text" id="company" name="Company" required autocomplete="organization">
+            </div>                
+            <div class="form-column">
+              <label for="callback">PLZ (Einsatzort)</label>
+              <input class="text" type="number" id="zip" name="zip" required maxlength="5" autocomplete="postal-code">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label for="industry">Branche</label>
+              <select id="industry" name="Industry" required>
+                <option value="">Bitte auswählen</option>
+                <option value="Agency">Agentur / Eventagentur</option>
+                <option value="Retail - DIY">Baumarkt</option>
+                <option value="Call Center">Call Center</option>
+                <option value="E-Commerce">E-Commerce</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Gastronomy">Gastronomie</option>
+                <option value="Health">Gesundheitswesen</option>
+                <option value="Wholesale">Großhandel</option>
+                <option value="Hotels">Hotellerie</option>
+                <option value="Delivery">Lieferdienst</option>
+                <option value="Logistics">Logistik</option>
+                <option value="Retail - Clothes">Textileinzelhandel</option>
+                <option value="Retail - Food">Lebensmitteleinzelhandel</option>
+                <option value="Tourism">Tourismus</option>
+                <option value="Unknown">Andere</option>
+              </select>
+            </div>
+            <div class="form-column">
+              <label for="callback">Rückruf erwünscht?</label>
+              <select id="callback" name="LT_Callback_Request__c" required>
+                <option value="">Bitte auswählen</option>
+                <option value="Ja">Ja</option>
+                <option value="Nein">Nein</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label class="large-label" for="description">Bitte teilen Sie uns Ihren Bedarf mit:</label>
+              <textarea class="standard large-textarea" id="bedarf__c" name="Bedarf__c" required placeholder="Bsp.: Zwei Rezeptionisten für 3 Monate"></textarea>
+            </div>  
+          </div>
+              
+          <p class="consent">Mit dem Absenden des Formulars bestätigen Sie, dass Sie mit der Speicherung und Verarbeitung Ihrer persönlichen Daten durch die Zenjob AG einverstanden sind. Informationen zu Ihrem Widerrufsrecht finden Sie in unserer<a href="https://www.zenjob.com/de/datenschutz/" target="_blank"> Datenschutzerklärung</a>&nbsp;und den&nbsp;<a href="https://www.zenjob.com/de/agb/" target="_blank">AGB</a>.</p>
+          <input type="hidden" id="utm_source" name="UTM_Source__c">
+          <input type="hidden" id="utm_medium" name="UTM_Medium__c">
+          <input type="hidden" id="utm_content" name="UTM_Content__c">
+          <input type="hidden" id="utm_campaign" name="utm_campaign__c">
+          <input type="hidden" id="utm_term" name="UTM_Term__c">
+          <input type="hidden" id="gclid" name="GCLID__c">
+          <input type="hidden" id="lt_form_parameter" name="UTM_Adgroup__c" value="Longterm-Customer">                   
+
+          <div class="form-row">
+            <div class="form-column">
+              <div class="submit">
+                <input type="submit" id="submit-button" value="Personal anfragen">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>

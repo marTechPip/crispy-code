@@ -1,0 +1,160 @@
+<script>
+  const bonusId = getUrlParameter('bonusId');
+  
+  function getUrlParameter(sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName,
+          i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+          sParameterName = sURLVariables[i].split('=');
+
+          if (sParameterName[0] === sParam) {
+              return sParameterName[1] === undefined ? true : sParameterName[1];
+          }
+      }
+  };
+
+  function pullRowsSessionStorage() {
+      var bonusDetails = JSON.parse(window.sessionStorage.getItem(bonusId))
+      document.getElementById('bonus_heading_s1').innerHTML = bonusDetails.heading;
+      document.getElementById('bonus_heading_s2').innerHTML = bonusDetails.heading;
+      document.getElementById('bonus_heading_s3').innerHTML = bonusDetails.heading;
+      document.getElementById('bonus_heading_m1').innerHTML = bonusDetails.heading;
+      document.getElementById('bonus_heading_m2').innerHTML = bonusDetails.heading;
+      document.getElementById('bonus_heading_m3').innerHTML = bonusDetails.heading;
+      document.getElementById('bonus_location1').innerHTML = bonusDetails.city;
+      document.getElementById('bonus_conditions').innerHTML = bonusDetails.conditions;          
+  }
+
+  function pullRowsAPI(xml) {
+      x = xml.documentElement.childNodes;
+      for (var i = 0; i < x.length; i++) {
+          var s1 = xml.getElementsByTagName("bonusCampaign")[i]
+          
+          if (s1 != undefined) {
+              
+              var referenceId = s1.getElementsByTagName('id')[0].textContent;
+              var value = s1.getElementsByTagName('bonus')[0].textContent;
+              var end = s1.getElementsByTagName('end_date')[0].textContent;                 
+              var terms = s1.getElementsByTagName('terms')[0].textContent;
+              var shift = s1.getElementsByTagName('shifts')[0].textContent;
+              var cityJob = s1.getElementsByTagName('city_job')[0].textContent; 
+              console.log(cityJob);
+
+              //parse JSON array
+              var json = JSON.parse(cityJob);
+              console.log(json); 
+              
+              //clone element & increment Element ID depending on array length   
+              function addRows() {
+                var $row = $('.location-job-wrapper').clone();
+                var $cityList = $('.cityList');
+                for (i = 0; i < json.length; i++) {    
+                                                              
+                  var newRow = $row.clone();
+                  $("#bonus_location", newRow).attr('id', 'bonus_location' + i);
+                  $("#bonus_jobs", newRow).attr('id', 'bonus_jobs' + i);
+                  $("#location-job-wrapper", newRow).attr('id', 'location-job-wrapper' + i);
+                  newRow.appendTo($cityList);
+
+                  document.getElementById('location-job-wrapper').style.display = 'none';
+                  
+                  addHtml();
+
+                } return 'success'                    
+              }
+
+              //populate HTML elements with array data
+              function addHtml() {
+                var element = json[i];
+                console.log(element);
+                const jsonCity = element.city;
+                console.log(jsonCity);
+                const jsonJob = element.jobs;
+                console.log(jsonJob); 
+                
+                document.getElementById('bonus_location' + i).innerHTML = jsonCity; 
+                document.getElementById('bonus_jobs' + i).innerHTML = jsonJob;                                                     
+              }                
+                        
+              //call function
+              addRows()  
+                              
+              if (bonusId == referenceId) {
+                 
+                document.getElementById('bonus_heading_s1').innerHTML = value;
+                document.getElementById('bonus_heading_s2').innerHTML = value;
+                document.getElementById('bonus_heading_s3').innerHTML = value;
+                document.getElementById('bonus_heading_m1').innerHTML = value;
+                document.getElementById('bonus_heading_m2').innerHTML = value;
+                document.getElementById('bonus_heading_m3').innerHTML = value;
+                document.getElementById('bonus_conditions').innerHTML = terms;
+                document.getElementById('bonus_end_s1').innerHTML = end;
+                document.getElementById('bonus_end_s2').innerHTML = end;
+                document.getElementById('bonus_end_s3').innerHTML = end;
+                document.getElementById('bonus_shifts_s1').innerHTML = shift;
+                document.getElementById('bonus_shifts_s2').innerHTML = shift;
+                document.getElementById('bonus_shifts_s3').innerHTML = shift;                     
+              } 
+          }
+      }
+  }      
+
+  if (bonusId != null && bonusId != undefined) {
+      if (window.sessionStorage.getItem('rowsPulled') != 'true') {
+          var url = 'https://script.google.com/macros/s/AKfycby1Xjk4TkUtZGsOIyc79M-lf3wn_yebsEfh8nsZCLDldZ3HOb9Mf4Hr1sISi3VbfTPatQ/exec?bonusId=' + bonusId
+          $.ajax({
+              url: url,
+              type: 'get',
+              dataType: 'xml',
+              success: function (response) {
+                
+                  pullRowsAPI(response)
+              },
+              timeout: 5000,
+              error: function (response) {
+         
+                  defaultMessage()
+              }
+          })
+      }
+      else {
+          pullRowsSessionStorage()
+      }
+  }
+
+  //SINGLE-BONUS-CAMPAIGN: Displays element depending on URL parameter "template"
+  if (/set-01/.test(window.location.href)) {
+    var s = document.getElementsByClassName('set01');
+    var x;
+    var t = document.getElementsByClassName('set02' && 'set03');
+    for (x = 0; x < 2; x++) {
+      s[x].style.display = 'block';
+      t[x].style.display = 'none';
+    } 
+  } else if (/set-02/.test(window.location.href)) {
+    var s = document.getElementsByClassName('set02');
+    var x;
+    for (x = 0; x < 2; x++) {
+      s[x].style.display = 'block';
+    }
+  } else if (/set-03/.test(window.location.href)) {
+    var s = document.getElementsByClassName('set03');
+    var x;
+    for (x = 0; x < 2; x++) {
+      s[x].style.display = 'block';
+    }
+  }
+
+  //MULTI_BONUS_CAMPAIGN: Displays elements depending on URL parameter "template" & "type"
+  if (/multi/.test(window.location.href) && /set-01/.test(window.location.href)) {
+    document.getElementsByClassName('set01')[2].style.display = 'block';
+  } else if (/multi/.test(window.location.href) && /set-02/.test(window.location.href)) {
+      document.getElementsByClassName('set02')[2].style.display = 'block'; 
+  } else if (/multi/.test(window.location.href) && /set-03/.test(window.location.href)) {
+      document.getElementsByClassName('set03')[2].style.display = 'block'; 
+  }      
+
+</script>

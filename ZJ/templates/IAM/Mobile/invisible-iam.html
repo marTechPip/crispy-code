@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0); /* Fully transparent background */
+        z-index: 9999; /* Ensure it's on top */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+      // Replace with the actual deep link for app review prompt
+      var deepLinkUrl = 'zenjob://appreview';
+
+      // Function to trigger the app review prompt
+      function triggerReview() {
+        // Open the deep link in the same window or a new tab
+        window.location.href = deepLinkUrl;
+      }
+
+      // Automatically trigger the app review prompt after a delay (e.g., 1 seconds)
+      setTimeout(triggerReview, 1000);
+    </script>
+
+    
+  </body>
+</html>
+

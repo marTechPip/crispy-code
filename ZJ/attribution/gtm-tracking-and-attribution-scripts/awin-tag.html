@@ -1,0 +1,76 @@
+<!-- AWIN CONVERSION TAG -->
+
+<!-- 1ST CONVERSION GOAL -->
+<script type="text/javascript">
+  var AWIN = {};
+  AWIN.Tracking = {};
+  AWIN.Tracking.Sale = {};
+    
+  // extract parameter values from URL
+  var source = getUrlParameter('utm_source');
+  var medium = getUrlParameter('utm_medium');
+  var campaign = getUrlParameter('utm_campaign');
+  var awc = getUrlParameter('awc');
+  var zenjobID = localStorage.getItem('ajs_user_id');
+  
+  // save parameter values to local storage
+  localStorage.setItem('source', source);
+  localStorage.setItem('medium', medium);
+  localStorage.setItem('campaign', campaign);
+  localStorage.setItem('awc_param', awc);
+  
+  // function to extract parameter values from URL
+  function getUrlParameter(param) {
+    var pageURL = decodeURIComponent(window.location.search.substring(1));
+    var parameters = pageURL.split('&');
+    for (var i = 0; i < parameters.length; i++) {
+      var parameterName = parameters[i].split('=');
+      if (parameterName[0] === param) {
+        return parameterName[1] === undefined ? true : parameterName[1];
+      }
+    }
+  }
+  
+  // set AWIN conversion tracking parameters
+  AWIN.Tracking.Sale.amount = "1";
+  AWIN.Tracking.Sale.channel = "aw";
+  AWIN.Tracking.Sale.orderRef = zenjobID;
+  AWIN.Tracking.Sale.parts = "Default:1";
+  AWIN.Tracking.Sale.currency = "EUR";
+  AWIN.Tracking.Sale.voucher = "null";
+  AWIN.Tracking.Sale.test = "1";
+  AWIN.Tracking.Sale.custom = {
+      source: source,
+      medium: medium,
+      campaign: campaign,
+      awc_param: awc
+    }   
+</script>
+
+<!-- 2ND CONVERSION GOAL -->
+<script>
+  // read parameter values from local storage
+  var source = localStorage.getItem('source');
+  var medium = localStorage.getItem('medium');
+  var campaign = localStorage.getItem('campaign');
+  var awc = localStorage.getItem('awc_param'); 
+  var zenjobID = localStorage.getItem('ajs_user_id');
+  
+  // set AWIN conversion tracking parameters
+  var AWIN = {};
+  AWIN.Tracking = {};
+  AWIN.Tracking.Sale = {};
+  AWIN.Tracking.Sale.amount = '1';
+  AWIN.Tracking.Sale.channel = 'aw';
+  AWIN.Tracking.Sale.orderRef = zenjobID;
+  AWIN.Tracking.Sale.parts = 'Default:1';
+  AWIN.Tracking.Sale.currency = 'EUR';
+  AWIN.Tracking.Sale.voucher = 'null';
+  AWIN.Tracking.Sale.test = '1';
+  AWIN.Tracking.Sale.custom = {
+    source: source,
+    medium: medium,
+    campaign: campaign,
+    awc_param: awc
+  }
+</script>

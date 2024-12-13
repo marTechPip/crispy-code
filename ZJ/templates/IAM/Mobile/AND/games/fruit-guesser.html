@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="and-push-act(1).css">
+    <title>In-App Message</title>
+    <style>
+      #fruitImage {     
+        min-width: 100%; 
+        max-width: 100%;
+        z-index: 3;
+      }
+      
+      #vegetableImage {     
+        min-width: 100%; 
+        max-width: 100%;
+        z-index: 3;
+      }
+      
+      #breadImage {     
+        min-width: 100%; 
+        max-width: 100%;
+        z-index: 3;
+      }
+
+      .image {     
+        min-width: 100%; 
+      }
+
+      .optionButton {
+        background-color:#8B78FA;
+        padding: 0 10px;
+        border: none;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 22px;
+        height: 12vw;
+        min-width: 80%;
+        width: 60vw;
+        text-align:center;
+        text-decoration: none; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 0;
+      }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="in-app-message">
+          <div class="wrapper">
+            <button class="close-button" id="close_button" onclick="appboyBridge.logClick(close_button); appboyBridge.closeMessage()">
+                <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/64624bd07fdb4356fcc340e8/original.svg?1684163536" alt="Close Button">
+            </button>
+
+            <!--1st question-->
+            <div id="fruitGame">
+                <img id="fruitImage" src="" alt="Fruit Image">
+                <div class="content">
+                    <h2 class="headline">Test your super(market)power</h2>
+                    <div class="copy">Can you name the fruit?</div>
+                    <div class="copy-list" id="options1">
+                    </div>
+                </div>
+            </div>
+
+            <!--2nd question-->
+            <div id="vegetableGame" style="display:none;">
+                <img id="vegetableImage" src="" alt="vegetable Image">
+                <div class="content">
+                    <h2 class="headline">Test your super(market)power</h2>
+                    <div class="copy">Can you name the veggie?</div>
+                    <div class="copy-list" id="options2">
+                    </div>
+                </div>
+            </div>
+
+            <!--3rd question-->
+            <div id="breadGame" style="display:none;">
+                <img id="breadImage" src="" alt="Bread Image">
+                <div class="content">
+                    <h2 class="headline">Test your super(market)power</h2>
+                    <div class="copy">Can you name the bread?</div>
+                    <div class="copy-list" id="options3">
+                    </div>
+                </div>
+            </div>
+
+            <!--Answers 3 of 3 correctly-->
+            <div id="correct" style="display: none;">
+                <img class="image" src="https://www.dropbox.com/scl/fi/4a8r7v5vhs19ra6ikz327/winner-image.png?rlkey=1f5o6kbcm55bgvwmmo44tihwl&raw=1" alt="Winner Image">
+                <div class="content">
+                    <h2 class="headline">Yes, you're the fruit hero</h2>
+                    <div class="copy">With great power comes great responsibility. So, why don't you put your skill to good use and do more cashier jobs!?</div>
+                    <a class="cta" id="button_one" onclick="appboyBridge.logClick(button_one); appboyBridge.closeMessage()">Cashier Jobs</a>  
+                </div>
+            </div>
+
+            <!--Answers 1 or 2 correctly-->
+            <div id="semi-correct" style="display: none;">
+                <img class="image" src="https://www.dropbox.com/scl/fi/3g4an5toq4bd9svmjvtgg/loser-image.png?rlkey=1kix5qfj7s4js5qfbw18ftawk&raw=1" alt="Winner Image">
+                <div class="content">
+                    <h2 class="headline">Not too bad!</h2>
+                    <div class="copy">Hone your skills a wee bit more.</div>
+                    <a class="cta" id="button_two" onclick="appboyBridge.logClick(button_two); appboyBridge.closeMessage()">Cashier Jobs</a>  
+                </div>
+            </div>
+
+            <!--Answers 3 of 3 incorrectly-->
+            <div id="incorrect" style="display: none;">
+                <img class="image" src="https://www.dropbox.com/scl/fi/3g4an5toq4bd9svmjvtgg/loser-image.png?rlkey=1kix5qfj7s4js5qfbw18ftawk&raw=1" alt="Alternative Image">
+                <div class="content">
+                    <h2 class="headline">Oy weh, that was utterly wrong</h2>
+                    <div class="copy">But don't worry. We got you covered: With our cashier training. Skill up to step up your fruit game!</div>                    
+                    <a class="cta" id="button_three" onclick="appboyBridge.logClick(button_three); appboyBridge.closeMessage()">Cashier Training</a>  
+                </div>
+            </div>
+            <script>
+
+            var score = 0;
+
+            // 1st question script  
+            var fruits = [
+                {name: 'Mangosteen', image: 'https://www.dropbox.com/s/hg0jqyisv8yc7w2/Mangosteen.jpg?raw=1'},
+                {name: 'Durian', image: 'https://www.dropbox.com/s/thuuwii2yr0vrwq/Durian.jpg?raw=1'},
+                {name: 'Rambutan', image: 'https://www.dropbox.com/s/xavum0yghzwh32k/Rambutan.jpg?raw=1'},
+                {name: 'Persimmon', image: 'https://www.dropbox.com/s/mwem8yx64fy6y2y/Persimmon.jpg?raw=1'}
+            ];
+
+            var currentFruit = fruits[Math.floor(Math.random() * fruits.length)];
+
+            document.getElementById('fruitImage').src = currentFruit.image;
+
+            fruits.forEach(function(fruit) {
+                var button = document.createElement('button');
+                button.textContent = fruit.name;
+                button.className = 'optionButton';
+                button.onclick = function() {
+                    if (fruit.name === currentFruit.name) {
+                        score++; // Increase the score if the user's answer is correct
+                    }
+                    document.getElementById('fruitGame').style.display = 'none';
+                    document.getElementById('options1').innerHTML = ''; // Clear the previous options
+                    startVegetableGame(); // Move on to the next game regardless of whether the user's answer was correct or not
+                };
+                document.getElementById('options1').appendChild(button);
+            });
+
+            // 2nd question script
+            function startVegetableGame() {
+                var vegetables = [
+                {name: 'Bok Choy', image: 'https://www.dropbox.com/scl/fi/zbt9jvwc2u4pr4mxoaamn/Bok-Choy.jpg?rlkey=nz1tg4u2fzt927qf9qatzqa24&raw=1'},
+                {name: 'Okra', image: 'https://www.dropbox.com/scl/fi/8ow3j7elps1m413u9kxwb/Okra.jpg?rlkey=z8nezqaqq3w9k8p12dzpeqvur&raw=1'},
+                {name: 'Daikon', image: 'https://www.dropbox.com/scl/fi/vaklbbdk2dd8irvjbdltb/Daikon.jpg?rlkey=awb3xj57gt10rid76iodw0js6&raw=1'},
+                {name: 'Chayote', image: 'https://www.dropbox.com/scl/fi/djmq96dh48iaarnibp2fz/Chayote.jpg?rlkey=ko9ha90nnqys55sm08myxo08b&raw=1'}
+                ];
+
+                var currentVegetable = vegetables[Math.floor(Math.random() * vegetables.length)];
+
+                document.getElementById('vegetableImage').src = currentVegetable.image;
+
+                vegetables.forEach(function(vegetable) {
+                    var button = document.createElement('button');
+                    button.textContent = vegetable.name;
+                    button.className = 'optionButton';
+                    document.getElementById('vegetableGame').style.display = 'block';
+                    button.onclick = function() {
+                        if (vegetable.name === currentVegetable.name) {
+                            score++; // Increase the score if the user's answer is correct
+                        }
+                        document.getElementById('vegetableGame').style.display = 'none';
+                        document.getElementById('options2').innerHTML = ''; // Clear the previous options
+                        startBreadGame(); // Move on to the next game regardless of whether the user's answer was correct or not
+                    };
+                    document.getElementById('options2').appendChild(button);
+                });
+            }
+
+            // 3rd question script
+            function startBreadGame() {
+                var breads = [
+                {name: 'Mohnbrötchen', image: 'https://www.dropbox.com/scl/fi/6c1mr6wvr966k8hvgtpvj/Mohn.jpg?rlkey=9lh59rqwke41yym5mtq88hynm&raw=1'},
+                {name: 'Kürbiskernbrötchen', image: 'https://www.dropbox.com/scl/fi/djx2zaql5kxs5jkms12ud/K-rbiskern.jpg?rlkey=y230k7crh2upyzk2uqwmqrtbm&raw=1'},
+                {name: 'Sesambrötchen', image: 'https://www.dropbox.com/scl/fi/teaxlxx66toux48w8fiq7/Sesam.jpg?rlkey=3srlnap4v02ipoohixngihvqd&raw=1'},
+                {name: 'Vollkornbrötchen', image: 'https://www.dropbox.com/scl/fi/367ce1mh6qv4ka8lwvydw/Vollkorn.jpg?rlkey=iglcix0uezchqnp579tve3lzr&raw=1'}
+                ];
+
+                var currentBread = breads[Math.floor(Math.random() * breads.length)];
+
+                document.getElementById('breadImage').src = currentBread.image;
+
+                breads.forEach(function(bread) {
+                    var button = document.createElement('button');
+                    button.textContent = bread.name;
+                    button.className = 'optionButton';
+                    document.getElementById('breadGame').style.display = 'block';
+                    button.onclick = function() {
+                        if (bread.name === currentBread.name) {
+                            score++; // Increase the score if the user's answer is correct
+                        }
+                        document.getElementById('breadGame').style.display = 'none';
+                        document.getElementById('options3').innerHTML = ''; // Clear the previous options
+                        endGame(); // Move on to the end of the game regardless of whether the user's answer was correct or not
+                    };
+                    document.getElementById('options3').appendChild(button);
+                });
+            }
+
+            function endGame() {
+                // Hide the last game
+                document.getElementById('breadGame').style.display = 'none';
+
+                // Show the appropriate response based on the user's score
+                if (score === 3) {
+                    document.getElementById('correct').style.display = 'block';
+                } else if (score > 0) {
+                    document.getElementById('semi-correct').style.display = 'block';
+                } else {
+                    document.getElementById('incorrect').style.display = 'block';
+                }
+            }
+
+            </script>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

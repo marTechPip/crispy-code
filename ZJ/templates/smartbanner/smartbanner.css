@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
+
+.smartbanner .author,
+.smartbanner .price {
+  font-size: 11px;
+}
+
+.smartbanner .close-button {
+  border: 0;
+  display: block;
+  left: 9px;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  top: calc(50% - 15px);
+  width: 12px;
+  color: #767676;
+  text-decoration: none;
+  font-weight: 100;
+}
+
+.smartbanner .get-button {
+  background: #f3f3f3;
+  border-radius: 5px;
+  color: #1474fc;
+  display: block;
+  font-size: 18px;
+  min-width: 10%;
+  padding: 0 10px;
+  position: absolute;
+  right: 10px;
+  text-align: center;
+  text-decoration: none;
+  top: 32px;
+  z-index: 5001;
+}
+
+.smartbanner .icon {
+  width: 64px;
+  height: 64px;
+  background-size: 64px 64px;
+  position: absolute;
+  top: 10px;
+  border-radius: 15px;
+  left: 30px;
+}
+
+.smartbanner {
+  background: #f3f3f3;
+  font-family: 'Roboto', sans-serif;
+  height: 84px;
+  overflow-x: hidden;
+  width: 100%;
+  z-index: 5000;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.smartbanner-info {
+  font-family: 'Roboto', sans-serif;
+  align-items: flex-start;
+  color: #000;
+  display: flex;
+  overflow-y: hidden;
+  width: 60%;
+  margin-left: 104px;
+  flex-direction: column;
+  flex: 1;
+  gap: 0;
+  line-height: normal;
+}
+
+.smartbanner .title, .smartbanner .author, .smartbanner .price {
+  margin: 0; 
+  padding: 0; 
+}
+
+.smartbanner .title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+@media (min-width: 768px) {
+  #smartbanner {
+      display: none;
+  }
+
+}

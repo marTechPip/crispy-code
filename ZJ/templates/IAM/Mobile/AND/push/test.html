@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="and-push-act(1).css">
+    <title>In-App Message</title>
+</head>
+<body>
+    <div class="overlay">
+        <div class="in-app-message">
+          <div class="wrapper">
+            <button class="close-button" onclick="appboyBridge.closeMessage()">
+                <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/64624bd07fdb4356fcc340e8/original.svg?1684163536" alt="Close Button">
+            </button>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/uHGShqcAHlQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+            <div class="content">
+                <h2 class="headline">Stay up-to-date with notifications:</h2>
+                <div class="copy-list">
+                  <ol>
+                    <li>Open your settings</li>
+                    <li>Go to "Notifications”</li>
+                    <li>Search "Zenjob"</li>
+                    <li>Allow notifications</li>
+                  </ol>
+                </div>
+                <a class="cta" onclick="appboyBridge.closeMessage()">Got it</a>
+                <!-- OR <button id="ios-settings-button" class="cta-button hidden" onclick="window.location='app-settings:notifications'">iOS Settings</button>-->
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

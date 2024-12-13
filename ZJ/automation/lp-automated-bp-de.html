@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<style>
+
+body,
+table,
+td,
+div,
+h2,
+h3,
+h4,
+p,
+a {
+  font-family: 'Lato', sans-serif;
+  line-height: 150%;
+  margin: 0;
+}
+
+span {
+  font-family: 'Lato', sans-serif;
+}
+
+/* Desktop styles */    
+
+body {
+    min-height: auto;
+    max-width: 100%;
+}
+
+.button {
+  color: #7625f7;
+  border: 1px;
+  border-style: solid;
+  border-radius: 88px;
+  border-color: #7625f7;
+  background-color: transparent;
+  width: 350px;
+  height: 70px;
+  font-weight: 700;
+  font-size: 22px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-wrapper {
+  display: none;
+  text-align:center;
+  padding:60px 0px 30px 0px;
+}
+
+.cityList {
+  background-color: transparent;
+  position: relative;
+}
+
+.conditions-wrapper {
+  padding: 40px 100px 60px 100px;
+}
+
+.conditions-value {
+  font-size: 12px;
+  color:#7b7c7f;
+  text-align: center;
+}
+
+.footer {
+  background-color: #7625f7;
+  text-align: center;
+  color: #f9f9f9 !important;
+  height: 100px;
+  font-size: 12px !important;
+  width: 100%;
+}
+
+.h2 {  
+  font-family: 'Lato', sans-serif;
+  line-height: 150%;
+  text-align: center;
+  font-size: 30px !important;
+  color: #7625f7;
+  font-weight: 700;
+}
+
+.h3 {
+  font-family: 'Lato', sans-serif;
+  line-height: 150%;
+  text-align: center;
+  color: #3e1191;
+  font-size: 24px;
+  font-weight: 400px;
+  padding: 60px 0px 40px 0px;
+}
+
+.h4 {
+  font-family: 'Lato', sans-serif;
+  line-height: 150%;
+  text-align: center;
+  color: #3e1191;
+  font-size: 18px;
+  font-weight: 400px;
+  padding: 20px 0px 20px 0px;
+}
+
+.img {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100%;
+  height: auto;
+}
+
+.img-mobile {
+  width: 100%;
+  height: auto;
+  display: none;
+}
+
+.job-value {
+  color:#7625f7;
+  width: 70%;
+  text-align: left;
+  max-width: 100%;
+  font-size: 16px;
+  font-weight: 400px;
+  padding: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.location-job-wrapper {
+  border: 1px;
+  border-style: solid;
+  border-color: #7625f7;
+  overflow: hidden;
+  margin: 5px; 
+}
+
+.location-value {
+  color:#3e1191;
+  width: 20%;
+  max-width: 100%;
+  text-align: left;
+  font-size: 20px;
+  font-weight: 700px;
+  padding: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.multi {
+  font-size: 18px;
+  color: #3e1191;
+  background-color: #f5f5ff;
+  padding: 80px 150px 80px 150px;
+}
+
+#multi01 {
+  display: none;
+}
+
+#multi02 {
+  display: none;
+}
+
+#multi03 {
+  display: none;
+}
+
+.single {
+  font-size: 24px; 
+  color: #3e1191; 
+  padding: 60px 100px 60px 100px;
+}
+
+.set01 {
+  display: none;
+}
+
+.set02 {
+  display: none;
+}
+
+.set03 {
+  display: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Mobile styles */        
+@media only screen and (max-device-width:480px), only screen and (max-width:480px) {
+
+body {
+  max-width: 100%;
+}
+
+table,
+td,
+div,
+h2,
+h3,
+h4,
+p,
+a {
+  margin: 0px;
+}
+
+.button {
+  width: 100%;
+  height: 45px;
+  font-size: 100% !important;
+}
+
+.button-wrapper {
+  display: block;
+  padding: 20px 20px 0px 20px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.conditions-wrapper {
+  padding: 20px 0px 40px 0px;
+}
+
+.conditions-value {
+  font-size: 12px;
+}
+
+.footer {
+  height: 100px;
+  font-size: 12px !important;
+  width: 100%;
+}
+
+.h2 {  
+  line-height: 150%;
+  font-size: 20px !important;
+  padding: 0px 0px 0px 0px;
+}
+
+.h3 {
+  line-height: 150%;
+  font-size: 20px;
+  padding: 20px 0px 20px 0px;
+}
+
+.h4 {
+  line-height: 150%;
+  font-size: 20px;
+  padding: 0px 0px 20px 0px;
+}
+
+.img {
+  display: none !important;
+}
+
+.img-mobile {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0px;
+}
+
+.job-value {
+  width: 85%;
+  max-width: 100%;
+  font-size: 15px;
+  padding: 10px 20px 10px 20px;
+}
+
+.location-job-wrapper {
+  margin: 5px; 
+}
+
+.location-value {
+  width: 85%;
+  max-width: 100%;
+  font-size: 20px;
+  padding: 10px 20px 0px 20px;
+}
+
+.multi {
+  font-size: 15px;
+  padding: 40px 20px 40px 20px;
+}
+
+.single {
+  font-size: 15px;
+  padding: 20px 0px 20px 0px;
+}
+
+.set01 {
+  margin: 0px;
+}
+
+.set02 {
+  margin: 0px;
+}
+
+.set03 {
+  margin: 0px;
+}
+
+}
+
+</style>
+</head>
+<body>
+  <!-- START MAIN PART -->
+  <table>
+    <!-- START HEADER IMAGE -->
+    <tr>
+      <td>        
+        <div class="set01"><img class="img" src="https://www.zenjob.com/de/wp-content/uploads/sites/2/2023/01/2301_DE-B2C_CRM_GeneralBP_Hero1-DESKTOP.png"/></div>
+        <div class="set01"><img class="img-mobile" src="https://www.zenjob.com/de/wp-content/uploads/sites/2/2023/01/2301_DE-B2C_CRM_GeneralBP_Hero1-MOBILE.png"/></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="set02"><img class="img" src="https://www.zenjob.com/de/wp-content/uploads/sites/2/2023/01/2301_DE-B2C_CRM_GeneralBP_Hero2-DESKTOP.png"/></div>
+        <div class="set02"><img class="img-mobile" src="https://www.zenjob.com/de/wp-content/uploads/sites/2/2023/01/2301_DE-B2C_CRM_GeneralBP_Hero2-MOBILE.png"/></div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="set03"><img class="img" src="https://www.zenjob.com/de/wp-content/uploads/sites/2/2023/01/2301_DE-B2C_CRM_GeneralBP_Hero3-DESKTOP.png"/></div>
+        <div class="set03"><img class="img-mobile" src="https://www.zenjob.com/de/wp-content/uploads/sites/2/2023/01/2301_DE-B2C_CRM_GeneralBP_Hero3-MOBILE.png"/></div>
+      </td>
+    </tr>
+    <!-- END HEADER IMAGE -->  
+    <!-- START TEXT SINGLE 01 --> 
+    <tr>
+      <td class="single set01">
+        <div>
+          <p class="text-center">Ist dein Konto bereit für ein Power-up? Dann gönn dir doch einfach unseren Bonus in Höhe von <span class="bonus_value"></span>€. Und das ganz ohne Endboss! Absolviere stattdessen bis zum <span class="bonus_end"></span> mindestens <span class="bonus_shift"></span> Schichten deiner Wahl – that’s it! Deinen erfolgreich eingesammelten Bonus erhältst du anschließend mit deinem nächsten Gehalt.</p>
+        </div>
+        <div class="button-wrapper" id="button-single01">          
+          <a class="button" style="text-decoration:none;" href="https://giphy.com/gifs/PBSSoCal-pbs-socal-actors-on-variety-studio-WueGYCBT6OPsjUMj1J">Bonus freischalten</a>
+        </div>
+      </td>
+    </tr>  
+    <!-- END TEXT SINGLE 01 --> 
+    <!-- START TEXT MULTI 01-->
+    <tr>
+      <td class="multi" id="multi01">
+        <div>
+          <h2 class="h2">WILLST DU NOCH MEHR?</h2>
+          <br>
+          <p class="text-center">Nichts leichter als das! Wir haben einen Cheat-Code, um deinen Bonus zu vergrößern: Nach jeder weiteren erfolgreich abgeschlossenen Schicht addieren wir weitere <span class="bonus_value"></span>€ zu deinem Bonus. Easy, oder?</p>
+        </div>
+        <div class="button-wrapper">          
+          <a class="button" style="text-decoration:none;" href="https://giphy.com/gifs/PBSSoCal-pbs-socal-actors-on-variety-studio-WueGYCBT6OPsjUMj1J">Bonus freischalten</a>
+        </div>
+      </td>
+    </tr>              
+    <!-- END TEXT MULTI 01 -->
+    <!-- START TEXT SINGLE 02 -->
+    <tr>
+      <td class="single set02">
+        <div>
+          <p class="text-center">Minimalismus war gestern! Heute geht’s viel eher darum, mehr herauszuholen. Absolvierst du daher bis zum <span class="bonus_end"></span> mindestens <span class="bonus_shift"></span> Schichten deiner Wahl erfolgreich, schreiben wir dir mit deinem nächsten Gehalt einen Bonus in Höhe von <span class="bonus_value"></span>€ gut.</p>
+        </div>
+        <div class="button-wrapper" id="button-single02">          
+          <a class="button" style="text-decoration:none;" href="https://giphy.com/gifs/PBSSoCal-pbs-socal-actors-on-variety-studio-WueGYCBT6OPsjUMj1J">Bonus freischalten</a>
+        </div>
+      </td>
+    </tr>   
+    <!-- END TEXT SINGLE 02 -->
+    <!-- START TEXT MULTI 02-->
+    <tr>
+      <td class="multi" id="multi02">
+        <div>
+          <h2 class="h2">DARF’S NOCH EIN BISSCHEN MEHR SEIN?</h2>
+          <br>
+          <p class="text-center">Na klar. Maximalisieren ist halt ’ne Lebenseinstellung! Deswegen addieren wir dir mit jeder weiteren erfolgreich abgeschlossenen Schicht zusätzlich <span class="bonus_value"></span>€ zu deinem bereits verdienten Bonus. Also bloß keine falsche Bescheidenheit – und ran zum nächsten Job!</p>
+        </div>
+        <div class="button-wrapper">          
+          <a class="button" style="text-decoration:none;" href="https://giphy.com/gifs/PBSSoCal-pbs-socal-actors-on-variety-studio-WueGYCBT6OPsjUMj1J">Bonus freischalten</a>
+        </div>
+      </td>
+    </tr>     
+    <!-- END TEXT MULTI 02-->
+    <!-- START TEXT SINGLE 03-->
+    <tr>
+      <td class="single set03">
+        <div>
+          <p class="text-center">Leg doch einfach noch was oben drauf! Mit unserem Bonus-Boost kassierst du zusätzlich <span class="bonus_value"></span>€ zu deinem nächsten Gehalt. Einzige Voraussetzung: Du musst bis zum <span class="bonus_end"></span> mindestens <span class="bonus_shift"></span> Schichten erfolgreich absolvieren. C’est ça.</p>
+        </div>
+        <div class="button-wrapper" id="button-single03">          
+          <a class="button" style="text-decoration:none;" href="https://giphy.com/gifs/PBSSoCal-pbs-socal-actors-on-variety-studio-WueGYCBT6OPsjUMj1J">Bonus freischalten</a>
+        </div>
+      </td>
+    </tr>   
+    <!-- END TEXT SINGLE 03 -->
+    <!-- START TEXT MULTI 03 -->
+    <tr>
+      <td class="multi" id="multi03">
+        <div>
+          <h2 class="h2">KEINE LIMITS (FÜR) MEHR!</h2>
+          <br>
+          <p class="text-center">Sich beschränken müssen ist doch öde. Deswegen geben wir dir mit diesem Bonusprogramm die Chance dazu, dein Gehalt so oft zu boosten, wie du kannst (und magst). Mit jeder erfolgreich abgeschlossenen Schicht verdienst du dir so zusätzlich <span class="bonus_value"></span>€. Zu gut, um wahr zu sein? Dann probier’s doch einfach selbst mal aus!</p>
+        </div>
+        <div class="button-wrapper">          
+          <a class="button" style="text-decoration:none;" href="https://giphy.com/gifs/PBSSoCal-pbs-socal-actors-on-variety-studio-WueGYCBT6OPsjUMj1J">Bonus freischalten</a>
+        </div>
+      </td>
+    </tr>  
+    <!-- END TEXT MULTI 03 -->
+    <!-- START LOCATION & JOBS -->
+    <tr>
+      <td>
+        <div class="h3">In diesen Städten zählen folgende Jobs dazu:</div>  
+        <div class="cityList">      
+          <div class="location-job-wrapper" id="location-job-wrapper">
+            <div class="location-value" id="bonus_location">
+            </div>
+            <div class="job-value" id="bonus_jobs">
+            </div>
+          </div>
+        </div>
+        <tr>
+          <td>            
+            <div class="button-wrapper">          
+              <a class="button" style="text-decoration:none;" href="https://giphy.com/gifs/PBSSoCal-pbs-socal-actors-on-variety-studio-WueGYCBT6OPsjUMj1J">Bonus freischalten</a>
+            </div>
+          </td>
+        </tr>
+      </td>
+    </tr>
+    <!-- END LOCATION & JOBS -->
+    <!-- START TERMS & CONDITIONS -->
+    <tr>
+      <td class="conditions-wrapper">
+        <div>
+          <p class="h4">Aktionsbedingungen</p>          
+          <p class="conditions-value">
+          Diese Aktion ist gültig vom <span class="bonus_start"></span> bis <span class="bonus_end"></span>. Arbeite innerhalb des Aktionszeitraums mindestens <span class="bonus_shift"></span> Schichten und erhalte einen <span class="bonus_value"></span>€ Bonus (brutto) obendrauf. Für jede <span class="bonus_shift"></span> geleistete Schichten erhältst du einen zusätzlichen <span class="bonus_value"></span>€ Bonus (brutto) bis zu einem Limit von insgesamt <span class="bonus_shift_max"></span> Schichten. Diese Aktion ist in den folgenden Städten für folgende Jobs gültig: <span id="bonus_location_tc"></span>. Der Bonus wird bis zum 15. des Folgemonats ausbezahlt.</br>
+          </br>
+          Bitte beachte, dass Trainings-Schichten nicht auf die Prämie angerechnet werden. Diese Aktion ist eine persönliche Aktion für Empfänger der E-Mail/Push-Benachrichtigung für diese Kampagne am <span class="bonus_start"></span> und kann nicht auf andere übertragen werden. Die Weiterleitung der E-Mail berechtigt den Empfänger nicht zum Erhalt eines Bonus.
+          </p> 
+        </div>
+      </td>
+    </tr>
+    <!-- END TERMS & CONDITIONS -->
+  </table>
+  <!-- END MAIN PART -->  
+  <!-- START FOOTER -->
+  <table class="footer">
+    <tr>
+      <td>
+        <p>© 2023 Copyright: <a href="https://www.zenjob.com/de" target="blank" style="color:#f9f9f9; text-decoration:underline;">Zenjob GmbH</a></p>
+      </td>
+    </tr>
+  </table>
+  <!-- END FOOTER -->
+  <script>
+    const bonusId = getUrlParameter('bonusId');
+    
+    function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+  
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+  
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+  
+    /*function pullRowsSessionStorage() {
+        var bonusDetails = JSON.parse(window.sessionStorage.getItem(bonusId))
+        var bonusValues = document.getElementsByClassName('bonus_value');
+        for (var i = 0; i < bonusValues.length; i++) {
+            bonusValues[i].innerHTML = bonusDetails.value;
+        }
+        document.getElementById('bonus_location1').innerHTML = bonusDetails.city;
+        document.getElementById('bonus_conditions').innerHTML = bonusDetails.conditions;          
+    }*/
+  
+    function pullRowsAPI(xml) {
+        x = xml.documentElement.childNodes;
+        for (var i = 0; i < x.length; i++) {
+            var s1 = xml.getElementsByTagName("bonusCampaign")[i]
+            
+            if (s1 != undefined) {
+                
+                var referenceId = s1.getElementsByTagName('id')[0].textContent;
+                var value = s1.getElementsByTagName('bonus')[0].textContent;
+                var end = s1.getElementsByTagName('end_date')[0].textContent;                 
+                var jobEn = s1.getElementsByTagName('job_en')[0].textContent;
+                var shift = s1.getElementsByTagName('shifts')[0].textContent;
+                var job = s1.getElementsByTagName('job')[0].textContent; 
+                var start = s1.getElementsByTagName('start_date')[0].textContent;
+                var shiftMax = s1.getElementsByTagName('bp_max_shift')[0].textContent;
+  
+                //parse JSON array
+                var json = JSON.parse(job);
+                
+                //clone element & increment Element ID depending on array length   
+                function addRows() {
+                  var $row = $('.location-job-wrapper').clone();
+                  var $cityList = $('.cityList');
+                  for (i = 0; i < json.length; i++) {    
+                                                                
+                    var newRow = $row.clone();
+                    $("#bonus_location", newRow).attr('id', 'bonus_location' + i);
+                    $("#bonus_jobs", newRow).attr('id', 'bonus_jobs' + i);
+                    $("#location-job-wrapper", newRow).attr('id', 'location-job-wrapper' + i);
+                    newRow.appendTo($cityList);
+  
+                    document.getElementById('location-job-wrapper').style.display = 'none';
+                    
+                    addHtml();
+  
+                  } return 'success'                    
+                }
+  
+                //populate HTML elements with array data
+                function addHtml() {
+                  var element = json[i];
+                  const jsonCity = element.city;
+                  const jsonJob = element.jobs;
+                  
+                  document.getElementById('bonus_location' + i).innerHTML = jsonCity; 
+                  document.getElementById('bonus_jobs' + i).innerHTML = jsonJob;                                                  
+                }                
+                          
+                //call function
+                addRows()  
+                                
+                if (bonusId == referenceId) {
+                    
+                  var bValue = document.getElementsByClassName('bonus_value');
+                  for (var i = 0; i < bValue.length; i++) {
+                    bValue[i].innerHTML = value;
+                  }     
+                  var bShift = document.getElementsByClassName('bonus_shift');
+                  for (var i = 0; i < bShift.length; i++) {
+                    bShift[i].innerHTML = shift;
+                  }
+                  var bEnd = document.getElementsByClassName('bonus_end');
+                  for (var i = 0; i < bEnd.length; i++) {
+                    bEnd[i].innerHTML = end;
+                  }
+                  var bStart = document.getElementsByClassName('bonus_start');
+                  for (var i = 0; i < bStart.length; i++) {
+                    bStart[i].innerHTML = start;
+                  }
+                  var bShiftMax = document.getElementsByClassName('bonus_shift_max');
+                  for (var i = 0; i < bShiftMax.length; i++) {
+                    bShiftMax[i].innerHTML = shiftMax;
+                  }
+                  // extracting cities and job categories from the array captured in "json" to get the values listed in T&C elements
+                  // get the HTML element by ID
+                  var locationEl = document.getElementById('bonus_location_tc');
+
+                  // create empty array to store the cities and job categories
+                  var citiesAndJobs = [];
+
+                  // loop through the array and extract the cities and job categories
+                  for (var i = 0; i < json.length; i++) {
+                    var city = json[i].city;                    
+                    var jobs = json[i].jobs;
+
+                    citiesAndJobs.push(city + ': ' + jobs);
+                  }
+
+                  // add the cities and job categories to the HTML element
+                  locationEl.innerHTML = citiesAndJobs.join('; ');
+                } 
+            }
+        }
+    }      
+  
+    if (bonusId != null && bonusId != undefined) {
+        if (window.sessionStorage.getItem('rowsPulled') != 'true') {
+            var url = 'https://script.google.com/macros/s/AKfycbxqB4PasEU6LD3-RiLuDZm8_nbrti1WsW76d4mhAQXNyZN14isE0kP0Vf06xTjHrswF/exec?bonusId=' + bonusId
+            $.ajax({
+                url: url,
+                type: 'get',
+                dataType: 'xml',
+                success: function (response) {                  
+                    pullRowsAPI(response)
+                }
+            })
+        } /*else {
+            pullRowsSessionStorage()
+        }*/
+    }
+  
+    //SINGLE-BONUS-CAMPAIGN: Displays element depending on URL parameter "template"
+    if (/c9ae12692a88d71c9a3b9d41bd7cfa1f/.test(window.location.href)) {
+      var s = document.getElementsByClassName('set01');
+      for (var x = 0; x < s.length; x++) {
+        s[x].style.display = 'block';
+      }
+    } else if (/2a6a914922d90187ea0c669677b3bde9/.test(window.location.href)) {
+      var s = document.getElementsByClassName('set02');
+      for (var x = 0; x < s.length; x++) {
+        s[x].style.display = 'block';
+      }
+    } else if (/368981e27d9cec7f7792ce39d0fc45f8/.test(window.location.href)) {
+      var s = document.getElementsByClassName('set03');
+      for (var x = 0; x < s.length; x++) {
+        s[x].style.display = 'block';
+      }
+    }
+  
+    //MULTI_BONUS_CAMPAIGN: Displays elements depending on URL parameter "template" & "type" AND hide single text element's CTA
+    if (/ea8f243d9885cf8ce9876a580224fd3c/.test(window.location.href) && /c9ae12692a88d71c9a3b9d41bd7cfa1f/.test(window.location.href)) {
+      document.getElementById('multi01').style.display = 'block';
+      document.getElementById('button-single01').style.display = 'none';
+    } else if (/ea8f243d9885cf8ce9876a580224fd3c/.test(window.location.href) && /2a6a914922d90187ea0c669677b3bde9/.test(window.location.href)) {
+        document.getElementById('multi02').style.display = 'block';
+        document.getElementById('button-single02').style.display = 'none'; 
+    } else if (/ea8f243d9885cf8ce9876a580224fd3c/.test(window.location.href) && /368981e27d9cec7f7792ce39d0fc45f8/.test(window.location.href)) {
+        document.getElementById('multi03').style.display = 'block'; 
+        document.getElementById('button-single03').style.display = 'none';
+    }      
+  
+  </script>  
+</body>

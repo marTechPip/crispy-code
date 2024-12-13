@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="" >
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="%%description%%"/>
+    <title>%%title%%</title>
+    <script>
+      function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+
+      window.onload = function() {
+        document.getElementById('utm_source').value = getParameterByName('utm_source');
+        document.getElementById('utm_medium').value = getParameterByName('utm_medium');
+        document.getElementById('utm_content').value = getParameterByName('utm_content');
+        document.getElementById('utm_campaign').value = getParameterByName('utm_campaign');
+        document.getElementById('utm_term').value = getParameterByName('utm_term');
+        document.getElementById('gclid').value = getParameterByName('gclid');
+      }
+    </script>
+    <style type="text/css">
+
+      body {
+        background-position: center;
+        overflow: hidden;
+      }
+
+      .consent {
+        font-size: 0.75rem;  
+        font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+        font-weight: normal;
+        color: #26282D;
+        line-height: 1.1875rem;
+        padding: 0 0.5rem;
+      }
+
+      .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      form.form p.no-label {
+        margin-left: 0 !important;
+      }
+
+      .form-column {
+        flex: 0 0 30%;
+        padding: 0 0.5rem;
+      }
+
+      .form-heading {
+        font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+        font-size: 1.25rem;
+        line-height: 1.6875rem;
+        font-weight: normal;
+        color: #26282D;
+        margin: 0 0 2rem;
+        padding: 0 0.5rem;
+      }
+
+      .form-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.25rem;
+        align-items: flex-start;
+      }
+
+      .form-wrapper {
+        background-color: #f5f5ff;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        max-width: 100%;
+      }
+
+      .hide {
+        display:none;
+      }
+
+      .left-side {
+        flex: 0.5;
+      }
+
+      .right-side {
+        flex: 1;
+        padding-left: 1rem;
+        width:100%;
+      }
+
+      #pardot-form {
+        font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+      }
+
+      #pardot-form .form-field {
+        margin:0;
+        padding:5px 0 0 0;
+      } 
+
+      /* The input fields */ 
+      #pardot-form input.text,
+      #pardot-form textarea.standard,
+      #pardot-form select,
+      #pardot-form input.date { 
+        background-color: initial;
+        appearance: none;
+        border:solid 1px hsla(261,79%,31.8%,0.3);
+        font-size: 1rem;
+        color:#26282D;
+        border-radius: 0.5rem;
+        width:100%;
+        font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+        box-sizing:border-box;
+        line-height: 1.5;
+        min-height: 40px;
+        letter-spacing: .02em;
+        outline: none;
+        transition: border-color .2s ease,box-shadow .2s ease;
+        margin: 0 0 1rem;
+        padding: 0.6875rem 1.5rem;
+      }
+      /* the input fields on focus */ 
+      #pardot-form input.text:focus,
+      #pardot-form textarea.standard:focus,
+      #pardot-form select:focus,
+      #pardot-form input.date:focus { 
+        border-color:#3e1191;
+        outline: none;
+      }
+
+      #pardot-form span.value { 
+        margin-left: 0;
+      }
+
+      /* the field labels */ 
+      #pardot-form label {
+        color:#4E515C;
+        font-weight:normal;
+        padding:0 !important;
+        float:none;
+        text-align:left;
+        width:auto;
+        display:block;
+        font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+        font-size: 1rem;
+        letter-spacing: .0125em;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+      }
+
+      /* the submit button */ 
+      #pardot-form .submit input {
+        width:100%;
+        margin:0;
+        background-color:#6b39ee;
+        border:solid 1px #6b39ee;
+        color:white;
+        padding: 0.6875rem 0;
+        border-radius: 4px;
+        cursor: pointer;
+        display: inline-block;
+        outline: none;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        transition: .2s ease;
+        font-size: 18px;
+        line-height: 22px;
+        font-weight: 400;
+        font-family: Montserrat;
+        font-style: normal;        
+        width: 313px;
+        height: 64px;
+      }
+
+      /* the submit button hover */ 
+      #pardot-form .submit input:hover {
+        background-color:#F5F5F5;
+        border-color:#3E1191;
+        color:#3E1191;
+      }
+      /* the spacing around the submit button */ 
+      #pardot-form .submit {
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        margin-top: calc(1rem + 1rem);
+      }
+  
+      #pardot-form textarea.large-textarea {
+        width: 300%;
+        height: 100px; 
+        resize: vertical; 
+      }
+  
+  	  #pardot-form label.large-label {
+        width: 200%; /* adjust this value as needed */
+      }     	 
+
+      @media (max-width: 600px) {
+
+        .form-column {
+          flex: 0 0 100%;
+          padding: 0 0.5rem;
+        }
+        
+        .form-row {
+          flex-direction: column;
+        }
+
+        #pardot-form .submit input {
+          width: 100%;
+          margin: 0 0 1rem; /* same as the input fields */
+          padding: 0.6875rem 1.5rem; /* same as the input fields */
+        }           
+      }
+
+    </style>
+  </head>
+  <body>    
+    <div class="container">
+      <div class="right-side">
+        <div class="form-wrapper">
+          <p class="form-heading">Füllen Sie das Formular aus. Wir melden uns zeitnah bei Ihnen.</p>
+            <form id="pardot-form" action="{{REQUEST-URL}}" method="post">
+              <div class="form-row">
+                <div class="form-column">
+                  <label for="first_name">Vorname</label>
+                  <input class="text" type="text" id="first_name" name="first_name" required>
+                </div>
+                <div class="form-column">
+                  <label for="last_name">Nachname</label>
+                  <input class="text" type="text" id="last_name" name="last_name" required>
+                </div>
+                <div class="form-column">
+                  <label for="company_name">Unternehmen</label>
+                  <input class="text" type="text" id="company" name="company" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-column">
+                  <label for="email">Firmen-Email</label>
+                  <input class="text" type="email" id="email" name="email" required>
+                </div>
+                <div class="form-column">
+                  <label for="phone">Telefonnummer</label>
+                  <input class="text" type="text" id="phone" name="phone" required>
+                </div>
+                <div class="form-column">
+                  <label for="callback">Rückruf erwünscht?</label>
+                  <select id="callback" name="callback" required>
+                    <option value="">Bitte auswählen</option>
+                    <option value="Ja">Ja</option>
+                    <option value="Nein">Nein</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">                
+                <div class="form-column">
+                  <label for="zip">PLZ des Einsatzortes</label>
+                  <input class="text" type="number" id="zip" name="zip" required maxlength="5">
+                </div>
+                <div class="form-column">
+                  <label for="industry">Branche</label>
+                  <select id="industry" name="industry" required>
+                    <option value="">Bitte auswählen</option>
+                    <option value="Agency">Agentur</option>
+                    <option value="Retail - DIY">Baumarkt & DIY</option>
+                    <option value="Call Center">Call Center</option>
+                    <option value="E-Commerce">E-Commerce</option>
+                    <option value="Finance">Finanzen</option>
+                    <option value="Gastronomy">Gastronomie</option>
+                    <option value="Health">Gesundheitswesen</option>
+                    <option value="Wholesale">Großhandel</option>
+                    <option value="Hotels">Hotellerie</option>
+                    <option value="Retail - Food">Lebensmitteleinzelhandel</option>
+                    <option value="Delivery">Lieferdienst</option>
+                    <option value="Logistics">Logistik</option>
+                    <option value="Retail - Clothes">Modeeinzelhandel</option>
+                    <option value="Tourism">Tourismus</option>
+                    <option value="Insurance">Versicherung</option>
+                    <option value="Unknown">Andere</option>
+                  </select>
+                </div>
+                <div class="form-column">
+                  <input class="hide" type="text">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-column">
+                  <label class="large-label" for="description">Ihre Anfrage: Zu wann benötigen Sie welche Jobkategorie?</label>
+                  <textarea class="standard large-textarea" id="bedarf__c" name="Bedarf__c" required></textarea>
+                </div>  
+              </div>
+                
+            <p class="consent">Mit dem Absenden des Formulars bestätigen Sie, dass Sie mit der Speicherung und Verarbeitung Ihrer persönlichen Daten durch die Zenjob GmbH einverstanden sind. Informationen zu Ihrem Widerrufsrecht finden Sie in unserer<a href="https://www.exampleurl.com" target="_blank"> Datenschutzerklärung</a>&nbsp;und den&nbsp;<a href="https://www.exampleurl.com" target="_blank">AGB</a>.</p>
+            <input type="hidden" id="utm_source" name="UTM_Source">
+            <input type="hidden" id="utm_medium" name="UTM_Medium">
+            <input type="hidden" id="utm_content" name="UTM_Content">
+            <input type="hidden" id="utm_campaign" name="UTM_Campaign">
+            <input type="hidden" id="utm_term" name="UTM_Term">
+            <input type="hidden" id="gclid" name="GCLID">
+            <input type="hidden" id="lt_form_parameter" name="LT_form_parameter" value="Longterm Customer">
+
+            <div class="form-row">
+              <div class="form-column">
+                <div class="submit">
+                  <input type="submit" value="Personal anfragen">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

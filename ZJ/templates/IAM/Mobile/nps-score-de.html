@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>App Review</title>
+    <style>
+      * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+      }
+
+      body {
+          font-family: 'Inter', sans-serif;
+      }
+
+      p {
+          font-size: 15px;
+          text-align: left;
+          line-height: 24px;
+          color: #25282D;
+      }
+
+      .button-score {
+          width: 15%;
+          max-width: 55px;
+          height: 30px;
+          background-color: #EBE7FF;
+          color: #3E1191;
+          border: 0;
+      }
+
+      .button-reason, .button-feedback {
+          width: 95%;
+          max-width: 311px;
+          height: 48px;
+          border: 1px;
+          border-radius: 97px;
+          color: #FFFFFF;
+          border-color: #DBD9DE;
+          background-color: #3E1191;
+      }
+
+      .button-reason:disabled, .button-feedback:disabled {
+          background-color: #DBD9DE;
+          cursor: not-allowed;
+      }
+
+      .close-button {
+          font-family: 'Inter', sans-serif;
+          font-weight: 100;
+          font-size: 18px;
+          line-height: 12px;
+          background: none;
+          border: none;
+          z-index: 4;
+          width: 12px;
+          height: 11px;
+          color: #193154;
+      }
+
+      .dropdown-reason {
+        appearance: none;
+        text-align: center;
+        margin: 20px;
+        width: 95%;
+        max-width: 250px;
+        height: 48px;
+        border: 1px solid;
+        color: #3E1191;
+        border-color: #3E1191;
+        background-color: #FFFFFF;
+      }
+
+      .dropdown-reason option[value=""] {
+        color: #aaa;
+      }
+
+      .in-app-message {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: auto;
+          border-radius: 0;
+      }
+
+      .form {
+          width: 100%;
+          padding: 20px 0 10px 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+
+      .legend {
+          font-weight: 400;
+          color: #6A6573;
+          font-size: 12px;
+          line-height: 20px;
+      }
+
+      .overlay {
+          background-color: rgba(0, 0, 0, 0.5);
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 1;
+          display: flex;
+          justify-content: center;
+      }
+
+      .success-icon {
+          width: 15px;
+          height: 15px;
+          margin-top: 5px;
+      }
+
+      .textarea {
+          width: 100%;
+          height: 108px;
+          font-family: 'Inter', sans-serif;
+          resize: none;
+          padding: 10px;
+          border-radius: 5px;
+          border-color: #6A6573;
+          margin-bottom: 15px;
+      }
+
+      .wrapper-button-top, .wrapper-button-bottom {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          padding: 10px 0;
+      }
+
+      .wrapper-header {
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+          gap: 10px;
+      }
+
+      .wrapper-legend {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+      }
+
+      .wrapper-screen {
+          background-color: #ffffff;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px;
+      }
+
+      #user_id, #user_city, #user_os {
+        display: none;
+      }
+    </style>
+    <script>
+      $(document).ready(function() {
+        // Store user data
+        const userId = document.getElementById('user_id').innerText;
+        const homeCity = document.getElementById('user_city').innerText;
+        const userOs = document.getElementById('user_os').innerText;
+
+        // Create timestamp
+        const timestamp = new Date().toISOString();
+
+        // Monitor dropdown selection changes
+        $('.wrapper-screen:visible .dropdown-reason').on('change', function () {
+          const selectedValue = $(this).val();
+
+          // Enable button only if a valid option is selected
+          if (selectedValue) {
+            $('#firstButton').prop('disabled', false);
+            $('#secondButton').prop('disabled', false);
+          } else {
+            $('#firstButton').prop('disabled', true);
+            $('#secondButton').prop('disabled', true);
+          }
+        });
+
+        // Ensure button is disabled initially
+        $('#firstButton').prop('disabled', true);
+        $('#secondButton').prop('disabled', true);
+
+        // Initial setup: hide screens and disable submit button
+        $('#screen_two, #screen_three, #screen_four, #screen_five').hide();
+        $('#submitButton').prop('disabled', true);
+
+        // Enable/disable submit button based on textarea input
+        $('textarea[name="feedback"]').on('input', function() {
+          let feedbackLength = $(this).val().trim().length;
+          $('#submitButton').prop('disabled', feedbackLength === 0 || feedbackLength > 255);
+        });
+
+        // Score button click handler
+        $('.button-score').click(function() {
+          let selectedScore = parseInt($(this).text(), 10);
+
+          if (selectedScore >= 9) {
+            $('#screen_one').hide();
+            $('#screen_three').show();
+          } else if (selectedScore === 7 || selectedScore === 8) {
+            $('#screen_one').hide();
+            $('#screen_four').show();
+          } else {
+            $('#screen_one').hide();
+            $('#screen_two').show();
+          }
+
+          submitNPS(selectedScore);
+        });
+
+        // Drop-down submit button click handler
+        $('.button-reason').click(function() {
+          let selectedReason = $('.wrapper-screen:visible .dropdown-reason option:selected').text();
+
+          $('#screen_two').hide();
+          $('#screen_three').hide();
+          $('#screen_four').show();
+
+          submitReason(selectedReason);
+        });
+
+        // Feedback submit button click handler
+        $('.button-feedback').click(function() {
+          let selectedFeedback = document.querySelector(".textarea").value;
+
+          $('#screen_four').hide();
+          $('#screen_five').show();
+
+          submitFeedback(selectedFeedback);
+        });
+
+        // NPS score submission to Gsheet and Braze
+        function submitNPS(score) {
+          $.post($('#feedbackForm').attr('action'), { score: score, uuid: userId, timestamp: timestamp, location: homeCity, device: userOs });
+          brazeBridge.getUser().setCustomUserAttribute('nps', score);
+          brazeBridge.logCustomEvent("nps_submitted");
+        }
+      
+        // Reason submission to Gsheet
+        function submitReason(reason) {
+          $.post($('#feedbackForm').attr('action'), { reason: reason, uuid: userId, timestamp: timestamp });
+        }
+
+        // Feedback submission to Gsheet
+        function submitFeedback(feedback) {
+          $.post($('#feedbackForm').attr('action'), { feedback: feedback, uuid: userId, timestamp: timestamp });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <div id="user_id">{{${user_id}}}</div>
+    <div id="user_city">{{${city}}}</div>
+    <div id="user_os">{{most_recently_used_device.${os}}}</div>
+
+    <div class="overlay">
+      <div class="in-app-message">
+
+        <!-- Screen 1: Rating Selection -->
+        <div id="screen_one">
+          <div class="wrapper-screen">
+            <div class="wrapper-header">
+              <p>Wie wahrscheinlich würdest du Zenjob weiterempfehlen?</p>
+              <button class="close-button" id="close_button" onclick="brazeBridge.closeMessage()">x</button>
+            </div>
+            <!-- Scoring buttons -->
+            <div class="wrapper-button-top">
+              <button class="button-score">1</button>
+              <button class="button-score">2</button>
+              <button class="button-score">3</button>
+              <button class="button-score">4</button>
+              <button class="button-score">5</button>
+            </div>
+            <div class="wrapper-button-bottom">
+              <button class="button-score">6</button>
+              <button class="button-score">7</button>
+              <button class="button-score">8</button>
+              <button class="button-score">9</button>
+              <button class="button-score">10</button>
+            </div>
+            <div class="wrapper-legend">
+                <div class="legend">Unwahrscheinlich</div>
+                <div class="legend">Sehr wahrscheinlich</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen 2: Unsatisfied Reasons -->
+        <div id="screen_two">            
+          <div class="wrapper-screen">
+            <div class="wrapper-header">
+              <p>Ich bin am unzufriedensten mit...</p>
+              <button class="close-button" id="close_button" onclick="brazeBridge.closeMessage()">x</button>
+            </div>
+            <select class="dropdown-reason">
+              <option value="" disabled selected>Bitte wählen</option>
+              <option value="reason1">geringer Anzahl an Jobs</option>
+              <option value="reason2">Absagen auf Bewerbungen</option>
+              <option value="reason3">technischen Problemen</option>
+              <option value="reason4">Kundensupport</option>
+              <option value="reason5">Registration</option>
+              <option value="reason6">Sonstigem</option>
+            </select>
+            <button type="button" class="button-reason" id="firstButton">Einreichen</button>
+          </div>
+        </div>
+
+        <!-- Screen 3: Satisfied Reasons -->
+        <div id="screen_three">            
+          <div class="wrapper-screen">
+            <div class="wrapper-header">
+              <p>Ich bin am zufriedensten mit...</p>
+              <button class="close-button" id="close_button" onclick="brazeBridge.closeMessage()">x</button>
+            </div>
+            <select class="dropdown-reason">
+              <option value="" disabled selected>Bitte wählen</option>
+              <option value="reason1">Auswahl an Jobs</option>
+              <option value="reason2">Kundensupport</option>
+              <option value="reason3">Zenjob App</option>
+              <option value="reason4">Anzahl an Jobs</option>
+              <option value="reason5">Registration</option>
+              <option value="reason6">Sonstigem</option>
+            </select>
+            <button type="button" class="button-reason" id="secondButton">Einreichen</button>
+          </div>
+        </div>
+
+        <!-- Screen 4: Additional Feedback -->
+        <div id="screen_four">
+          <div class="wrapper-screen">
+            <div class="wrapper-header">
+              <p>Hast du weiteres Feedback für uns?</p>
+              <button class="close-button" id="close_button" onclick="brazeBridge.closeMessage()">x</button>
+            </div>
+            <form class="form" id="feedbackForm" action="{{GSHEET-REQUEST-URL}}" method="POST">
+              <textarea class="textarea" name="feedback" maxlength="255" placeholder="Füge dein Feedback hinzu"></textarea>
+               <button type="button" class="button-feedback" id="submitButton">Einreichen</button>
+            </form>   
+          </div>
+        </div>
+
+        <!-- Screen 5: Thank You -->
+        <div id="screen_five">            
+          <div class="wrapper-screen">
+            <div class="wrapper-header">
+              <img class="success-icon" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/66bc6d3782baf3007fe48958/original.png?1723624759" alt="success-icon">
+              <div class="copy">
+                <p>Danke für dein Feedback</p>
+                <p class="legend">Wir werden dein Feedback nutzen, um unser Produkt zu verbessern.</p>
+              </div>
+              <button class="close-button" id="close_button" onclick="brazeBridge.closeMessage()">x</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

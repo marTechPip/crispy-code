@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ios-push-act.css">
+    <title>In-App Message</title>
+</head>
+<body>
+    <div class="overlay">
+        <div class="in-app-message">
+          <div class="wrapper">
+            <button class="close-button" onclick="appboyBridge.logClick(); appboyBridge.closeMessage()">
+                <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/64624bd07fdb4356fcc340e8/original.svg?1684163536" alt="Close Button">
+            </button>
+            <iframe width="300" height="auto" src="https://www.youtube.com/embed/uHGShqcAHlQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="content">
+                <h2 class="headline">Be the first to know</h2>
+                <p class="copy">Turn on your notifications to find out first about new updates, bonus programmes, or other news.</p>
+                <a class="cta" href="app-settings:notifications" onclick="appboyBridge.logClick(); event.preventDefault();">Open notifications</a>
+                <!-- OR <button id="ios-settings-button" class="cta-button hidden" onclick="window.location='app-settings:notifications'">iOS Settings</button>-->
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

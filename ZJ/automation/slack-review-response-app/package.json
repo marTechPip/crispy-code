@@ -1,0 +1,17 @@
+{
+  "name": "first-bolt-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@slack/bolt": "^3.19.0",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "ngrok": "^5.0.0-beta.2"
+  }
+}

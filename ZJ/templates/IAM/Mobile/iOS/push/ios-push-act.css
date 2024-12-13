@@ -1,0 +1,109 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.close-button img {
+  width: 35px;
+  height: 35px;
+}
+
+.cta {
+  background-color:#4A1F99;
+  border: none;
+  border-radius: 97px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+  height: 50px;
+  min-width: 80%;
+  text-align:center;
+  text-decoration: none; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+
+.content {
+  padding: 20px;
+  background-color: white;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  max-width: 100%;
+  width: 80vw;
+}
+
+.copy {
+  font-size: 15px;
+  line-height: 20px;
+  text-align: center;
+  font-weight: 500;
+  color: #4E515C;  
+  margin: 15px 0px 20px 0px;
+}
+
+.headline {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 25px;
+  text-align: center;
+  color: #3E1191;
+}
+
+.image {
+  max-width: 100%;
+  z-index: 3;
+}
+
+.in-app-message {
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  height: auto;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  overflow: hidden;
+}

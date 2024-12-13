@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>In-App Message</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    div,
+    p,
+    a,
+    h1,
+    h2 {
+      font-family: 'Lato', sans-serif;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 4;
+    }
+
+    .close-button img {
+      width: 35px;
+      height: 35px;
+    }
+
+    .cta {
+      background-color:#4A1F99;
+      border: none;
+      border-radius: 97px;
+      color: #FFFFFF;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 22px;
+      left: 0%;
+      right: 0%;
+      top: 0%;
+      bottom: 0%;
+      height: 50px;
+      min-width: 80%;
+      text-align:center;
+      text-decoration: none; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    } 
+
+    .content {
+      padding: 10px;
+      background-color: white;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      max-width: 100%;
+      width: 80vw;
+    }
+
+    .copy {
+      font-size: 15px;
+      line-height: 20px;
+      text-align: center;
+      font-weight: 500;
+      color: #4E515C;  
+      margin: 15px 0px 20px 0px;
+    }
+
+    .copy-list {
+      font-size: 15px;
+      line-height: 20px;
+      text-align: left;
+      font-weight: 500;
+      color: #4E515C;  
+      margin: 15px 0px 20px 0px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #717171;
+    }
+
+    .dots {
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .field {       
+      background-color: initial;
+      appearance: none;
+      border:solid 1px hsla(261,79%,31.8%,0.3);
+      font-size: 1rem;
+      color:#26282D;
+      border-radius: 0.5rem;
+      width:100%;
+      font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+      box-sizing:border-box;
+      line-height: 1.5;
+      min-height: 40px;
+      letter-spacing: .02em;
+      outline: none;
+      transition: border-color .2s ease,box-shadow .2s ease;
+      margin: 0 0 1rem;
+      padding: 0.6875rem 1.5rem;
+    }
+
+    .headline {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 25px;
+      text-align: center;
+      color: #3E1191;
+      padding-bottom: 10px;
+    }
+
+    .image {
+      max-width: 100%;
+      z-index: 3;
+    }
+
+    input {
+      margin: 0.4rem;
+    }
+
+    .in-app-message {
+      position: absolute;
+      width: 80%;
+      height: auto;
+      max-width: 80vw;    
+      margin-top: 20%;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .radio-container {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slideshow {
+      position: relative;
+      height: 200px;
+      width: 80vw;
+    }
+
+    .text-center {
+      text-align:center;
+    }
+
+    .wrapper {
+      background-color: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+  <script>
+    // This function will handle data collection
+    function collectDataAndMoveNext() {
+      const redCard = document.querySelector('#red-card').value;
+      const license = document.querySelector('input[name="license"]:checked').value;
+  
+      appboyBridge.logClick(); // logging the click event
+      // setting standard attributes
+      appboyBridge.getUser().setCustomUserAttribute('has_red_card_tag', redCard === 'true');
+      // setting custom attribute
+      appboyBridge.getUser().setCustomUserAttribute('has_driving_license', license === 'true');
+  
+      setTimeout(function() {
+        appboyBridge.requestImmediateDataFlush();
+        // replace this with the actual action you want to take after data collection
+        appboyBridge.closeMessage();
+      }, 500);
+    }
+  </script>
+</head>
+<body>
+  <div class="overlay">
+    <div class="in-app-message">                     
+      <button class="close-button" onclick="appboyBridge.logClick(); appboyBridge.closeMessage()">
+        <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/64624bd07fdb4356fcc340e8/original.svg?1684163536" alt="Close Button">
+      </button>                  
+      <div class="slideshow">
+        <div class="slide active" id="slide-1">
+          <div class="wrapper">
+
+            <!-- START HEADER IMAGE -->
+            <img class="image" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/64624ef334c0424b4bf38824/original.png?1684164339" alt="Image"/>           
+            <!-- END HEADER IMAGE -->
+            
+            <!-- START HEADLINE -->
+            <div class="content">
+              <h2 class="headline">We need your input!</h2>
+            </div>    
+            <!-- END HEADLINE -->
+
+            <!-- START RED CARD -->
+            <p class="text-center">Do you have a red card?</p> 
+            <div class="content">
+              <select class="field" id="red-card" reqiured>
+                <option value="">Please choose an option</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            <!-- END RED CARD -->
+
+            <!-- START DRIVER'S LICENSE -->               
+            <p class="text-center">Do you have a driver's license?</p>         
+            <div class="content radio-container">
+              <div class="radio-option">
+                <input type="radio" id="yes" value="true" name="license" required>
+                <label for="yes">Yes</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="no" value="false" name="license" required>
+                <label for="no">No</label>
+              </div>
+            </div>            
+            <!-- END DRIVER'S LICENSE -->
+
+            <!-- START CLOSING CTA -->
+            <div class="content">
+              <button class="cta" onclick="collectDataAndMoveNext()">Submit</button>
+            </div>
+            <!-- END CLOSING CTA -->
+
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+

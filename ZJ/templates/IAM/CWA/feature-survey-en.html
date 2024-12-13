@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>App Review</title>
+  <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+    }
+
+    p {
+        font-size: 15px;
+        text-align: left;
+        line-height: 24px;
+        color: #25282D;
+    }
+
+    .button-rating {
+        width: 15%;
+        max-width: 55px;
+        height: 30px;
+        background-color: #EBE7FF;
+        color: #3E1191;
+        border: 0;
+    }
+
+    .button-submit {
+        width: 95%;
+        max-width: 311px;
+        height: 48px;
+        border: 1px;
+        border-radius: 97px;
+        color: #FFFFFF;
+        border-color: #DBD9DE;
+        background-color: #3E1191;
+    }
+
+    .button-submit:disabled {
+        background-color: #DBD9DE;
+        cursor: not-allowed;
+    }
+
+    .close-button {
+        font-family: 'Inter', sans-serif;
+        font-weight: 100;
+        font-size: 18px;
+        line-height: 12px;
+        background: none;
+        border: none;
+        z-index: 4;
+        width: 12px;
+        height: 11px;
+        color: #193154;
+    }
+
+    .copy-s3 {
+        max-width: 80%;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .in-app-message {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        border-radius: 0;
+    }
+
+    .form {
+        width: 100%;
+        padding: 20px 0 10px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .legend {
+        font-weight: 400;
+        color: #6A6573;
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .success-icon {
+        width: 15px;
+        height: 15px;
+        margin-top: 5px;
+    }
+
+    .textarea {
+        width: 100%;
+        height: 108px;
+        font-family: 'Inter', sans-serif;
+        resize: none;
+        padding: 10px;
+        border-radius: 5px;
+        border-color: #6A6573;
+        margin-bottom: 15px;
+    }
+
+    .wrapper-button {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 0;
+    }
+
+    .wrapper-header {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .wrapper-legend {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .wrapper-s1 {
+        background-color: #ffffff;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .wrapper-s2 {
+        background-color: #ffffff;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .wrapper-s3 {
+        background-color: #ffffff;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    #user_id {
+        display: none;
+    }
+
+    /* Media query for tablets and desktops */
+    @media (min-width: 768px) {
+        .in-app-message {
+            bottom: 20px;
+            right: 20px;
+            left: auto;
+            width: 375px;
+            border-radius: 8px;
+        }
+
+    }
+
+  </style>
+  <script>
+    $(document).ready(function() {
+        // Store User ID
+        const userId= document.getElementById('user_id').innerText;
+
+        var selectedRating = 0;
+
+        // Initial setup: hide screens and disable submit button
+        $('#screen_two, #screen_three').hide();
+        $('#submitButton').prop('disabled', true);
+
+        // Enable/disable submit button based on textarea input
+        $('textarea[name="feedback"]').on('input', function() {
+            var feedbackLength = $(this).val().trim().length;
+            $('#submitButton').prop('disabled', feedbackLength === 0 || feedbackLength > 255);
+            $('#error-message').toggle(feedbackLength > 255);
+        });
+
+        // Rating button click handler
+        $('.button-rating').click(function() {
+            selectedRating = $(this).text();
+            $('#ratingInput').val(selectedRating);
+
+            if (selectedRating == "1" || selectedRating == "2") {
+                $('#screen_one').hide();
+                $('#screen_two').show();
+            } else {
+                submitRatingOnly(selectedRating);
+            }
+        });
+
+        // Submit button click handler for ratings 1 and 2
+        $('#submitButton').click(function() {
+            var feedback = $('textarea[name="feedback"]').val().trim();
+            if (feedback.length <= 255) {
+                $('#screen_two').hide();
+                $('#screen_three').show();
+                submitRatingWithFeedback(feedback, selectedRating);
+            }
+        });
+
+        // Function to submit only the rating
+        function submitRatingOnly(rating) {
+            $('#screen_one').hide();
+            $('#screen_three').show();
+            $.post($('#feedbackForm').attr('action'), { rating: rating, userId: userId });
+            brazeBridge.getUser().setCustomUserAttribute('chat_rating', rating);
+        }
+
+        // Function to submit rating with feedback
+        function submitRatingWithFeedback(feedback, rating) {
+            $.post($('#feedbackForm').attr('action'), { feedback: feedback, rating: rating, userId: userId });
+            createCustomAttribute(rating, feedback);
+        }
+
+        // Function to create custom attribute
+        function createCustomAttribute(rating, feedback) {
+            brazeBridge.getUser().setCustomUserAttribute('chat_rating', rating);
+            brazeBridge.getUser().setCustomUserAttribute('chat_feedback', feedback);
+        } 
+    });
+</script>
+</head>
+<body>
+  <div id="user_id">{{${user_id}}}</div>
+  <div class="overlay">
+    <div class="in-app-message">
+
+      <!-- Screen One Started-->
+      <div id="screen_one">                      
+        <div class="wrapper-s1">
+            <div class="wrapper-header">
+                <p>To what extent do you agree with the following statement? <b>It was easy to use the chat to coordinate shift details with my staff.</b></p>
+                <button class="close-button" id="close_button" onclick="brazeBridge.closeMessage()">x</button>
+            </div>
+            <div class="wrapper-button">
+                <button class="button-rating">1</button>
+                <button class="button-rating">2</button>
+                <button class="button-rating">3</button>
+                <button class="button-rating">4</button>
+                <button class="button-rating">5</button>
+            </div>
+            <div class="wrapper-legend">
+                <div class="legend">Strongly disagree</div>
+                <div class="legend">Strongly agree</div>
+            </div>
+        </div>
+      </div>
+      <!-- Screen One Ended -->
+
+      <!-- Screen Two Started-->
+      <div id="screen_two">            
+        <div class="wrapper-s2">
+            <div class="wrapper-header">
+                <p>How can we improve the chat for you?</p>
+                <button class="close-button" id="close_button" onclick="brazeBridge.closeMessage()">x</button>
+            </div>
+            <form class="form" id="feedbackForm" action="{{GSHEET-REQUEST-URL}}" method="POST">
+                <textarea class="textarea" name="feedback" maxlength="255" placeholder="Add your comments"></textarea>
+                <input type="hidden" name="rating" id="ratingInput">
+                <button type="button" class="button-submit" id="submitButton">Submit comment</button>
+            </form>   
+        </div>
+      </div>
+      <!-- Screen Two Ended -->
+
+      <!-- Screen Three Started -->
+      <div id="screen_three">            
+        <div class="wrapper-s3">
+            <div class="wrapper-header">
+                <img class="success-icon" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/66bc6d3782baf3007fe48958/original.png?1723624759" alt="success-icon">
+                <div class="copy">
+                    <p>Thanks for your feedback!</p>
+                    <p class="legend">It will help us improve our booking platform for you.</p>
+                </div>
+                <button class="close-button" id="close_button" onclick="brazeBridge.closeMessage()">x</button>
+            </div>
+        </div>
+      </div>
+      <!-- Screen Three Ended -->
+
+    </div>
+  </div>      
+</body>
+</html>

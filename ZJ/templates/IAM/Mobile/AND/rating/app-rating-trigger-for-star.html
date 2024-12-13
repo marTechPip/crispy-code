@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!-- THIS IAM WILL BE TRIGGERED BY THE APP-RATING-REMINDER IAM -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>App Review</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Lato', sans-serif;
+        display:none;
+      }
+
+      .close-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        z-index: 4;
+      }
+
+      .close-button img {
+        width: 35px;
+        height: 35px;
+      }
+
+      .cta-one {
+        background-color:#4A1F99;
+        border: none;
+        border-radius: 97px;
+        color: #FFFFFF;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 22px;
+        height: 50px;
+        min-width: 80%;
+        text-align:center;
+        text-decoration: none; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .cta-two {
+        background-color:#FFFFFF;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #4A1F99;
+        border-radius: 97px;
+        color: #4A1F99;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 22px;
+        height: 50px;
+        min-width: 80%;
+        text-align:center;
+        text-decoration: none; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }  
+
+      .content {
+        padding: 20px;
+        background-color: white;
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        max-width: 100%;
+        width: 80vw;
+      }
+
+      .copy {
+        font-size: 15px;
+        line-height: 20px;
+        text-align: center;
+        font-weight: 500;
+        color: #4E515C;  
+        margin: 15px 0px 20px 0px;
+      }
+
+      .headline {
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 25px;
+        text-align: center;
+        color: #000000;
+      }
+
+      .image {
+        max-width: 100%;
+        z-index: 3;
+      }
+
+      .in-app-message {
+        position: absolute;
+        width: 80%;
+        height: auto;
+        max-width: 80vw;    
+        margin-top: 20%;
+      }
+
+      .overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+      }
+
+      .wrapper {
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="in-app-message">                     
+      <button class="close-button" id="close_button" onclick="appboyBridge.logClick(close_button); appboyBridge.closeMessage()">
+        <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/64624bd07fdb4356fcc340e8/original.svg?1684163536" alt="Close Button">
+      </button>              
+      <div class="wrapper">
+        <img class="image" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/645b7e5876408273c3e4ee37/original.png?1683717720" alt="Company Logo"/>     
+        <div class="content">
+          <h2 class="headline">Enjoying Zenjob?</h2>
+          <p class="copy">We value your feddback. Do you have a moment to rate our app?</p>
+        </div>
+        <a class="cta-one" id="button_one" onclick="appboyBridge.logClick(button_one); appboyBridge.closeMessage()">RATE US</a>
+        <a class="cta-two" id="button_two" onclick="appboyBridge.logClick(button_two); appboyBridge.closeMessage()">MAYBE LATER</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+

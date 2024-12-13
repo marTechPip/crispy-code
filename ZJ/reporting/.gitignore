@@ -1,0 +1,6 @@
+# ignore dwh credentials
+dwh_cred.json
+zenjob-live-02b4c35eac2b.json
+
+# ignore env variables
+.env

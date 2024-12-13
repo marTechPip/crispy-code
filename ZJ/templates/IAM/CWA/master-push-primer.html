@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Push Notifications</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        a {        
+            text-decoration: none;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        h2 {
+            color: #366AD2;
+            font-size: 20px;
+            line-height: 25px;
+            letter-spacing: 0.15px;
+            font-weight: 500;
+        }
+        h3 {
+            color: #474747;
+            font-size: 18px;
+            line-height: 23px;
+            letter-spacing: 0.15px;
+            font-weight: 500;
+        }
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1.75px solid #DDDDE0;
+            border-radius: 2px;
+            margin: 5px 0;
+        }
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 4;
+        }
+        .in-app-message {
+            width: 350px;
+            background-color: #f9f9f9;
+            height: auto;
+            margin-top: 5%;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .main-button-wrapper {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .main-button-one, .main-button-two {
+            padding: 8px;
+            width: 48%;
+            height: 36px;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .main-button-one {
+            background-color: #FFFFFF;
+            border: 1px solid #366AD2;
+            color: #366AD2;
+            font-weight: 500;
+        }
+        .main-button-two {
+            background-color: #366AD2;
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+        .main-date {
+            color: #366AD2;
+            font-size: 12px;
+            line-height: 20px;
+            font-weight: 400;
+            letter-spacing: 0.15px;
+        }
+        .main-text {
+            color: #474747;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0.15px;
+            margin: 7px 0;
+        }
+        .main-image {
+            display: flex;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        .main-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.3em;
+                line-height: 1.25em;
+                letter-spacing: 0.009em;
+            }
+            h3 {
+                font-size: 1.2em;
+                line-height: 1.2em;
+                letter-spacing: 0.009em;
+            }
+            .in-app-message {
+                width: 90%;
+                padding: 12px;
+            }
+            .main-button-one, .main-button-two {
+                width: 45%;
+                height: auto;
+            }
+            .main-text {
+                font-size: 1em;
+                line-height: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--START IAM-->
+    <div class="overlay">
+        <!--START OVERLAY-->
+        <div class="in-app-message">                             
+            <button class="close-button" onclick="brazeBridge.closeMessage();">
+                <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/660e705e8c31d2006a90fbe2/original.png?1712222301" alt="Close message">
+            </button>
+            <!--START TOP-->
+            <div class="top">
+                <!--START TOP TITLE-->
+                <div class="top-title">
+                    <h2>Stay Updated v2!</h2>
+                </div>
+                <!--END TOP TITLE-->
+            </div>
+            <!--END TOP-->
+            <hr>
+            <!--START MAIN-->
+            <div class="main">
+                <!--START MAIN TEXT-->
+                <div class="main-text">
+                    <p>Enable push notifications to receive timely updates on new temp staff availability, important announcements, and more. Don't miss out on staying connected!</p>
+                </div>
+                <!--END MAIN TEXT-->
+                <!--START MAIN IMAGE-->
+                <div class="main-image">
+                    <img src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/66583eb4df4c240063b1f21d/original.png?1717059251" alt="Stay Updated">
+                </div>
+                <!--END MAIN IMAGE-->
+                <!--START MAIN BUTTONS-->
+                <div class="main-button-wrapper">
+                    <div class="main-button-one" onclick="brazeBridge.closeMessage();">
+                        <span>No, thanks</span>
+                    </div>
+                    <div class="main-button-two" onclick="brazeBridge.requestPushPermission(); brazeBridge.closeMessage()">
+                        <span>Allow</span>
+                    </div>
+                </div>
+                <!--END MAIN BUTTONS-->
+            </div>
+            <!--END MAIN-->
+        </div>
+        <!--END OVERLAY-->
+    </div>
+    <!--END IAM-->
+</body>
+</html>

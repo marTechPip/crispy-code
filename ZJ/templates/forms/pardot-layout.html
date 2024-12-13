@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<base href="" >
+		<meta charset="utf-8"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="description" content="%%description%%"/>
+		<title>%%title%%</title>
+		<style type="text/css">
+
+body {
+  background-position: center;
+}
+
+.form-wrapper {
+  background-color: #f5f5ff;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
+
+#pardot-form {
+	font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+}
+#pardot-form .form-field {
+ 	margin:0;
+ 	padding:5px 0 0 0;
+} 
+ /* The input fields */ 
+ #pardot-form input.text,
+ #pardot-form textarea.standard,
+ #pardot-form select,
+ #pardot-form input.date { 
+  background-color: initial;
+  appearance: none;
+	border:solid 1px hsla(261,79%,31.8%,0.3);
+  font-size: 1rem;
+	color:#26282D;
+  border-radius: 0.5rem;
+	width:100%;
+	font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+	box-sizing:border-box;
+	line-height: 1.5;
+  min-height: 40px;
+  letter-spacing: .02em;
+  outline: none;
+  transition: border-color .2s ease,box-shadow .2s ease;
+  margin: 0 0 1rem;
+  padding: 0.6875rem 1.5rem;
+}
+/* the input fields on focus */ 
+ #pardot-form input.text:focus,
+ #pardot-form textarea.standard:focus,
+ #pardot-form select:focus,
+ #pardot-form input.date:focus { 
+	border-color:#3e1191;
+	outline: none;
+}
+#pardot-form span.value { 
+	margin-left: 0;
+}
+/* the field labels */ 
+ #pardot-form label {
+	color:#4E515C;
+	font-weight:normal;
+	padding:0 !important;
+	float:none;
+	text-align:left;
+	width:auto;
+	display:block;
+	font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+	font-size: 1rem;
+  letter-spacing: .0125em;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+/* the submit button */ 
+ #pardot-form .submit input {
+  width:100%;
+	margin:0;
+	background-color:#7625f7;
+	border:solid 1px #7625f7;
+	font-size: 1.0625rem;
+	color:white;
+	font-weight: 700;
+	padding: 0.6875rem 0;
+	border-radius: 1.625rem;
+	line-height: 1.375rem;
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+/* the submit button hover */ 
+ #pardot-form .submit input:hover {
+	background-color:#3E1191;
+	border-color:#3E1191;
+	color:white;
+}
+/* the spacing around the submit button */ 
+ #pardot-form .submit {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-top: calc(1rem + 1rem)
+}
+
+form.form p.no-label {
+  margin-left: 0 !important;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.left-side {
+  flex: 1;
+}
+
+.right-side {
+  flex: 1;
+  padding-left: 1rem;
+  width:50%;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  align-items: flex-start;
+}
+
+.form-column {
+  flex: 1;
+  padding: 0 0.5rem;
+}
+
+.form-heading {
+	font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.6875rem;
+  font-weight: normal;
+  color: #26282D;
+  margin: 0 0 2rem;
+  padding: 0 0.5rem;
+}
+
+.consent {
+  font-size: 0.75rem;  
+	font-family:"EuclidCircularB",Helvetica,Arial,sans-serif;
+  font-weight: normal;
+  color: #26282D;
+  line-height: 1.1875rem;
+  padding: 0 0.5rem;
+}
+
+ </style>
+	</head>
+	<body>
+	    <div class="container">
+            <div class="left-side"></div>
+            <div class="right-side">
+              <div class="form-wrapper">
+              <p class="form-heading">Füllen Sie das Formular aus. Wir melden uns zeitnah bei Ihnen.</p>
+                <form id="pardot-form">
+                    <!-- Add your form fields inside .form-row and .form-column -->
+                    <div class="form-row">
+                      <div class="form-column">
+                        <label for="first_name">Vorname</label>
+                        <input class="text" type="text" id="first_name" name="first_name" required>
+                      </div>
+                      <div class="form-column">
+                        <label for="last_name">Nachname</label>
+                        <input class="text" type="text" id="last_name" name="last_name" required>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-column">
+                        <label for="job_title">Gesuchte Jobkategorie</label>
+                        <input class="text" type="text" id="job_title" name="job_title" required>
+                      </div>
+                      <div class="form-column">
+                        <label for="company">Unternehmen</label>
+                        <input class="text" type="text" id="company" name="company" required>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-column">
+                        <label for="email">Firmen-Email</label>
+                        <input class="text" type="email" id="email" name="email" required>
+                      </div>
+                      <div class="form-column">
+                        <label for="phone">Telefonnummer</label>
+                        <input class="text" type="text" id="phone" name="phone" required>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-column">
+                        <label for="zip">PLZ des Einsatzortes</label>
+                        <input class="text" type="text" id="zip" name="zip" required>
+                      </div>
+                      <div class="form-column">
+                        <div class="submit">
+                          <input type="submit" value="Personal anfragen">
+                        </div>
+                      </div>  
+                    </div>
+                    <!-- Add more form-row divs for other fields -->
+                </form>
+                <p class="consent">Mit dem Absenden des Formulars bestätigen Sie, dass Sie mit der Speicherung und Verarbeitung Ihrer persönlichen Daten durch die Zenjob GmbH einverstanden sind. Informationen zu Ihrem Widerrufsrecht finden Sie in unserer&nbsp;<a href="https://www.exampleurl.com" target="_blank">Datenschutzerklärung</a>&nbsp;und den&nbsp;<a href="https://www.exampleurl.com" target="_blank">AGB</a>.</p>
+            </div>
+          </div>
+      </div>
+	</body>
+</html>

@@ -1,0 +1,54 @@
+<body>    
+  <div class="container">
+    <div class="right-side">
+      <div class="form-wrapper">
+        <form id="zapier-form" action="{{REQUEST-URL}}" method="post" onsubmit="return handleFormSubmit()" autocomplete="on">
+          <div class="form-row">
+            <div class="form-column">
+              <label for="callback">Vorname</label>
+              <input class="text" type="text" id="first_name" name="FirstName" required autocomplete="given-name">
+            </div>
+            <div class="form-column">
+              <label for="callback">Nachname</label>
+              <input class="text" type="text" id="last_name" name="LastName" required autocomplete="family-name">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label for="callback">Firmen-Email</label>
+              <input class="text" type="email" id="email" name="Email" required autocomplete="email">
+            </div>
+            <div class="form-column">
+              <label for="callback">Telefonnummer</label>
+              <input class="text" type="text" id="phone" name="Phone" required autocomplete="tel">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-column">
+              <label for="callback">Unternehmen</label>
+              <input class="text" type="text" id="company" name="Company" required autocomplete="organization">
+            </div>
+          </div>
+              
+          <p class="consent">Mit dem Absenden des Formulars bestätigen Sie, dass Sie mit der Speicherung und Verarbeitung Ihrer persönlichen Daten durch die Zenjob AG einverstanden sind. Informationen zu Ihrem Widerrufsrecht finden Sie in unserer<a href="https://www.exampleurl.com" target="_blank"> Datenschutzerklärung</a>&nbsp;und den&nbsp;<a href="https://www.exampleurl.com" target="_blank">AGB</a>.</p>
+          <input type="hidden" id="utm_source" name="UTM_Source__c">
+          <input type="hidden" id="utm_medium" name="UTM_Medium__c">
+          <input type="hidden" id="utm_content" name="UTM_Content__c">
+          <input type="hidden" id="utm_campaign" name="utm_campaign__c">
+          <input type="hidden" id="utm_term" name="UTM_Term__c">
+          <input type="hidden" id="gclid" name="GCLID__c">
+          <input type="hidden" id="lt_form_parameter" name="UTM_Adgroup__c" value="Longterm-Customer">   
+          <input type="hidden" id="datetime" name="datetime">                
+
+          <div class="form-row">
+            <div class="form-column">
+              <div class="submit">
+                <input type="submit" id="submit-button" value="Personal anfragen">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>

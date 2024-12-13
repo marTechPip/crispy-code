@@ -1,0 +1,57 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="and-push-act(1).css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <title>In-App Message</title>
+  </head>
+  <body>
+    <div class="overlay">
+      <div class="in-app-message">                     
+        <button class="close-button" id="close_button" onclick="appboyBridge.logClick(close_button); appboyBridge.closeMessage()">
+          <img src="https://cdn.braze.eu/appboy/communication/assets/svg_assets/files/64624bd07fdb4356fcc340e8/original.svg?1684163536" alt="Close Button">
+        </button>                  
+        <div class="slideshow">
+          <div class="slide active" id="slide-1">
+            <div class="wrapper">
+              <img class="image" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/64624ef334c0424b4bf38824/original.png?1684164339" alt="Upper Image"/>              
+              <div class="dots">
+                <span class="dot active" data-target="slide-1"></span>
+                <span class="dot" data-target="slide-2"></span>
+              </div>
+              <div class="content">
+                <h2 class="headline">Be the first to know</h2>
+                <p class="copy">Turn on your notifications to find out first about new updates, bonus programs, or other news.</p>
+              </div>
+            </div>
+          </div>
+          <div class="slide" id="slide-2">
+            <div class="wrapper">
+              <img class="image" src="https://cdn.braze.eu/appboy/communication/assets/image_assets/images/645b7e66a0f87626a77d92b5/original.png?1683717734" alt="Upper Image">
+              <div class="dots">
+                <span class="dot active" data-target="slide-1"></span>
+                <span class="dot" data-target="slide-2"></span>
+              </div>
+              <div class="content">
+                <h2 class="headline">Stay up-to-date with notifications:</h2>
+                <div class="copy-list">
+                  <ol>
+                    <li>Open your settings</li>
+                    <li>Go to "Notifications"</li>
+                    <li>Search "Zenjob"</li>
+                    <li>Allow notifications</li>
+                  </ol>
+                </div>
+                <a class="cta" id="button_one" onclick="appboyBridge.logClick(button_one); appboyBridge.closeMessage()">Got it</a>            
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="and-push-act(2).js"></script>
+  </body>
+  </html>

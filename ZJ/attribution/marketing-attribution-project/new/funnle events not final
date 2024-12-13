@@ -1,0 +1,51 @@
+-- Mkt_attribution table. Important note: SKAN data may duplicate data obtained from the Adjust table. 
+-- De-duplicate attribution data on iOS by selecting only one data source for iOS self-attributing networks
+with funnel_events as (
+	select
+		talent_id,
+		'onboarded' as activity_kind,
+		onboarded_dt as created_at
+	from
+		cds.fact_talent_funnel
+	where
+		onboarded_dt >= current_date - interval '180' day
+	union
+	all
+	select
+		talent_id,
+		'first_shift_worked' as activity_kind,
+		first_worked_shift_dt as created_at
+	from
+		cds.fact_talent_funnel
+	where
+		first_worked_shift_dt >= current_date - interval '180' day
+)
+select
+	talent.user_uuid,
+	attribution_log.adid,
+	funnel_events.created_at::TIMESTAMP,
+	'talent_funnel' as data_source,
+	funnel_events.activity_kind,
+	null as install_type,
+	attribution_log.platform,
+	attribution_log.source,
+	null as medium,
+	attribution_log.campaign,
+	attribution_log.content,
+	attribution_log.term,
+	null as first_referer,
+	attribution_log.first_source,
+	null as first_medium,
+	attribution_log.first_campaign,
+	attribution_log.first_content,
+	attribution_log.first_term,
+	attribution_log.fb_install_referrer
+from
+	funnel_events
+	join cds.dim_talent talent on funnel_events.talent_id = talent.talent_id
+	left join adhoc_data.adid_uuid_mapping aum on talent.user_uuid = aum.user_uuid and aum.mapping_rank_uuid = 1
+	left join adhoc_data.attribution_log attribution_log on aum.adid = attribution_log.adid AND funnel_events.created_at::TIMESTAMP >= attribution_log.created_at_dt and attribution_log.attribution_rank_adid = 1
+	
+	
+
+	

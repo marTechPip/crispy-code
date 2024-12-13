@@ -1,0 +1,16 @@
+<script>
+
+function updateSmartBannerLinks() {
+
+// Replace Smartbanner button anchors for Android & iOS
+  var lookupAdjustTrackerUrlSb = {{ALL | Adjust Android + iOS tracker URL - Smartbanner}};
+
+  var smartbanner_buttons = document.querySelectorAll("[id*='wp-smartbanner-button']");
+  if (lookupAdjustTrackerUrlSb != null) {
+    for (var k = 0; k < android_smartbanner_buttons.length; ++k) {
+      var sbButton = smartbanner_buttons[k];
+      sbButton.href = lookupAdjustTrackerUrlSb;
+    }
+  }
+}
+</script>
