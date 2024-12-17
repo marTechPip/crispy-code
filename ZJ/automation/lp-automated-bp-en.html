@@ -460,7 +460,7 @@ a {
   <table class="footer">
     <tr>
       <td>
-        <p>© 2023 Copyright: <a href="https://www.zenjob.com/en" target="blank" style="color:#f9f9f9; text-decoration:underline;">Zenjob GmbH</a></p>
+        <p>© 2023 Copyright: <a href="https://www.exampleurl.com" target="blank" style="color:#f9f9f9; text-decoration:underline;">Zenjob GmbH</a></p>
       </td>
     </tr>
   </table>
@@ -589,7 +589,7 @@ a {
   
     if (bonusId != null && bonusId != undefined) {
         if (window.sessionStorage.getItem('rowsPulled') != 'true') {
-            var url = 'https://script.google.com/macros/s/AKfycbxqB4PasEU6LD3-RiLuDZm8_nbrti1WsW76d4mhAQXNyZN14isE0kP0Vf06xTjHrswF/exec?bonusId=' + bonusId
+            var url = '{{GOOGLE-SHEET}}?bonusId=' + bonusId
             $.ajax({
                 url: url,
                 type: 'get',

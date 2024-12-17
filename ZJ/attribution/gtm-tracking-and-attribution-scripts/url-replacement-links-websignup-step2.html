@@ -3,7 +3,7 @@
     var adjustTrackerUrl = localStorage.getItem('adjust_tracker_url');
     
     // Replace Android anchors
-    var android_anchors = document.querySelectorAll("a[href^='https://play.google.com/store/apps/details?id=zenjob.android']");
+    var android_anchors = document.querySelectorAll("a[href^='https://play.google.com/store/apps/details?id=xxxxxx']");
     if (adjustTrackerUrl != null) {
       for (var i = 0; i < android_anchors.length; ++i) {
         var anchor = android_anchors[i];
@@ -11,12 +11,12 @@
       }
     } else {
       for (var i = 0; i < android_anchors.length; ++i) {
-        android_anchors[i].href = 'https://app.adjust.com/rbvvy1h_6o2hpzv';
+        android_anchors[i].href = 'https://app.adjust.com/xxxxxx';
       }
     }
     
     // Replace iOS anchors
-    var ios_anchors = document.querySelectorAll("a[href^='https://apps.apple.com/de/app/zenjob-flexible-nebenjobs/id1141020680']");
+    var ios_anchors = document.querySelectorAll("a[href^='https://apps.apple.com/de/app/xxxxxx']");
     if (adjustTrackerUrl != null) {
       for (var j = 0; j < ios_anchors.length; ++j) {
         var anchor = ios_anchors[j];
@@ -24,14 +24,14 @@
       }
     } else {
       for (var j = 0; j < ios_anchors.length; ++j) {
-        ios_anchors[j].href = 'https://app.adjust.com/rbvvy1h_6o2hpzv';
+        ios_anchors[j].href = 'https://app.adjust.com/xxxxxx';
       }
     }
 
     // Replace Smartbanner__button anchors for Android
     var adjustTrackerUrlSmartBanner = localStorage.getItem('adjust_tracker_url_sb');
 
-    var android_smartbanner_buttons = document.querySelectorAll("a[href*='https://play.google.com/store/apps/details?id=zenjob.android'][class*='smartbanner__button']");
+    var android_smartbanner_buttons = document.querySelectorAll("a[href*='https://play.google.com/store/apps/details?id=xxxxxx'][class*='smartbanner__button']");
     if (adjustTrackerUrlSmartBanner != null) {
       for (var k = 0; k < android_smartbanner_buttons.length; ++k) {
         var button = android_smartbanner_buttons[k];
@@ -40,7 +40,7 @@
     }
 
     // Replace Smartbanner__button anchors for iOS
-    var ios_smartbanner_buttons = document.querySelectorAll("a[href*='https://apps.apple.com/de/app/zenjob-flexible-nebenjobs/id1141020680'][class*='smartbanner__button']");
+    var ios_smartbanner_buttons = document.querySelectorAll("a[href*='https://apps.apple.com/de/app/xxxxxx'][class*='smartbanner__button']");
     if (adjustTrackerUrlSmartBanner != null) {
       for (var l = 0; l < ios_smartbanner_buttons.length; ++l) {
         var button = ios_smartbanner_buttons[l];

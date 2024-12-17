@@ -12,14 +12,14 @@
   }
     
   // Replace Android anchors
-  var android_anchors = document.querySelectorAll("a[href^='https://play.google.com/store/apps/details?id=zenjob.android'], a[href='clkn/https/play.google.com/store/apps/details?id=zenjob.android&hl=en&showAllReviews=true']");
+  var android_anchors = document.querySelectorAll("a[href^='https://play.google.com/store/apps/details?id=xxxxxx'], a[href='clkn/https/play.google.com/store/apps/details?id=xxxxxx&hl=en&showAllReviews=true']");
   for (var j = 0; j < android_anchors.length; ++j) {
     var anchor = android_anchors[j];
     anchor.href = sessionStorage.getItem('adjust_tracker_url_website');
   }
   
   // Replace iOS anchors
-  var ios_anchors = document.querySelectorAll("a[href^='https://apps.apple.com/app/id1141020680'], a[href='clkn/https/apps.apple.com/de/app/zenjob-studentenjobs/id1141020680?mt=8']");
+  var ios_anchors = document.querySelectorAll("a[href^='https://apps.apple.com/app/xxxxxx'], a[href='clkn/https/apps.apple.com/de/app/zenjob-studentenjobs/idxxxxxx?mt=8']");
   for (var j = 0; j < ios_anchors.length; ++j) {
     var anchor = ios_anchors[j];
     anchor.href = sessionStorage.getItem('adjust_tracker_url_website');

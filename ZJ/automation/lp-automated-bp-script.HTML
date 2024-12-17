@@ -104,7 +104,7 @@
 
   if (bonusId != null && bonusId != undefined) {
       if (window.sessionStorage.getItem('rowsPulled') != 'true') {
-          var url = 'https://script.google.com/macros/s/AKfycby1Xjk4TkUtZGsOIyc79M-lf3wn_yebsEfh8nsZCLDldZ3HOb9Mf4Hr1sISi3VbfTPatQ/exec?bonusId=' + bonusId
+          var url = '{{GOOGLE-SHEET}}?bonusId=' + bonusId
           $.ajax({
               url: url,
               type: 'get',
