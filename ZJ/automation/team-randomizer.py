@@ -1,7 +1,7 @@
 import random
 
 # List of players
-players = ["Alice", "Ben", "Eileen", "Lina", "Philipp", "Ying", "Alka", "Gaurav", "Sofi", "Olja", "Miranda", "Nicha"]
+players = ['']
 
 # Shuffle the players
 random.shuffle(players)

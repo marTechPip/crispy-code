@@ -20,7 +20,7 @@
 
   //update the CTA target links by appending the referrer from the session storage 
   function updateButtonUrl() {
-    var webSignupButton = document.querySelectorAll("a[href*='talent.zenjob.com/signup-form']")
+    var webSignupButton = document.querySelectorAll("a[href*='exampleurl.com']")
     var storedReferrer = sessionStorage.getItem('first_referrer');
 
     if (storedReferrer) {

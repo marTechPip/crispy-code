@@ -391,11 +391,11 @@
 
     var url;
     if (jobBoard === 'stepstone') {
-        url = 'https://script.google.com/macros/s/AKfycbzlQLRIC96333uuKIeO1p0u8aBxYSFUhm74KFqBuZDjt1FeXrtyNX03zZLumDPQod3JSA/exec'
+        url = '{{GOOGLE-SHEET}}'
     } else if (jobBoard === 'jobsora') {
-        url = 'https://script.google.com/macros/s/AKfycbzeiCSVzFlo3Jcwk_h2UwemoybC6Z6DeVhyH-vBPtlBKzxdUAWW5cCvQ0GEwNcokkg/exec'
+        url = '{{GOOGLE-SHEET}}'
     } else if (jobBoard === 'google') {
-        url = 'https://script.google.com/macros/s/AKfycbycgkv9erIgNTRlKq-x7aoL03YZjkwnOfzYnG0Ao1yFsg46QERaSAUiGlUZK9g4v_nX_g/exec'
+        url = '{{GOOGLE-SHEET}}'
     }
 
     /*end new job board section*/
@@ -430,7 +430,7 @@
     //Generate QR code
     function generateQRCode() {
             const qrCodeElement = document.getElementById("qrcode");
-            const url = "https://app.adjust.com/mf6ox6n_nijh9l2?campaign=" + utm_campaign + "_2309ABST-B_QR_code&adgroup=" + utm_content + "&creative=" + utm_term;
+            const url = "https://app.adjust.com/xxxxxx?campaign=" + utm_campaign + "_2309ABST-B_QR_code&adgroup=" + utm_content + "&creative=" + utm_term;
       
             // Generate the QR code
               const qrCode = new QRCode(qrCodeElement, {
@@ -577,11 +577,11 @@
         // Show QR code on desktop devices and download buttons on mobile
         if (isAndroid) {
             document.getElementById('playstore').style.display = "block";
-            document.getElementById('playstore').querySelector('a').href = "https://app.adjust.com/mf6ox6n_nijh9l2?campaign=" + utm_campaign + "_2309ABST-B&adgroup=" + utm_content + "&creative=" + utm_term;  
+            document.getElementById('playstore').querySelector('a').href = "https://app.adjust.com/xxxxxx?campaign=" + utm_campaign + "_2309ABST-B&adgroup=" + utm_content + "&creative=" + utm_term;  
           
         } else if (isIos) { 
             document.getElementById('appstore').style.display = "block";            
-            document.getElementById('appstore').querySelector('a').href = "https://app.adjust.com/mf6ox6n_nijh9l2?campaign=" + utm_campaign + "_2309ABST-B&adgroup=" + utm_content + "&creative=" + utm_term;
+            document.getElementById('appstore').querySelector('a').href = "https://app.adjust.com/xxxxxx?campaign=" + utm_campaign + "_2309ABST-B&adgroup=" + utm_content + "&creative=" + utm_term;
 
         } else {
             document.getElementById('qrcode-wrapper').style.display = "flex";

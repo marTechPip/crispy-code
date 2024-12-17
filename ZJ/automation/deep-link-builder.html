@@ -281,7 +281,7 @@
     <div class="subPageHeader">
       You can use this form to create deeplinks, which include tracking via Adjust. Links can be saved and retreived
       from this <a
-        href="https://docs.google.com/spreadsheets/d/1_wpHqiLRYMfH5mRGS3cYRuGR4-Ov83BZ0KFGUCTtbiQ/edit#gid=0">
+        href="{{GOOGLE-SHEET}}">
         Google Sheet.
       </a>
     </div>
@@ -338,7 +338,7 @@
         <div class="flexElement33 standardPadding">
           <label for="fallbackURL">Fallback URL <span class="tooltip">ℹ️<span class="tooltiptext">The webpage where
                 desktop users will be sent to</span></span></label>
-          <input class="formField" type="text" id="fallbackURL" name="fallbackURL" value="https://www.zenjob.com/de/">
+          <input class="formField" type="text" id="fallbackURL" name="fallbackURL" value="https://www.exampleurl.com/de/">
         </div>
       </div>
 
@@ -400,92 +400,19 @@
   var platformList = [
     { 'name': '', 'channels': [] },
     { 'name': 'Google Ads', 'channels': ['', 'Website', 'Web signup', 'Smartbanner'] },
-    { 'name': 'Google Ads ACI', 'channels': ['', 'Direct link'] },
-    { 'name': 'Instagram Ads', 'channels': [''] },
-    { 'name': 'Facebook Ads', 'channels': ['', 'Website', 'Web signup', 'Smartbanner'] },
-    { 'name': 'Tiktok Ads', 'channels': ['', 'Influencer', 'Direct link'] },
-    { 'name': 'Tiktok Organic', 'channels': ['', 'Link tree', 'Website', 'Web signup', 'Smartbanner'] },
-    { 'name': 'Instagram Organic', 'channels': ['', 'Link tree', 'Website', 'Web signup', 'Smartbanner', 'Stories'] },
-    { 'name': 'Braze', 'channels': ['', 'Push', 'Email', 'Canvas'] },
-    { 'name': 'Organic Search', 'channels': ['', 'Website', 'Web signup'] },
-    { 'name': 'Stepstone Ads', 'channels': ['', 'Website', 'Web Signup', 'Smart Banner'] },
-    { 'name': 'Awin', 'channels': ['', 'Website', 'Web Signup', 'Smart Banner'] },
-    { 'name': 'Offline', 'channels': ['', 'Print'] },
-    { 'name': 'Partner', 'channels': ['', 'Partner Page'] },
-    { 'name': 'Growth Testing', 'channels': ['', 'All'] },
-    { 'name': 'Website Clickout', 'channels': ['', 'Website', 'Web Signup', 'Smart Banner'] },
-    { 'name': 'Youtube Organic', 'channels': ['', 'Website', 'Web Signup', 'Smart Banner'] },
-    { 'name': 'Facebook Organic', 'channels': ['', 'Profile page', 'Link tree', 'Website'] },
-    { 'name': 'Organic', 'channels': ['', 'App Store'] }
+    ...
   ]
 
   var adjustTrackerList = [
-    { 'Braze - Push': { 'android': '11edr2nl', 'ios': '11t9tumt' } },
-    { 'Braze - Email': { 'android': '11w5z7mf', 'ios': '11z1gfi1' } },
-    { 'Braze - Canvas': { 'android': '11xirzi9', 'ios': '116za8zy' } },
-    { 'Facebook Ads - Smartbanner': { 'android': 't02ja8a', 'ios': '2p8dgif' } },
-    { 'Facebook Ads - Web signup': { 'android': 'r8xo5ao', 'ios': 'ul8qost' } },
-    { 'Facebook Ads - Website': { 'android': '320jxho', 'ios': 'y9e45k4' } },
-    { 'Facebook Organic - Profile page': { 'android': '11cvrvy4', 'ios': '11uz2s3h' } },
-    { 'Facebook Organic - Link tree': { 'android': '18be2b2x', 'ios': '18ftl7it' } },
-    { 'Facebook Organic - Website': { 'android': '16a15hj9', 'ios': '16p06vx4' } },
-    { 'Google Ads - Smartbanner': { 'android': '9pojudi', 'ios': 'yenia2s' } },
-    { 'Google Ads - Web signup': { 'android': '7unbgmt', 'ios': 'k5hc87k' } },
-    { 'Google Ads - Website': { 'android': 'rw8qd5b', 'ios': 'hbir7lb' } },
-    { 'Google Ads ACI - Direct link': { 'android': '14w212l0', 'ios': '14uv7ujs' } },
-    { 'Growth Testing - All': { 'android': 'mf6ox6n', 'ios': 'nijh9l2' } },
-    { 'Instagram Organic - Link tree': { 'android': '11ue8zzg', 'ios': '114dcm3z' } },
-    { 'Instagram Organic - Smartbanner': { 'android': '11yebphd', 'ios': '116z8jgf' } },
-    { 'Instagram Organic - Stories': { 'android': '1280azgl', 'ios': '12bkba4q' } },
-    { 'Instagram Organic - Web signup': { 'android': '11vdf6qa', 'ios': '111xfp3z' } },
-    { 'Instagram Organic - Website': { 'android': '11krh0gc', 'ios': '117kblfw' } },
-    { 'Organic - App Store': { 'android': '13gbkzit', 'ios': '137iscsv' } },
-    { 'Organic Search - Web signup': { 'android': '6681kvy', 'ios': 'sx05n2b' } },
-    { 'Organic Search - Website': { 'android': 'hx7x38o', 'ios': 'h5np25x' } },
-    { 'Stepstone Ads - Smartbanner': { 'android': 'dm1fskz', 'ios': 'tb4c4kv' } },
-    { 'Stepstone Ads - Web signup': { 'android': 'y46s71w', 'ios': 'joh1119' } },
-    { 'Stepstone Ads - Website': { 'android': 'hktb0uj', 'ios': 'zfdp4ae' } },
-    { 'Tiktok Ads - Direct link': { 'android': '16rjl0k9', 'ios': '16pwqbjc' } },
-    { 'Tiktok Ads - Influencer': { 'android': '152i1z06', 'ios': '158n9vep' } },
-    { 'Tiktok Organic - Link tree': { 'android': '11xseg19', 'ios': '11euuo3z' } },
-    { 'Tiktok Organic - Smartbanner': { 'android': '11hud5n7', 'ios': '11giyik1' } },
-    { 'Tiktok Organic - Web signup': { 'android': '11jhyjdm', 'ios': '11t37uxx' } },
-    { 'Tiktok Organic - Website': { 'android': '11wttu0k', 'ios': '112ev2sx' } },
-    { 'Website Clickout - Smartbanner': { 'android': '10hiulo', 'ios': '4ewplq6' } },
-    { 'Website Clickout - Web signup': { 'android': 'rbvvy1h', 'ios': '6o2hpzv' } },
-    { 'Website Clickout - Website': { 'android': 'bji78iu', 'ios': 'ol22o3u' } },
-    { 'Youtube Organic - Smartbanner': { 'android': '11j32341', 'ios': '11w1m6u2' } },
-    { 'Youtube Organic - Web signup': { 'android': '11fmhwdn', 'ios': '11196yqx' } },
-    { 'Youtube Organic - Website': { 'android': '11dk5sg3', 'ios': '11r08ak6' } }
+    { 'Braze - Push': { 'android': 'xxxxxx', 'ios': 'xxxxxx' } },
+    { 'Braze - Email': { 'android': 'xxxxxx', 'ios': 'xxxxxx' } },
+    ...
   ]
 
   var deeplinkList = [
     { 'name': '' },
     { 'name': 'Job Feed (Homepage)', 'description': 'Opens the job feed (homepage)', 'urlScheme': '/offers', 'deeplinkExample': 'zenjob://offers' },
-    { 'name': 'Short term job offers', 'description': 'Opens the job feed (homepage) with short term filter', 'urlScheme': '/offers/home/feed=short_term', 'deeplinkExample': 'zenjob://offers/home/feed=short_term' },
-    { 'name': 'Short term job offers with category', 'description': 'Opens the job feed with short term job offers, filtered by selected category', 'urlScheme': '/offers/home/feed%3Dshort_term%26category%3D', 'deeplinkExample': 'zenjob://offers/home/feed%3Dshort_term%26category%3D' },
-    // add LMS links
-    { 'name': 'LMS links', 'description': 'Links for LMS courses', 'urlScheme': '/profile/trainings/jobCategoryKey%3D', 'deeplinkExample': 'zenjob://profile/trainings/jobCategoryKey%3D' },
-    // end
-    { 'name': 'Long term/pro job offers', 'description': 'Opens the job feed (homepage) with long term filter', 'urlScheme': '/offers/home/feed=long_term', 'deeplinkExample': 'zenjob://offers/home/feed=long_term' },
-    { 'name': 'Onboarding WebView', 'description': 'Opens WebView overview page', 'urlScheme': '/onboarding', 'deeplinkExample': 'zenjob://onboarding' },
-    { 'name': 'Trainings Job Feed', 'description': 'Opens the job feed on the training section', 'urlScheme': '/offers/home/feed%3Dtraining', 'deeplinkExample': 'zenjob://offers/home/feed%3Dtraining' },
-    { 'name': 'Tasks screen', 'description': 'Opens the tasks screen', 'urlScheme': '/tasks', 'deeplinkExample': 'zenjob://tasks' },
-    { 'name': 'Profile', 'description': 'Opens profile screen', 'urlScheme': '/profile', 'deeplinkExample': 'zenjob://profile' },
-    { 'name': 'Documents Screen', 'description': 'Opens the document feed', 'urlScheme': '/profile/documents', 'deeplinkExample': 'zenjob://profile/documents' },
-    { 'name': 'Preferences', 'description': 'Opens Preferences overview', 'urlScheme': '/profile/preferences', 'deeplinkExample': 'zenjob://profile/preferences' },
-    { 'name': 'Categories', 'description': 'Opens the categories screen', 'urlScheme': '/profile/preferences/categories', 'deeplinkExample': 'zenjob://profile/preferences/categories' },
-    { 'name': 'Location', 'description': 'Opens location preference screen', 'urlScheme': '/profile/preferences/locations', 'deeplinkExample': 'zenjob://profile/preferences/locations' },
-    { 'name': 'Settings', 'description': 'Opens the settings screen (in settings)', 'urlScheme': '/profile/settings', 'deeplinkExample': 'zenjob://profile/settings' },
-    { 'name': 'Help + Contact', 'description': 'Opens the help + contact screen (in settings)', 'urlScheme': '/profile/help', 'deeplinkExample': 'zenjob://profile/help' },
-    { 'name': 'Trainings', 'description': 'Opens the trainings screen (in settings)', 'urlScheme': '/profile/trainings', 'deeplinkExample': 'zenjob://profile/trainings' },
-    { 'name': 'AppReview', 'description': 'Opens the screen to review the app', 'urlScheme': '/appreview', 'deeplinkExample': 'zenjob://appreview' },
-    { 'name': 'Newsfeed', 'description': 'Opens Newsfeed screen', 'urlScheme': '/profile/newsfeed', 'deeplinkExample': 'zenjob://profile/newsfeed' },
-    { 'name': 'Refer a friend', 'description': 'Opens the refer a friend screen', 'urlScheme': '/profile/referafriend', 'deeplinkExample': 'zenjob://profile/referafriend' },
-    { 'name': 'Performance', 'description': 'Open talent performance screen', 'urlScheme': '/profile/performance', 'deeplinkExample': 'zenjob://profile/performance' },
-    { 'name': 'Achievements', 'description': 'Open talent achievements screen', 'urlScheme': '/profile/achievements', 'deeplinkExample': 'zenjob://profile/achievements' },
-    { 'name': 'Notification Center', 'description': 'Open talent notification center screen. Note: “Push notifications” screen is actually the one showing “Saved Search” Yes, it makes no sense but the link itself is correct Marcelo Soares', 'urlScheme': '/profile/preferences/notificationCenter', 'deeplinkExample': 'zenjob://profile/preferences/notificationCenter' },
-    { 'name': 'Attendance Rate', 'description': 'Launch attendance rate', 'urlScheme': '/profile/attendanceRate', 'deeplinkExample': 'zenjob://profile/attendanceRate' }
+    ...
   ]
 
   var defaultValues = [
@@ -497,113 +424,14 @@
   var jobOfferCategoryList = [
     { 'value': '', 'name': '' },
     { 'value': 'Aufbauhelfer/in', 'name': 'Auf-/Abbauhilfe' },
-    { 'value': 'Baraushilfe', 'name': 'Baraushilfe (m/w/x)' },
-    { 'value': 'Barista', 'name': 'Barista' },
-    { 'value': 'barista_workshop', 'name': 'Barista Schulung' },
-    { 'value': 'batender', 'name': 'Barkeeper/in' },
-    { 'value': 'office_help', 'name': 'Büro-Aushilfe/Office Management' },
-    { 'value': 'handcraft_electric', 'name': 'Elektrik-Aushilfe' },
-    { 'value': 'Front_office', 'name': 'Empfangsmitarbeiter/in' },
-    { 'value': 'driver', 'name': 'Fahrer/in' },
-    { 'value': 'breakfast_service_person', 'name': 'Frühstücksservicekraft' },
-    { 'value': 'cloakroom', 'name': 'Garderobe' },
-    { 'value': 'chief_at_grill', 'name': 'Griller/in' },
-    { 'value': 'handcraft_help', 'name': 'Handwerk-Aushilfe' },
-    { 'value': 'hostess', 'name': 'Host/ess' },
-    { 'value': 'housekeeping', 'name': 'Housekeeping' },
-    { 'value': 'imma', 'name': 'Immatrikulation' },
-    { 'value': 'Inventurhelfer/in', 'name': 'Inventurhelfer/in' },
-    { 'value': 'cashier_workshop', 'name': 'Kassenschulung' },
-    { 'value': 'cashier_food_retail_test', 'name': 'Kassierer (Lebensmittel)' },
-    { 'value': 'practical_cashier_shift', 'name': 'Kassierer (Praxistraining)' },
-    { 'value': 'cashier', 'name': 'Kassierer/ -in' },
-    { 'value': 'cashier_diy', 'name': 'Kassierer/in (Baumarkt)' },
-    { 'value': 'cashier_random', 'name': 'Kassierer/in (Diverse)' },
-    { 'value': 'cashier_electro', 'name': 'Kassierer/in (Elektronik)' },
-    { 'value': 'cashier_kiosk', 'name': 'Kassierer/in (Kiosk)' },
-    { 'value': 'cashier_food', 'name': 'Kassierer/in (Lebensmittel)' },
-    { 'value': 'cashier_fashion', 'name': 'Kassierer/in (Modehandel)' },
-    { 'value': 'waiter/waitress', 'name': 'Kellner/in' },
-    { 'value': 'Kinderbetreuung', 'name': 'Kinderbetreuung' },
-    { 'value': 'cook', 'name': 'Koch/Köchin' },
-    { 'value': 'kitchen_help', 'name': 'Küchenhelfer/in' },
-    { 'value': 'call_center', 'name': 'Kundendienst' },
-    { 'value': 'delivery_service', 'name': 'Kurier/in' },
-    { 'value': 'warehouse_helper', 'name': 'Lagerhelfer/in' },
-    { 'value': 'fair', 'name': 'Messehelfer/in' },
-    { 'value': 'steward', 'name': 'Ordner/in' },
-    { 'value': 'packing', 'name': 'Packer/in' },
-    { 'value': 'promotion', 'name': 'Promoter/in' },
-    { 'value': 'stocker', 'name': 'Regalauffüller' },
-    { 'value': 'Reserve_Schicht', 'name': 'Reserve Schicht' },
-    { 'value': 'hospitality_personnel', 'name': 'Restaurantfachmann/ -frau' },
-    { 'value': 'retail', 'name': 'Retail' },
-    { 'value': 'reception', 'name': 'Rezeptionist/in' },
-    { 'value': 'red_cart', 'name': 'Rote-Karte-Schulung' },
-    { 'value': 'service_runner', 'name': 'Runner (m/w/d)' },
-    { 'value': 'clerk', 'name': 'Sachbearbeiter/ -in' },
-    { 'value': 'Training', 'name': 'Schulung' },
-    { 'value': 'Service', 'name': 'Service' },
-    { 'value': 'service_workshop', 'name': 'Service-Schulung' },
-    { 'value': 'service_staff_hotel', 'name': 'Servicekraft' },
-    { 'value': 'security', 'name': 'Sicherheitsdienst' },
-    { 'value': 'dish_cleaner', 'name': 'Spüler/in' },
-    { 'value': 'Teamleiter/in', 'name': 'Teamleiter/in' },
-    { 'value': 'teamlead_service', 'name': 'Teamleiter/in Service' },
-    { 'value': 'mover', 'name': 'Umzugshelfer/in' },
-    { 'value': 'sales_staff', 'name': 'Verkäufer/in' },
-    { 'value': 'Logistics_helper', 'name': 'Warenverräumer/in' },
-    { 'value': 'working_student', 'name': 'Werkstudent/in' }
+    ...
   ]
 
   // add LMS course links
   var lmsCourseList = [
     { 'value': '', 'name': '' },
     { 'value': 'health_certificate_german_course', 'name': 'Gesundheitszeugnis' },
-    { 'value': 'health_certificate_english_course', 'name': 'Health certificate' },
-    { 'value': 'cashier_training_course', 'name': 'Kassentraining' },
-    { 'value': 'service_training_course', 'name': 'Servicetraining' },
-    { 'value': 'german_skill_test_german_course', 'name': 'Deutsch Einstufungstest' },
-    { 'value': 'document_upload_english_course', 'name': 'Document upload' },
-    { 'value': 'document_upload_german_course', 'name': 'Dokumentenupload' },
-    { 'value': 'german_skill_test_english_course', 'name': 'German skill test' },
-    { 'value': 'catalog', 'name': 'Courses' },
-    { 'value': 'fruits_and_vegetables_training', 'name': 'Obst & Gemüse' },
-    { 'value': 'edeka_training', 'name': 'EDEKA' },
-    { 'value': 'denns_biomarkt_training', 'name': 'Denns BioMarkt' },
-    { 'value': 'alnatura_training', 'name': 'ALNATURA' },
-    { 'value': 'knuspr_training', 'name': 'knuspr - Training' },
-    { 'value': 'rewe_training', 'name': 'REWE' },
-    { 'value': 'gastro_lexicon', 'name': 'Gastro-Lexikon' },
-    { 'value': 'aldi_nord_training', 'name': 'ALDI Nord' },
-    { 'value': 'bar_helper', 'name': 'Baraushilfe' },
-    { 'value': 'selgros_training', 'name': 'Selgros' },
-    { 'value': 'inventory_training_german', 'name': 'Inventur' },
-    { 'value': 'inventory_training_english', 'name': 'Inventory' },
-    { 'value': 'inventory_training_german', 'name': 'Warenverräumung' },
-    { 'value': 'stocking_goods_training_english', 'name': 'Stocking Goods' },
-    { 'value': 'safety_instruction_german', 'name': 'Sicherheitsunterweisung' },
-    { 'value': 'cash_desk_lexicon', 'name': 'Kassen-Lexikon' },
-    { 'value': 'safety_instruction_english', 'name': 'Safety instruction' },
-    { 'value': 'tapper_training', 'name': 'Zapfer*in' },
-    { 'value': 'receptionist_video', 'name': 'On-The-Job Rezeptionist*in' },
-    { 'value': 'kitchen_helper_english_video', 'name': 'On-The-Job Kitchen Helper' },
-    { 'value': 'kitchen_helper_german_video', 'name': 'On-The-Job Küchenhelfer*in' },
-    { 'value': 'service_helper_english_video', 'name': 'On-The-Job Service Helper' },
-    { 'value': 'service_helper_german_video', 'name': 'On-The-Job Servicekraft' },
-    { 'value': 'new_learning_content_german_video', 'name': 'Neue Lerninhalte' },
-    { 'value': 'new_learning_content_english_video', 'name': 'New learning content' },
-    { 'value': 'warehouse_helper_learning_path_english_summary', 'name': 'Learning path Warehouse helper' },
-    { 'value': 'cashier_learning_path_summary', 'name': 'Learning path Kassierer*in' },
-    { 'value': 'service_learning_path_summary', 'name': 'Learning path Kellner*in' },
-    { 'value': 'warehouse_helper_learning_path_german_summary', 'name': 'Learning path Warenverräumer*in' },
-    { 'value': 'on_the_job_videos', 'name': 'On-The-Job Videos' },
-    { 'value': 'certificates', 'name': 'Auszeichnungen' },
-    { 'value': 'all_learning_path_summary', 'name': 'Lernwege' },
-    { 'value': 'on_the_job_cashier_video', 'name': 'On-The-Job Kassierer*in' },
-    { 'value': 'on_the_job_warehouse_helper_video', 'name': 'On-The-Job Warenverräumer*in' },
-    { 'value': 'on_the_job_replenisher_video', 'name': 'On-The-Job Replenisher' },
-    { 'value': 'catalog', 'name': 'Courses' }
+    ...
   ]
 
   var selectedPageNumber = 1;
@@ -702,12 +530,12 @@
       if (deeplinkList[i]['name'] === selectedDeeplink) {
         if (deeplinkList[i]['name'] === 'LMS links' || deeplinkList[i]['name'] === 'Short term job offers with category') {
           $("#deeplinkDescription").text(deeplinkList[i]['description'])
-          $("#oldUniversalLink").text(decodeURIComponent('https://www.zenjob.de' + deeplinkList[i]['urlScheme'] + $("#additionalDetail").val()))
+          $("#oldUniversalLink").text(decodeURIComponent('https://www.exampleurl.de' + deeplinkList[i]['urlScheme'] + $("#additionalDetail").val()))
           $("#uriLink").text(decodeURIComponent(deeplinkList[i]['deeplinkExample'] + $("#additionalDetail").val()))
 
         } else {
           $("#deeplinkDescription").text(deeplinkList[i]['description'])
-          $("#oldUniversalLink").text('https://www.zenjob.de' + deeplinkList[i]['urlScheme'])
+          $("#oldUniversalLink").text('https://www.exampleurl.de' + deeplinkList[i]['urlScheme'])
           $("#uriLink").text(deeplinkList[i]['deeplinkExample'])
         }
         deeplinkName = deeplinkList[i]['name']
@@ -786,7 +614,7 @@
     if (validateResponse === 'validateFailed') {
       return;
     }
-    var baseLink = 'https://zenjob.go.link'
+    var baseLink = 'https://exampleurl'
     var parameterDivider = '?'
     // get deeplink details from global variables
     var adjustTrackers = 'adj_t=' + androidTrackerId + '_' + iosTrackerId;
@@ -818,7 +646,7 @@
 
   function sendLinkToSheet(link) {
     var payload = JSON.stringify({ link })
-    var url = 'https://script.google.com/macros/s/AKfycby4k8tmsd8CFH94lncXFGO4mzSDnkbCyBFx3HQwvDNMvHST030_B0fijgQeUqjHeaxG/exec'
+    var url = '{{GOOGLE-SHEET}}'
     $.ajax({
       url: url,
       type: 'post',
@@ -838,7 +666,7 @@
 
   // retrieve test details from gsheet
   function retrieveOverview() {
-    var url = 'https://script.google.com/macros/s/AKfycby4k8tmsd8CFH94lncXFGO4mzSDnkbCyBFx3HQwvDNMvHST030_B0fijgQeUqjHeaxG/exec'
+    var url = '{{GOOGLE-SHEET}}'
     $.ajax({
       url: url,
       type: 'get',
